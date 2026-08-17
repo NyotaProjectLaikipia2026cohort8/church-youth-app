@@ -466,11 +466,24 @@ async function sendMessage() {
     const input = document.getElementById("messageInput");
     const text = input.value.trim();
 
-    if (!text || !currentUser) return;
+    if (!currentUser) {
+        alert("Please register before sending a message.");
+        return;
+    }
+
+    if (!text) {
+        return;
+    }
 
     try {
 
-        await fetch(API_URL, {
+        console.log("Sending message:", {
+            name: currentUser,
+            message: text,
+            roomId: "general"
+        });
+
+        const res = await fetch(API_URL, {
             method: "POST",
             body: JSON.stringify({
                 action: "sendMessage",
@@ -480,12 +493,30 @@ async function sendMessage() {
             })
         });
 
+        console.log("HTTP status:", res.status);
+
+        const data = await res.json();
+
+        console.log("Server response:", data);
+
+        if (!data.success) {
+            throw new Error(
+                data.message || "Message was rejected by server."
+            );
+        }
+
         input.value = "";
 
-        loadMessages();
+        await loadMessages();
 
     } catch (err) {
+
         console.error("Send error:", err);
+
+        alert(
+            "Message could not be sent.\n\n" +
+            err.message
+        );
     }
 }
 /* ==========================
