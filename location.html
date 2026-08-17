@@ -1,666 +1,1323 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>St George Youth Chat</title> <style>
-    .toolbar-icon{
-    width:24px;
-    height:24px;
-    object-fit:contain;
-    display:block;
-}.floating-leaf{
-    position:fixed;
-    font-size:2rem;
-    animation:float 8s linear infinite;
-    opacity:0.15;
-    pointer-events:none;
-}
+<!DOCTYPE html><html lang="en" class=""><head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Daily Devotion Notes</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
 
-@keyframes float{
-    0%{
-        transform:translateY(110vh) rotate(0deg);
-    }
-    100%{
-        transform:translateY(-120px) rotate(360deg);
-    }
-}
- :root{ --primary:#236f69; --primary-dark:#1a5c56; --white:#ffffff; --bg:#f4f7f7; --text:#183535; --shadow:0 10px 30px rgba(0,0,0,.1); } *{ margin:0; padding:0; box-sizing:border-box; font-family:Segoe UI,sans-serif; } body{ background:var(--bg); height:100vh; overflow:hidden; } .chat-app{ display:flex; height:100vh; } /* Sidebar */ .sidebar{ width:320px; background:var(--primary); color:white; display:flex; flex-direction:column; } .logo{ padding:20px; font-size:1.4rem; font-weight:bold; border-bottom:1px solid rgba(255,255,255,.2); } .search-box{ padding:15px; } .search-box input{ width:100%; padding:12px; border:none; border-radius:12px; } .members{ flex:1; overflow-y:auto; } .member{ display:flex; align-items:center; gap:12px; padding:15px; cursor:pointer; transition:.3s; } .member:hover{ background:rgba(255,255,255,.1); } .avatar{ width:45px; height:45px; border-radius:50%; background:white; color:var(--primary); display:flex; align-items:center; justify-content:center; font-weight:bold; } .status{ width:10px; height:10px; background:#00ff55; border-radius:50%; } /* Main Chat */ .chat-container{ flex:1; display:flex; flex-direction:column; } .chat-header{ background:white; padding:20px; box-shadow:var(--shadow); display:flex; justify-content:space-between; align-items:center; } .chat-header h2{ color:var(--primary); } .messages{ flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:15px; } .message{ max-width:70%; padding:12px; border-radius:18px; position:relative; box-shadow:var(--shadow); } .received{ background:white; align-self:flex-start; } .sent{ background:var(--primary); color:white; align-self:flex-end; } .message-name{ font-size:.8rem; font-weight:bold; margin-bottom:5px; } .time{ font-size:.7rem; opacity:.7; margin-top:5px; } .chat-input{ background:white; padding:15px; display:flex; gap:10px; align-items:center; } .chat-input input{ flex:1; padding:15px; border:none; background:#f1f1f1; border-radius:30px; } .chat-input button{ border:none; background:var(--primary); color:white; padding:14px 20px; border-radius:30px; cursor:pointer; } .chat-input button:hover{ background:var(--primary-dark); } .emoji-btn{ font-size:22px; cursor:pointer; } .register-modal{ position:fixed; inset:0; background:rgba(0,0,0,.6); display:flex; justify-content:center; align-items:center; } .register-card{ background:white; padding:30px; width:90%; max-width:400px; border-radius:20px; } .register-card h2{ margin-bottom:20px; color:var(--primary); } .register-card input{ width:100%; padding:15px; margin-bottom:15px; border:1px solid #ddd; border-radius:12px; } .register-card button{ width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:12px; cursor:pointer; } .hidden{ display:none; } @media(max-width:768px){ .sidebar{ width:90px; } .member span{ display:none; } .search-box{ display:none; } .logo{ font-size:.9rem; text-align:center; } .message{ max-width:90%; } } </style> </head> <body> <div class="floating-leaf" style="left:5%; animation-delay:0s;">🍃</div>
-<div class="floating-leaf" style="left:25%; animation-delay:2s;">🌿</div>
-<div class="floating-leaf" style="left:50%; animation-delay:4s;">🍃</div>
-<div class="floating-leaf" style="left:75%; animation-delay:1s;">🌱</div>
-<div class="floating-leaf" style="left:90%; animation-delay:5s;">🍃</div>
-    <div id="registerModal" class="register-modal"> <div class="register-card"> <h2>Join Youth Chat</h2> <input id="username" placeholder="Enter your name"> <button onclick="registerUser()">Join Chat</button> </div> </div> <div class="chat-app">  <div class="chat-container"> <div class="chat-header"> <h2>St George Youth Community</h2> <div id="userDisplay"></div> </div> <div class="messages" id="messages">
-            
-        </div> <div class="chat-input"> <button class="icon-btn" onclick="toggleRecording()">
-    <img src="assets/img/icons/mic.webp" class="toolbar-icon" alt="Microphone">
-</button> <label class="icon-btn">
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <img src="assets/img/icons/img.webp" <input="" type="file" id="imageInput" accept="image/*" hidden="" onchange="uploadImage()">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet">
 
-</label> <button class="icon-btn" onclick="openStickerPicker()">
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-    <img src="assets/img/icons/sticker.webp" <="" button=""> </button><button class="icon-btn" onclick="openEmojiPicker()">
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
 
-    <img src="assets/img/icons/emoji.webp" class="toolbar-icon" alt="Emoji">
+  <!-- =======================================================
+  * Template Name: Grandoria
+  * Template URL: https://bootstrapmade.com/grandoria-bootstrap-hotel-template/
+  * Updated: Jul 29 2025 with Bootstrap v5.3.7
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
 
-</button>  <div class="emoji-btn" onclick="addEmoji()">😀</div> <input type="text" id="messageInput" placeholder="Type a message..."> <button onclick="sendMessage()"> Send </button> </div> </div> </div> <script>
-    const API_URL =
-"https://script.google.com/macros/s/AKfycbyZYHTOLVJyB6nuldLLTvLCXr03a2bbA0HgUidq96w9bp95x3y_qhKc1D8Wh2JwfaCjcQ/exec";
+<body class="index-page scrolled" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
+<div class="floating-leaf" style="left:5%; animation-delay:0s;">🕯️</div>
+<div class="floating-leaf" style="left:25%; animation-delay:2s;">🇰🇪</div>
+<div class="floating-leaf" style="left:50%; animation-delay:4s;">🕊️</div>
+<div class="floating-leaf" style="left:75%; animation-delay:1s;">🕯️</div>
+<div class="floating-leaf" style="left:90%; animation-delay:5s;">🌹</div>
+  <header id="header" class="header sticky-top">
 
-/* ==========================
-GLOBALS
-========================== */
+    <div class="topbar d-flex align-items-center dark-background">
+      <div class="container d-flex justify-content-center justify-content-md-between">
+        <div class="contact-info d-flex align-items-center">
+          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">samkabatha@gmail.com</a></i>
+          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+254 7960 71670</span></i>
+        </div>
+        <div class="social-links d-none d-md-flex align-items-center">
+          <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+    </div><!-- End Top Bar -->
 
-let currentUser =
-localStorage.getItem("chatUser") || "";
+    <div class="branding d-flex align-items-cente">
 
-let members =
-JSON.parse(
-localStorage.getItem("members")
-) || [];
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="assets/img/logo.webp" alt=""> -->
+          <h1 class="sitename">SOCIAL EMOTIONAL SKILL DEVELOPMENT COHORT 8</h1>
+        </a>
 
-let messages = [];
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="rooms.html">Privacy Policyholder</a></li>
+            <li><a href="about.html">Terms and conditions</a></li>
+            <li><a href="index.html">Sign Up</a></li>
+            <li><a href="amenities.html">Login</a></li>
+            <li><a href="location.html">Devotion</a></li>
+            <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="room-details.html">Devotions</a></li>
+                <li><a href="restaurant.html">Weekly Motivation</a></li>
+                <li><a href="offers.html">Bible Study</a></li>
+                <li><a href="events.html">Genz Corner</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="booking.html">Complaints</a></li>
+                <li><a href="index.html">Compliments</a></li>
+                <li><a href="index.html">Grievances</a></li>
+                <li><a href="404.html">404 Page</a></li>
+                <li><a href="starter-page.html" class="active">Starter Page</a></li>
+              </ul>
+            </li>
+            <li><a href="contact.html">Contact</a></li>
 
-let mediaRecorder;
-let chunks = [];
+            <li class="dropdown">
+              <a href="#english">
+                <svg class="icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g id="SVGRepo_iconCarrier">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 0H6V2H10V4H8.86807C8.57073 5.66996 7.78574 7.17117 6.6656 8.35112C7.46567 8.73941 8.35737 8.96842 9.29948 8.99697L10.2735 6H12.7265L15.9765 16H13.8735L13.2235 14H9.77647L9.12647 16H7.0235L8.66176 10.9592C7.32639 10.8285 6.08165 10.3888 4.99999 9.71246C3.69496 10.5284 2.15255 11 0.5 11H0V9H0.5C1.5161 9 2.47775 8.76685 3.33437 8.35112C2.68381 7.66582 2.14629 6.87215 1.75171 6H4.02179C4.30023 6.43491 4.62904 6.83446 4.99999 7.19044C5.88743 6.33881 6.53369 5.23777 6.82607 4H0V2H4V0ZM12.5735 12L11.5 8.69688L10.4265 12H12.5735Z" fill="currentColor"></path>
+                  </g>
+                </svg>
+                <span>English</span>
+                <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="#french">French</a></li>
+                <li><a href="#deutsch">Deutsch</a></li>
+                <li><a href="#spanish">Spanish</a></li>
+              </ul>
+            </li>
 
-/* ==========================
-USER REGISTRATION
-========================== */
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
 
-if(currentUser){
-document
-    .getElementById("registerModal")
-    ?.classList.add("hidden");
+      </div>
 
-const userDisplay =
-    document.getElementById("userDisplay");
+    </div>
 
-if(userDisplay){
-    userDisplay.textContent =
-        "👤 " + currentUser;
-}
+  </header>
 
-}
+  <main class="main">
 
-function registerUser(){
-const username =
-    document
-    .getElementById("username")
-    .value
-    .trim();
+    <!-- Hotel Hero Section -->
+    <section id="hotel-hero" class="hotel-hero section">
 
-if(!username) return;
+      <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
 
-currentUser = username;
+        <div class="row gy-4 align-items-center">
 
-localStorage.setItem(
-    "chatUser",
-    username
-);
-
-if(!members.includes(username)){
-
-    members.push(username);
-
-    localStorage.setItem(
-        "members",
-        JSON.stringify(members)
-    );
-
-}
-
-document
-    .getElementById("registerModal")
-    ?.classList.add("hidden");
-
-document
-    .getElementById("userDisplay")
-    .textContent =
-    "👤 " + username;
-
-renderMembers();
-
-}
-
-/* ==========================
-MEMBERS
-========================== */
-
-function renderMembers(){
-const container =
-    document.getElementById("members");
-
-if(!container) return;
-
-container.innerHTML = "";
-
-members.forEach(member => {
-
-    container.innerHTML += 
-        <div class="member">
-
-            <div class="avatar">
-                ${member.charAt(0).toUpperCase()}
+          <div class="col-lg-6 aos-init aos-animate" data-aos="fade-right" data-aos-delay="200">
+            <div class="hero-content">
+              <h1>Teknolojia-Inakutawala au Inakusaidia?</h1>
+              <p class="lead">Je, teknolojia inakutawala au inakusaidia? Watu wengi wangejibu kwamba wana uwezo wa kudhibiti vifaa vya kielektroni, na kwamba vifaa hivyo haviwezi kuwaongoza. Lakini teknolojia inaweza kuwaathiri watu kwa njia isiyo ya wazi-hata kuwasababisha matatizo.</p>
+              <div class="hero-features">
+                <div class="feature-item">
+                  <i class="bi bi-wifi"></i>
+                  <span></span>
+                </div>
+                <div class="feature-item">
+                  <i class="bi bi-car-front"></i>
+                  <span></span>
+                </div>
+                <div class="feature-item">
+                  <i class="bi bi-cup-hot"></i>
+                  <span></span>
+                </div>
+              </div>
+              <div class="hero-buttons">
+                <a href="booking.html" class="btn btn-primary"></a>
+                <a href="rooms.html" class="btn btn-outline"></a>
+              </div>
             </div>
+          </div>
 
-            <div>
-                ${member}
+          <div class="col-lg-6 aos-init aos-animate" data-aos="fade-left" data-aos-delay="300">
+            <div class="hero-images">
+              <div class="main-image">
+                <img src="assets/img/hotel/showcase-3.webp" alt="Luxury Hotel" class="img-fluid">
+              </div>
+              <div class="floating-card aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
+                <div class="card-content">
+                  <div class="rating">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                  </div>
+                  <h6>TEKNOLOJIA INAATHIRIJE...</h6>
+                  <p><br>Uhusiano wako na wengine?<br>Watoto Wako?<br>Ndoa Yako?<br>Uwezo Wako wa Kujifunza?</p>
+                  <div class="guest-info">
+                    <img src="assets/img/person/person-f-3.webp" alt="Guest" class="guest-avatar">
+                    <span>Samuel Mumbe</span>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div class="status"></div>
+          </div>
 
         </div>
-    ;
 
-});
-
-}
-
-/* ==========================
-LOAD MESSAGES
-========================== */
-
-async function loadMessages(){
-try{
-
-    const res =
-        await fetch(
-            API_URL +
-            "?action=getMessages&roomId=general"
-        );
-
-    const data =
-        await res.json();
-
-    messages =
-        data.messages || [];
-
-    renderMessages();
-
-}catch(err){
-
-    console.error(
-        "Load error:",
-        err
-    );
-
-}
-
-}
-
-/* ==========================
-SEND TEXT MESSAGE
-========================== */
-
-async function sendMessage(){
-
-const input =
-    document.getElementById(
-        "messageInput"
-    );
-
-const text =
-    input.value.trim();
-
-if(!text || !currentUser)
-    return;
-
-try{
-
-    await fetch(API_URL,{
-
-        method:"POST",
-
-        body:JSON.stringify({
-
-            action:"sendMessage",
-
-            name:currentUser,
-
-            roomId:"general",
-
-            type:"text",
-
-            message:text
-
-        })
-
-    });
-
-    input.value = "";
-
-    loadMessages();
-
-}catch(err){
-
-    console.error(
-        "Send error:",
-        err
-    );
-
-}
-
-}
-
-/* ==========================
-STICKERS
-========================== */
-
-function openStickerPicker(){
-
-const stickers = [
-
-    "😀",
-    "❤️",
-    "🙏",
-    "🎉",
-    "🔥",
-    "👏",
-    "🙌"
-
-];
-
-const sticker =
-    prompt(
-        "Choose Sticker:\n\n" +
-        stickers.join(" ")
-    );
-
-if(!sticker) return;
-
-sendSticker(sticker);
-
-}
-
-async function sendSticker(sticker){
-try{
-
-    await fetch(API_URL,{
-
-        method:"POST",
-
-        body:JSON.stringify({
-
-            action:"sendMessage",
-
-            name:currentUser,
-
-            roomId:"general",
-
-            type:"sticker",
-
-            message:sticker
-
-        })
-
-    });
-
-    loadMessages();
-
-}catch(err){
-
-    console.error(err);
-
-}
-
-}
-
-/* ==========================
-IMAGE UPLOAD
-========================== */
-
-async function uploadImage(){
-const file =
-    document
-    .getElementById("imageInput")
-    .files[0];
-
-if(!file) return;
-
-const reader =
-    new FileReader();
-
-reader.onload =
-    async function(){
-
-    try{
-
-        await fetch(API_URL,{
-
-            method:"POST",
-
-            body:JSON.stringify({
-
-                action:"uploadImage",
-
-                file:reader.result,
-
-                fileName:file.name,
-
-                name:currentUser,
-
-                roomId:"general"
-
-            })
-
-        });
-
-        loadMessages();
-
-    }catch(err){
-
-        console.error(err);
-
-    }
-
-};
-
-reader.readAsDataURL(file);
-
-}
-
-/* ==========================
-VOICE NOTES
-========================== */
-
-async function toggleRecording(){
-try{
-
-    const stream =
-        await navigator
-        .mediaDevices
-        .getUserMedia({
-            audio:true
-        });
-
-    mediaRecorder =
-        new MediaRecorder(
-            stream
-        );
-
-    chunks = [];
-
-    mediaRecorder.ondataavailable =
-        e => {
-
-        chunks.push(
-            e.data
-        );
-
-    };
-
-    mediaRecorder.onstop =
-        async ()=>{
-
-        const blob =
-            new Blob(
-                chunks,
-                {
-                    type:
-                    "audio/webm"
+        <div class="hero-stats aos-init aos-animate" data-aos="fade-up">
+          <div class="row text-center">
+            <div class="col-md-3 col-6">
+              <div class="stat-item">
+                <span class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="0">150</span>
+                <span class="stat-label"></span>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="stat-item">
+                <span class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="0">5</span>
+                <span class="stat-label"></span>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="stat-item">
+                <span class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="0">24</span>
+                <span class="stat-label"></span>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="stat-item">
+                <span class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="98" data-purecounter-duration="0">98</span>
+                <span class="stat-label"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Hotel Hero Section -->
+
+    <!-- About Home Section -->
+    <section id="about-home" class="about-home section light-background">
+
+      <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4 align-items-center">
+
+          <div class="col-lg-6 aos-init aos-animate" data-aos="fade-right" data-aos-delay="200">
+            <div class="about-content">
+              <h2>TEKNOLOJIA INAATHIRIJE</h2>
+              <p class="lead">UHUSIANO WAKO NA WENGINE?</p>
+              <p>Leo, watu wanaweza kuwasiliana kwa urahisi kupitia ujumbe mfupi, barua pepe, video, na mitandao ya kijamii hata ikiwa wanaishi katika mabara mawili tofauti. Kwa upande wao, teknolojia huwasaidia. Kwa upande mwingine, baadhi ya watu ambao wanatumia teknolojia kama njia kuu ya kudumisha urafiki...</p>
+              <p></p><ul><li>hawana hisia-mwenzi au hawaelewi hisia za marafiki wao.</li><li>huhisi upweke na wameshuka moyo</li><li>hujifikiria wenyewe tu badala ya kuwafikiria wengine.</li></ul><p></p>
+
+              <div class="stats-row">
+                <div class="stat-item">
+                  <div class="stat-number"></div>
+                  <div class="stat-label"></div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number"></div>
+                  <div class="stat-label"></div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number"></div>
+                  <div class="stat-label"></div>
+                </div>
+              </div><!-- End Stats Row -->
+
+              <div class="about-actions">
+                <a href="about.html" class="btn-primary"></a>
+                <a href="rooms.html" class="btn-secondary"></a>
+              </div>
+            </div>
+          </div><!-- End About Content -->
+
+          <div class="col-lg-6 aos-init aos-animate" data-aos="fade-left" data-aos-delay="300">
+            <div class="about-images">
+              <div class="main-image">
+                <img src="assets/img/hotel/showcase-8.webp" alt="Grandview Resort Main View" class="img-fluid">
+              </div>
+              <div class="secondary-image">
+                <img src="assets/img/hotel/room-12.webp" alt="Luxury Suite Interior" class="img-fluid">
+              </div>
+              <div class="experience-badge">
+                <div class="badge-content">
+                  <span class="badge-number">30+</span>
+                  <span class="badge-text">Years<br>Experience</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End About Images -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /About Home Section -->
+
+    <!-- Rooms Showcase Section -->
+    <section id="rooms-showcase" class="rooms-showcase section">
+
+      <!-- Section Title -->
+      <div class="container section-title aos-init aos-animate" data-aos="fade-up">
+        <span class="description-title">UNACHOPASWA KUJUA</span>
+        <h2>UNACHOPASWA KUJUA</h2>
+        <p><strong>HISIA-MWENZI</strong><br>Hisia-mwenzi ni sifa inayotulazimu tutulie, na kwa subira tumfikirie mtu mwingine. Huenda isiwe rahisi kuwa na hisia-mwenzi hasa ikiwa tunataka kuangalia kila kitu kilichowekwa kwenye mitandao ya kijamii na kujibu kila ujumbe haraka-haraka.<br>Ukitumia teknolojia kupita kiasi, baada ya muda, itakuwa vigumu kujibu jumbe zote unazopokea. Lengo lako litaanza kuwa kujibu kila ujumbe unaoingia badala ya kumsaidia rafiki mwenye uhitaji.<br><strong>JAMBO LA KUFIKIRIA:</strong>Unaweza kudumishaje "hisia-mwenzi unapotumia teknolojia kuwasiliana na marafiki wako?"-1st Peter 3:8<br><strong>KUSHUKA MOYO</strong><br>Ripoti moja ya utafiti ilisema kwamba watu wengi hujisikia vibaya zaidi baada ya kutumia muda mwingi kuangalia picha na video kwenye kurasa za mitandao ya kijamii zinazopendwa na watu wengi. Watafiti hao walifika mkataa kwamba kutazama picha na mambo mapya ambayo wengine huweka mtandaoni hufanya mtu "ahisi amepoteza muda wake."<br>Isitoshe, kuangalia picha za kusisimua ambazo watu wameweka kwenye mitandao ya kijamii hufanya watu waanze kujilinganisha na wengine. Inaweza kuonekana kila mtu anafurahia maisha, huku wewe ukichoshwa na maisha yako.<br><strong>JAMBO LA KUFIKIRIA:</strong>Unawezaje kuepuka kujilinganisha na wengine unapotumia mitandao ya kijaii?-Galatians 6:4.<br><strong>KUJIFIKIRIA MWENYEWE</strong><br>Mwalimu mmoja alisema kwamba baadhi ya wanfunzi wake walikuwa wabinafsi na walitaka tu marafiki ambao wangefanya mambo kwa ajili yao.* Urafiki kama huo unategemea kile ambacho mtu anapata kutokana na uhusiano huo. Kisha, anaanza kuwaona rafiki zake kama programu za simu ambazo anaweza kuzitumia na kuzizima wakati wowote.<br><strong>JAMBO LA KUFIKIRIA:</strong>Je, mambo unayoweka mtandaoni yanaonyesha kwamba una roho ya ushindani au unajifikiria mwenyewe kupita kiasi?-Galatians 5:26.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-5">
+          <div class="col-xl-8 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="200">
+            <div class="hero-room-showcase">
+              <div class="showcase-image-container">
+                <img src="assets/img/hotel/room-14.webp" alt="Grand Presidential Suite" class="img-fluid">
+                <div class="room-category-badge">
+                  <span>Presidential</span>
+                </div>
+                <div class="room-details-overlay">
+                  <div class="room-specs">
+                    <span class="spec-item">
+                      <i class="bi bi-people"></i>
+                      <span>6 Guests</span>
+                    </span>
+                    <span class="spec-item">
+                      <i class="bi bi-house"></i>
+                      <span>180m²</span>
+                    </span>
+                    <span class="spec-item">
+                      <i class="bi bi-geo-alt"></i>
+                      <span>Top Floor</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="showcase-content">
+                <div class="room-title-section">
+                  <h2>JIULIZE</h2>
+                  <div class="room-rating">
+                    <div class="stars">
+                      
+                    </div>
+                    <span class="rating-text"></span>
+                  </div>
+                </div>
+                <p class="room-description"></p><ul><li>Je, nina urafiki wa kweli pamoja na watu ninaowajali na wanaonijali?</li><li>Je, mara nyingi mimi huruhusu simu, ujumbe mfupi, au taarifa fulani ya simu ivuruge mazungumzo yangu na rafiki yangu?</li><li>Je, picha na mambo ninayoandika kwenye mitandao ya kijamii yanaonyesha ninajifikiria kupita kiasi?</li><li>Ninahisije baada ya kutumia muda mwingi kutazama mitandaoni ya kijamii?</li><li>Ninaweza kufanya mabadiliko gani ili nisitumie teknolojia kwa njia ambayo itanizuia nisiwe na marafiki wa kweli?</li></ul><br><strong>KANUNI YA BIBLIA:</strong>"Mkiangalia, si faida zenu wenyewe, bali pia faida za wengine."-Philipians 2:4<br>"Unahitaji muda mwingi na kufanya jitihada nyingi ili kudumisha urafiki, kwa hiyo, ukweli ni kwamba unaweza kuwa na marafiki wachache tu. Jambo kuu si idadi ya marafiki bali marafiki bora. Marafiki wa kweli wanakujali, nawe unawajali."-Emily<p></p>
+
+                <div class="amenities-grid">
+                  <div class="amenity-item">
+                    <i class="bi bi-wifi"></i>
+                    <span></span>
+                  </div>
+                  <div class="amenity-item">
+                    <i class="bi bi-tv"></i>
+                    <span></span>
+                  </div>
+                  <div class="amenity-item">
+                    <i class="bi bi-cup-hot"></i>
+                    <span></span>
+                  </div>
+                  <div class="amenity-item">
+                    <i class="bi bi-snow"></i>
+                    <span></span>
+                  </div>
+                </div>
+                <div class="booking-section">
+                  <div class="price-display">
+                    <span class="currency"></span>
+                    <span class="amount"></span>
+                    <span class="period"></span>
+                  </div>
+                  <a href="room-details.html" class="primary-booking-btn"></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Hero Room -->
+
+          <div class="col-xl-4">
+            <div class="room-list-container">
+              <div class="standard-room-card aos-init aos-animate" data-aos="slide-left" data-aos-delay="250">
+                <div class="card-image">
+                  <img src="assets/img/hotel/room-6.webp" alt="Executive Room" class="img-fluid">
+                  <div class="view-link">
+                    <i class="bi bi-arrow-up-right"></i>
+                  </div>
+                </div>
+                <div class="card-content">
+                  <h4></h4>
+                  <p></p>
+                  <div class="features-list">
+                    <span><i class="bi bi-briefcase"></i></span>
+                    <span><i class="bi bi-building"></i></span>
+                  </div>
+                  <div class="booking-row">
+                    <div class="price"><small></small></div>
+                    <a href="room-details.html" class="book-link"></a>
+                  </div>
+                </div>
+              </div><!-- End Standard Room -->
+
+              <div class="standard-room-card aos-init aos-animate" data-aos="slide-left" data-aos-delay="300">
+                <div class="card-image">
+                  <img src="assets/img/hotel/room-19.webp" alt="Garden View" class="img-fluid">
+                  <div class="view-link">
+                    <i class="bi bi-arrow-up-right"></i>
+                  </div>
+                </div>
+                <div class="card-content">
+                  <h4></h4>
+                  <p></p>
+                  <div class="features-list">
+                    <span><i class="bi bi-tree"></i></span>
+                    <span><i class="bi bi-door-open"></i></span>
+                  </div>
+                  <div class="booking-row">
+                    <div class="price"><small></small></div>
+                    <a href="room-details.html" class="book-link"></a>
+                  </div>
+                </div>
+              </div><!-- End Standard Room -->
+
+              <div class="standard-room-card aos-init aos-animate" data-aos="slide-left" data-aos-delay="350">
+                <div class="card-image">
+                  <img src="assets/img/hotel/room-12.webp" alt="Family Suite" class="img-fluid">
+                  <div class="view-link">
+                    <i class="bi bi-arrow-up-right"></i>
+                  </div>
+                </div>
+                <div class="card-content">
+                  <h4></h4>
+                  <p></p>
+                  <div class="features-list">
+                    <span><i class="bi bi-people"></i></span>
+                    <span><i class="bi bi-controller"></i></span>
+                  </div>
+                  <div class="booking-row">
+                    <div class="price"><small></small></div>
+                    <a href="room-details.html" class="book-link"></a>
+                  </div>
+                </div>
+              </div><!-- End Standard Room -->
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row mt-6">
+          <div class="col-lg-3 col-sm-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+            <div class="minimal-room-card">
+              <div class="room-image">
+                <img src="assets/img/hotel/room-1.webp" alt="Classic Room" class="img-fluid">
+                <div class="hover-overlay">
+                  <a href="room-details.html" class="view-room">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="room-summary">
+                <h5></h5>
+                <div class="price-tag"><span></span></div>
+                <div class="basic-amenities">
+                  <i class="bi bi-wifi"></i>
+                  <i class="bi bi-tv"></i>
+                  <i class="bi bi-telephone"></i>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Minimal Room -->
+
+          <div class="col-lg-3 col-sm-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="450">
+            <div class="minimal-room-card">
+              <div class="room-image">
+                <img src="assets/img/hotel/room-5.webp" alt="Superior Room" class="img-fluid">
+                <div class="hover-overlay">
+                  <a href="room-details.html" class="view-room">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="room-summary">
+                <h5></h5>
+                <div class="price-tag"><span></span></div>
+                <div class="basic-amenities">
+                  <i class="bi bi-wifi"></i>
+                  <i class="bi bi-cup-hot"></i>
+                  <i class="bi bi-snow"></i>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Minimal Room -->
+
+          <div class="col-lg-3 col-sm-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+            <div class="minimal-room-card">
+              <div class="room-image">
+                <img src="assets/img/hotel/room-8.webp" alt="Premium Room" class="img-fluid">
+                <div class="hover-overlay">
+                  <a href="room-details.html" class="view-room">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="room-summary">
+                <h5></h5>
+                <div class="price-tag"><span></span></div>
+                <div class="basic-amenities">
+                  <i class="bi bi-water"></i>
+                  <i class="bi bi-door-open"></i>
+                  <i class="bi bi-award"></i>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Minimal Room -->
+
+          <div class="col-lg-3 col-sm-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="550">
+            <div class="minimal-room-card">
+              <div class="room-image">
+                <img src="assets/img/hotel/room-17.webp" alt="Luxury Suite" class="img-fluid">
+                <div class="hover-overlay">
+                  <a href="room-details.html" class="view-room">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="room-summary">
+                <h5></h5>
+                <div class="price-tag"><span></span></div>
+                <div class="basic-amenities">
+                  <i class="bi bi-star"></i>
+                  <i class="bi bi-house"></i>
+                  <i class="bi bi-gem"></i>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Minimal Room -->
+
+        </div>
+
+        <div class="text-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="600">
+          <a href="rooms.html" class="explore-all-link">
+            <span>Explore All Accommodations</span>
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </section><!-- /Rooms Showcase Section -->
+
+    <!-- Amenities Cards Section -->
+    <section id="amenities-cards" class="amenities-cards section">
+
+      <!-- Section Title -->
+      <div class="container section-title aos-init aos-animate" data-aos="fade-up">
+        <span class="description-title">TEKNOLOJIA INAWAATHIRIJE<br>WATOTO WAKO?</span>
+        <h2>TEKNOLOJIA INAWAATHIRJE<br>WATOTO WAKO?</h2>
+        <p>Kwa sababu ya uwezo wao kutumia teknolojia na programu mpya, mara nyingi watoto huitwa "kizazi cha kidigitali," lakini si rahisi kwa watu wazima kutumia programu hizo.<br>Wakati huohuo, watoto wanaotumia muda mwingi mtandaoni...</p><ul><li>wanakuwa waraibu wa vifaa vya kielektroni.</li><li>wanaweza kunyanyaswa au kuwanyanyasa wengine mtandaoni.</li><li>wanaweza kutazama ponografia kwa urahisi, iwe wamekusudia au la.</li></ul><p></p>
+      </div><!-- End Section Title -->
+
+      <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row g-5">
+
+          <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+            <div class="facility-card">
+              <div class="facility-image">
+                <img src="assets/img/hotel/amenities-1.webp" alt="Wireless Internet" class="img-fluid">
+                <div class="facility-overlay">
+                  <i class="bi bi-wifi"></i>
+                </div>
+              </div>
+              <div class="facility-info">
+                  <h2>UNACHOPASWA KUJUA</h2>
+                <h4>URAIBU</h4>
+                <p>Baadhi ya mambo yanayopatikana mtandaoni kama vile michezo ya video, yamekusudiwa kuwafanya watu wawe waraibu. Hilo halishangazi. Kitabu kimoja (Reclaiming Conversation) kinasema hivi: "Programu kwenye simu zetu zimekusudiwa kutufanya tutumie simu zetu wakati wote." Kadiri tunavyotumia programu hizo kwa muda mrefu, ndivyo watengenezaji wake wanavyopata faida zaidi.<br><strong>JAMBO LA KUFIKIRIA:</strong> Je, watoto wako wanatumia vifaa vya kielektroni kupita kiasi? Unaweza kuwasaidiaje watumie muda wao kwa njia bora zaidi?-Ephesians 5:15,16.</p>
+                <div class="facility-features">
+                  <span><i class="bi bi-check-circle"></i></span>
+                  <span><i class="bi bi-check-circle"></i></span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Facility Card -->
+
+          <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="150">
+            <div class="facility-card">
+              <div class="facility-image">
+                <img src="assets/img/hotel/amenities-3.webp" alt="Swimming Pool" class="img-fluid">
+                <div class="facility-overlay">
+                  <i class="bi bi-droplet"></i>
+                </div>
+              </div>
+              <div class="facility-info">
+                <h4>KUNYANYASWA AU KUWANYANYASA WENGINE MTANDAONI</h4>
+                <p>Baadhi ya watu huwa wakali, wenye tabia mbaya, na wasiojali hisia za wengine wanapotumia mitandao-mambo yanayofanya wawanyanyase wengine.<br>Watu wengine wanatumia vibaya mitandao ya kijamii kwa sababu wanataka wajulikane au wawe maarufu. Au mtu anaweza kuhisi ametengwa na wengine-kwa mfano, ikiwa ataona mtandaoni marafiki wake wote wamealikwa kwenye tafrija lakini yeye hakualikwa huenda akafikiri amenyanyaswa.<strong>JAMBO LA KUFIKIRIA:</strong> Je, watoto wako wanawanyanyasa wengine mtandaoni?(Ephessians 4:31) Wanakabilianaje na hisia za kutengwa na wengine?</p>
+                <div class="facility-features">
+                  <span><i class="bi bi-check-circle"></i></span>
+                  <span><i class="bi bi-check-circle"></i></span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Facility Card -->
+
+          <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+            <div class="facility-card">
+              <div class="facility-image">
+                <img src="assets/img/hotel/amenities-5.webp" alt="Valet Parking" class="img-fluid">
+                <div class="facility-overlay">
+                  <i class="bi bi-car-front"></i>
+                </div>
+              </div>
+              <div class="facility-info">
+                <h4>PONOGRAFIA</h4>
+                <p>Ni rahisi sana kupata au kuona mambo machafu mtandaoni. Wazazi wanapaswa kutambua kwamba ingawa baadhi ya programu huwasaidia kudhibiti mambo ambayo watoto wao hutazama, haziwezi kudhibiti mambo yote, na bado watoto wanaweza kuona mambo machafu.<br>Kutuma au kupokea ujumbe au picha chafu, mara nyingi kupitia simu ya mkononi, kunaweza kuwa kosa kisheria. Katika visa fulani, kwa kutegemea sheria za eneo ambalo mtu anaishi au umri wake, mtu anayetuma ujumbe au picha chafu anaweza kushtakiwa kwa kosa la kusambaza ponografia ya watoto.<strong>JAMBO LA KUFIKIRIA:</strong> Unaweza kumsaidiaje mtoto wako aepuke kishawishi cha kutazama au kutuma picha chafu mtandaoni?-Ephessians 5:3,4.</p>
+                <div class="facility-features">
+                  <span><i class="bi bi-check-circle"></i></span>
+                  <span><i class="bi bi-check-circle"></i></span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Facility Card -->
+
+          <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="250">
+            <div class="facility-card">
+              <div class="facility-image">
+                <img src="assets/img/hotel/amenities-2.webp" alt="Fitness Center" class="img-fluid">
+                <div class="facility-overlay">
+                  <i class="bi bi-heart-pulse"></i>
+                </div>
+              </div>
+              <div class="facility-info">
+                <h4>UNACHOWEZA KUFANYA</h4>
+    <h5>WAZOEZE WATOTO WAKO</h5>
+                <p>Ingawa watoto wanaweza kutumia teknolojia kwa urahisi, bado wanahitaji mwongozo. Kitabu kinachoitwa <strong>Indistractable</strong> kinasema kwamba kumpatia mtoto wako simu ya mkononi au kifaa kingine cha kielektroni kabla hajawa na uwezo wa kukitumia kama njia inayofaa, ni "jambo la kiupumbavu kama kumruhusu mtoto asiyejua kuogelea kutumbukia bwawani."<br><strong>KANUNI YA BIBLIA:</strong>"Mzoeze mtoto njia anayopaswa kuifuata; hata atakapozeeka hataiacha."-Proverbs 22:6.</p>
+                <div class="facility-features">
+                  <span><i class="bi bi-check-circle"></i></span>
+                  <span><i class="bi bi-check-circle"></i></span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Facility Card -->
+
+          <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+            <div class="facility-card">
+              <div class="facility-image">
+                <img src="assets/img/hotel/dining-2.webp" alt="Fine Dining" class="img-fluid">
+                <div class="facility-overlay">
+                  <i class="bi bi-cup-hot"></i>
+                </div>
+              </div>
+              <div class="facility-info">
+                <h4>Weka alama kwenye mapendekezo ambayo ungependa kutumia, au andika mawazo yako kwenye sehemu iliyoachwa wazi.</h4>
+                <p><input type="checkbox"> Kuzungumza na mtoto wangu kuhusu jinsi ya kujiendesha kwa njia inayofaa mtandaoni<br>
+                   <input type="checkbox"> Kumsaidia mtoto wangu kukabiliana na hisia za kutengwa na wengine<br>
+                   <input type="checkbox"> Kujitahidi kadiri niwezavyo kumlinda mtoto wangu kutokana na mambo machafu mtandaoni<br>
+                   <input type="checkbox"> Kukagua simu ya mtoto wangu mara kwa mara<br>
+                   <input type="checkbox"> Kumpangia mtoto wangu muda hususa wa kutumia kifaa chake cha kielektroni<br>
+                   <input type="checkbox"> Kumzuia mtoto wangu asitumie kifaa chake akiwa peke yake usiku<br>
+                   <input type="checkbox"> Kuweka sheria kwamba mtu yeyote haruhusiwi kutumia simu wakati familia inapokula pamoja.</p>
+                <div class="facility-features">
+                  <span><i class="bi bi-check-circle"></i></span>
+                  <span><i class="bi bi-check-circle"></i></span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Facility Card -->
+
+          <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="350">
+            <div class="facility-card">
+              <div class="facility-image">
+                <img src="assets/img/hotel/amenities-4.webp" alt="Spa Services" class="img-fluid">
+                <div class="facility-overlay">
+                  <i class="bi bi-flower1"></i>
+                </div>
+              </div>
+              <div class="facility-info">
+                <h4>MASWALI AMBAYO WAZAZI WANAWEZA KUZUNGUMZIA</h4>
+                <p><input type="checkbox">Je, tunawarahusu watoto wetu watumie vifaa vyao vya kielektroni kwa sababu hatutaki watusumbue?<br>
+                   <input type="checkbox">Je, mtoto wetu anahitaji kifaa kilichounganishwa na Intaneti? Ikiwa ndivyo, kwa nini?<br>
+                   <input type="checkbox"> Je, tuna uwezo wa kumnunulia mtoto wetu kifaa kinachotumia Intaneti?<br>
+                   <input type="checkbox"> Je, mtoto wetu anaweza kujizuia anapotumia kifaa chake?<br>
+                   <input type="checkbox"> Je, mtoto wetu anawajibika anapofanya makosa?<br>
+                   <input type="checkbox"> Tutamwekea sheria gani?<br>
+                   <input type="checkbox"> Tunawezaje kuhakikisha kwamba mtoto wetu anatumia kifaa chake kwa usawaziko?<br>
+                       <strong>KANUNI YA BIBLIA:</strong></p><h6>"Watu wakomavu...wamezoeza nguvu zao za utambuzi kwa kuzitumia ili kutofautisha mambo yaliyo sawa na mambo yasiyo sawa."-Hebrews 5:14.</h6><p></p>
+                <div class="facility-features">
+                  <span><i class="bi bi-check-circle"></i> </span>
+                  <span><i class="bi bi-check-circle"></i></span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Facility Card -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Amenities Cards Section -->
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title aos-init aos-animate" data-aos="fade-up">
+        <span class="description-title">Testimonials</span>
+        <h2>TEKNOLOJIA INAATHIRIJE<br>NDOA YAKO?</h2>
+        <p>Inapotumiwa vizuri, teknolojia inaweza kuimarisha uhusiano kati ya mume na mke. Kwa mfano, inaweza kuwasaidia wawasiliane siku nzima. <br>Hata hivyo, baadhi ya wenzi wa ndoa wameruhusu matumizi mabaya ya teknolojia...<br></p><ul><li>yawanyang'anye wakati wanaotumia pamoja</li><li>yawachochee kufanya kazi za ofisini nyumbani isivyo lazima.</li><li>yafanye wasiaminie.</li></ul><p></p>
+      </div><!-- End Section Title -->
+
+      <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="testimonials-wrapper">
+
+          <div class="row g-4">
+                         <h2>UNACHOPASWA KUJUA</h2>
+            <!-- Testimonial Item 1 -->
+            <div class="col-lg-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+              <div class="testimonial-card">
+                <div class="quote-mark">
+                  <i class="bi bi-quote"></i>
+                </div>
+                <div class="testimonial-content">
+                   <h4>KUTUMIA WAKATI PAMOJA</h4>
+                  <p>Mume anayeitwa Michael anasema hivi: "wakati mwingine mimi na mke wangu tunakuwa pamoja, lakini hanikazii uangalifu. Anajishughulisha tu na simu yake, na ananiambia kwamba hakupata nafasi ya kuangalia jumbe na mambo mengine hadi sasa." Mume anayeitwa Jonathan anasema kwamba katika hali kama hizo "wenzi wa ndoa wanaweza kuwa pamoja lakini kiakili kila mmoja yuko mbali sana na mwenzake"<br><strong>JAMBO LA KUFIKIRIA:</strong> Ni mara ngapi unaruhusu simu, ujumbe mfupi, au taarifa fulani kwenye simu iingie muda ambao ungetumia pamoja na mwenzi wako?-Ephessians 5:33</p>
+                </div>
+                <div class="testimonial-author">
+                  <img src="assets/img/person/person-m-5.webp" alt="Client" class="img-fluid rounded-circle" loading="lazy">
+                  <div class="author-info">
+                    <h4></h4>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Testimonial Item -->
+
+            <!-- Testimonial Item 2 -->
+            <div class="col-lg-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+              <div class="testimonial-card">
+                <div class="quote-mark">
+                  <i class="bi bi-quote"></i>
+                </div>
+                <div class="testimonial-content">
+                    <h4>KAZI</h4>
+                  <p>Baadhi ya watu wanafanya kazi ambazo zinawalazimu wajibu simu au barua pepe hata wakiwa nyumbani. Lakini si rahisi kwa watu wengine kuacha kazi zao kazini, hata ikiwa hawalazimiki kufanyia kazi nyumbani. Mwanaume anayeitwa Lee anakiri hivi: "Si rahisi kwangu kutojibu simu au ujumbe unaohusiana na kazi hata ikiwa utatumwa wakati ambao nilipanga niutumie pamoja na mke wangu." Mwanamke anayeitwa Joy anasema hivi: "Ninafanyia kazi nyumbani, hivyo si rahisi kwangu kujua muda wa kuacha kufanya kazi. Ninajitahidi sana ili niwe na usawaziko."<strong>JAMBO LA KUFIKIRIA:</strong> Je, unamsikiliza kwa makini mume au mke wako anapozungumza nawe?-Luke 8:18</p>
+                </div>
+                <div class="testimonial-author">
+                  <img src="assets/img/person/person-f-7.webp" alt="Client" class="img-fluid rounded-circle" loading="lazy">
+                  <div class="author-info">
+                    <h4></h4>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Testimonial Item -->
+
+            <!-- Testimonial Item 3 -->
+            <div class="col-lg-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+              <div class="testimonial-card">
+                <div class="quote-mark">
+                  <i class="bi bi-quote"></i>
+                </div>
+                <div class="testimonial-content">
+                    <h4>UAMINIFU</h4>
+                  <p>Utafiti mmoja ulisema kwamba ugomvi mwingi kwenye ndoa unatokana na kutilia shaka matumizi ya mitandao ya kijamii. Asilimia kumi ya waliofanyiwa utafiti walikiri kwamba waliweka mtandaoni vitu ambavyo hawataki wenzi wao wajue.<br>Watu wengi wanaamini kwamba mitandao ya kijamii ina mitego mingi hatari inayoweza kuvunja ndoa au hata kufanya iwe rahisi kwa wenzi wa ndoa kuwa wazinzi. Haishangazi mawakili wengi wanaoshughulikia mambo ya talaka wanasema kwamba mitandao ya kijamii imechangia kuvunjika kwa ndoa nyingi.<br><strong>JAMBO LA KUFIKIRIA:</strong> Je, unamficha mwenzi wako mawasiliano unayofanya na mtu wa jinsia tofauti?-Proverbs 4:23.</p>
+                </div>
+                <div class="testimonial-author">
+                  <img src="assets/img/person/person-m-9.webp" alt="Client" class="img-fluid rounded-circle" loading="lazy">
+                  <div class="author-info">
+                    <h4></h4>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Testimonial Item -->
+
+            <!-- Testimonial Item 4 -->
+            <div class="col-lg-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+              <div class="testimonial-card">
+                <div class="quote-mark">
+                  <i class="bi bi-quote"></i>
+                </div>
+                <div class="testimonial-content">
+                    <h4>UNACHOWEZA KUFANYA<br>AMUA MAMBO YA KUTANGULIZA</h4>
+                  <p>Mtu anayepuuza kula chakula atakuwa na afya mbaya. Vivyo hivyo, si rahisi kwa mtu anyepuuza kutumia wakati pamoja na mume au mke wake, kuwa na ndoa nzuri.-Ephessians 5:28,29.<br><strong>KANUNI YA BIBLIA:</strong>"Mhakikishie mambo muhimu zaidi."-Philipians 1:10.</p><p></p>
+                </div>
+                <div class="testimonial-author">
+                  <img src="assets/img/person/person-f-3.webp" alt="Client" class="img-fluid rounded-circle" loading="lazy">
+                  <div class="author-info">
+                    <h4></h4>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Testimonial Item -->
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Testimonials Section -->
+
+    <!-- Offer Cards Section -->
+    <section id="offer-cards" class="offer-cards section">
+
+      <!-- Section Title -->
+      <div class="container section-title aos-init aos-animate" data-aos="fade-up">
+        <span class="description-title"></span>
+        <h2></h2><h4>Weka alama kwenye mapendekezo ambayo ungependa kutumia, au andika mawazo yako kwenye sehemu iliyoachwa wazi yatakayosaidia ndoa yako isiathiriwe na teknolojia.</h4>
+        <p></p>
+      </div><!-- End Section Title -->
+
+      <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row g-4">
+
+          <div class="col-lg-4 col-md-6">
+            <div class="offer-card aos-init aos-animate" data-aos="zoom-in" data-aos-delay="200">
+              <div class="offer-badge">
+                <span class="discount"></span>
+              </div>
+              <div class="offer-image">
+                <img src="assets/img/hotel/showcase-3.webp" alt="Weekend Getaway" class="img-fluid">
+              </div>
+              <div class="offer-content">
+                <h3><input type="checkbox">Kula angalau mlo mmoja pamoja kila siku</h3>
+                  
+                <p><input type="checkbox"> Kutenga muda hususa ambao hatutatumia vifaa vyetu.<br>
+                    <input type="checkbox"> Kupanga muda au siku ya kufanya jambo lenye kufurahisha pamoja<br></p>
+                <div class="offer-details">
+                  <div class="price-info">
+                    <span class="original-price"></span>
+                    <span class="offer-price"></span>
+                    <span class="per-night"></span>
+                  </div>
+                  <div class="validity">
+                    <i class="bi bi-calendar-check"></i>
+                    <span></span>
+                  </div>
+                </div>
+                <a href="#" class="btn-book">Back To Top</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="offer-card featured aos-init aos-animate" data-aos="zoom-in" data-aos-delay="300">
+              <div class="offer-badge">
+                <span class="discount"></span>
+              </div>
+              <div class="offer-image">
+                <img src="assets/img/hotel/showcase-7.webp" alt="Extended Stay Deal" class="img-fluid">
+              </div>
+              <div class="offer-content">
+                <h3></h3>
+                <p><input type="checkbox"> Kuzima simu zetu usiku na kuziweka mbali na kitanda<br>
+                    <input type="checkbox"> Kutenga angalau dakika 15 kila siku za kuzungumza pamoja bila kuwa na vifaa vyetu vya kielektroni<br>
+                    <input type="checkbox"> Kupanga muda wa kuzima Intaneti</p>
+                <div class="offer-details">
+                  <div class="price-info">
+                    <span class="original-price"></span>
+                    <span class="offer-price"></span>
+                    <span class="per-night"></span>
+                  </div>
+                  <div class="validity">
+                    <i class="bi bi-calendar-check"></i>
+                    <span></span>
+                  </div>
+                </div>
+                <a href="#" class="btn-book">BACK TO TOP</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="offer-card aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
+              <div class="offer-badge">
+                <span class="discount"></span>
+              </div>
+              <div class="offer-image">
+                <img src="assets/img/hotel/showcase-11.webp" alt="Advance Booking" class="img-fluid">
+              </div>
+              <div class="offer-content">
+                <h3></h3>
+                <p><input type="checkbox"><input type="text"><br>
+                    <input type="checkbox"> <input type="text"><br>
+                    <input type="checkbox"><input type="text"></p>
+                <div class="offer-details">
+                  <div class="price-info">
+                    <span class="original-price"></span>
+                    <span class="offer-price"></span>
+                    <span class="per-night"></span>
+                  </div>
+                  <div class="validity">
+                    <i class="bi bi-calendar-check"></i>
+                    <span></span>
+                  </div>
+                </div>
+                <a href="#" class="btn-book">BACK TO TOP</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-12">
+            <div class="offer-banner aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+              <div class="row align-items-center">
+                <div class="col-lg-8">
+                  <div class="banner-content">
+                    <h2>MASWALI AMBAYO WENZI WA NDOA WANAWEZA KUZUNGUMZIA</h2>
+                    <p>Baada ya wewe na mwenzi wako kuchunguza maswali haya kibinafsi, zungumzieni majibu pamoja.<br></p><ul><li>Unaweza kutumia teknolojia kwa njia gani ili uimarishe ndoa yako?</li><li>Ni kwa kiwango gani teknolojia inaingilia muda mnaotumia pamoja?</li><li>Mngependa kufanya mabadiliko gani?</li><li>Je, ni rahisi kwako kuacha kazi ibaki kazini? Mwenzi wako anakubaliana na jibu lako?</li><li>Unawezaje kuwa na usawaziko inapohusu muda unaotarajia mwenzi wako atumie pamoja nawe?</li><li><strong>KANUNI YA BIBLIA:</strong></li></ul><p></p>
+                  </div>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                  <div class="banner-action">
+                    
+                    <a href="#" class="btn-cta">"Kila mmoja na aendelee kutafuta, si faida yake mwenyewe, bali faida ya yule mtu mwingine."-1st Corinthians 10:24</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Offer Cards Section -->
+
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section light-background">
+
+      <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row align-items-center">
+          <div class="col-lg-6 aos-init aos-animate" data-aos="fade-right" data-aos-delay="200">
+            <div class="content">
+              <h2>TEKNOLOJIA INAATHIRIJE<br>UWEZO WAKO WA KUJIFUNZA?</h2>
+              <p>Kila siku watu hujifunza mambo mapya-iwe ni shuleni, kazini au kwa sababu nyingine. Teknolojia inaweza kutusaidia. Leo, ni rahisi kupata taarifa bila hata kuondoka nyumbani wala kuinuka kwenye kiti chako.<br>Hata hivyo, watu wengi wanaotumia teknolojia kupita kiasi wametambua kwamba...</p>
+              <ul class="features-list">
+                <li><i class="bi bi-check-circle"></i> si rahisi kukaza fikira wanaposoma.</li>
+                <li><i class="bi bi-check-circle"></i> si rahisi kufanya jambo moja bila kukengeushwa.</li>
+                <li><i class="bi bi-check-circle"></i> wanachoka upesi wanapokuwa peke yao.</li>
+                
+              </ul>
+              <div class="cta-buttons">
+                <a href="#" class="btn-primary"></a>
+                <a href="#" class="btn-secondary"></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 aos-init aos-animate" data-aos="fade-left" data-aos-delay="300">
+            <div class="image-wrapper">
+              <img src="assets/img/hotel/showcase-9.webp" alt="Luxury Hotel Experience" class="img-fluid">
+              <div class="overlay-content">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Call To Action Section -->
+
+    <!-- Events Cards Section -->
+    <section id="events-cards" class="events-cards section">
+
+      <!-- Section Title -->
+      <div class="container section-title aos-init aos-animate" data-aos="fade-up">
+        <span class="description-title">Events</span>
+        <h2>UNACHOPASWA KUJUA</h2>
+        <p><strong>KUSOMA</strong>N<br>Baadhi ya watu wanaotumia vifaa vyao vya kielektroni kupita kiasi hawawezi kusoma kwa makini kitabu au makala fulani na kuimaliza yote, badala yake wanapitia juujuu ili kupata mambo makuu.<br>Unaweza kupitia kitabu au makala kijuu-juu ikiwa unahitaji kupata jibu la swali fulani haraka. Lakini, kufanya hivyo kutapunguza uwezo wako wa kujifunza ambo kwa kina.<br><strong>JAMBO LA KUFIKIRIA</strong>Je, unaweza kusoma vifungu virefu vya maneno bila kuchoka? Kusoma kwa makini kunaweza kukusaidiaje kujifunza mambo kwa kina?-Proverbs 18:15.<br><strong>KUKAZA FIKIRA</strong><br>Baadhi ya watu wanahisi kwamba teknolojia inawap[a uwezo wa kufanya mambo mawili kwa wakati mmoja-kwa mfano, wanaweza kutuma ujumbe huku wakiwa wanasoma. Lakini wanakengeuswa na mwishowe wanashindwa kufanya jambo lolote vizuri, hasa ikiwa mambo yote mawili yanahitaji kufanywa kwa umakini<br> Unahitaji kujidhibiti ili ukazie fikira jambo unalofanya, lakini kuna faida kubwa ya kufanya hivyo. Msichana anayeitwa Grace anasema hivi: "Utafanya makosa machache na hutakuwa na mkazo mwingi. Nimejifunza kwamba ni bora kufanya kazi moja kwa makini kuliko kukengeushwa kwa kufanya kazi nyingi kwa wakati mmoja."<br><strong>JAMBO LA KUFIKIRIA:</strong> Je, kufanya mambo mengi kwa wakati mmoja kunakuzuia usikazie fikira jambo unalojifunza au hata kulisahau kabisa?-Proverbs 17:24.<br><strong>UNAPOKUWA PEKE YAKO</strong>Baadhi ya watu hawapendi kuwa peke yao, hivyo wanatumia teknolojia zaidi ili wasiwe wapweke. Mwanamke anayeitwa Olivia anakiri hivi: "Ninachoka ninapokaa kwa dakika 15 tu bila kuangalia simu, kifaa cha kielektroni (tablet), au kuangalia TV."<br>Hata hivyo, kipindi cha kuwa peke yako ni muhimu sana ili ufikirie mambo kwa kina-hilo ni muhimu kwa watoto na watu wazima hasa wanapotaka kujifunza jambo fulani.<strong>JAMBO LA KUFIKIRIA:</strong>Je, unaweza kutumia vizuri wakati wa kuwa peke yako ili ujifunze jambo fulani?-1st Timothy 4:15.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row g-4">
+
+          <div class="col-lg-4 col-md-6">
+            <div class="event-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+              <div class="event-header">
+                <div class="event-icon">
+                  
+                </div>
+                <img src="assets/img/hotel/event-1.webp" alt="Wedding Celebrations" class="img-fluid">
+              </div>
+              <div class="event-content">
+                <h4>UNACHOWEZA KUFANYA</h4>
+                <p></p>
+                <div class="event-features">
+                  <span class="feature-item"><i class="bi bi-check-circle"></i> </span>
+                  <span class="feature-item"><i class="bi bi-check-circle"></i> </span>
+                </div>
+                <a href="hotel-events.html" class="event-link">
+                   <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div><!-- End Event Item -->
+
+          <div class="col-lg-4 col-md-6">
+            <div class="event-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+              <div class="event-header">
+                <div class="event-icon">
+                  
+                </div>
+                <img src="assets/img/hotel/event-4.webp" alt="Business Conferences" class="img-fluid">
+              </div>
+              <div class="event-content">
+                <h4>CHUNGUZA JINSI UNAVYOTUMIA TEKNOLOJIA</h4>
+                <p></p>
+                <div class="event-features">
+                  <span class="feature-item"><i class="bi bi-check-circle"></i> </span>
+                  <span class="feature-item"><i class="bi bi-check-circle"></i> </span>
+                </div>
+                <a href="hotel-events.html" class="event-link">
+                   <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div><!-- End Event Item -->
+
+          <!-- End Event Item -->
+
+          <!-- End Event Item -->
+
+          <!-- End Event Item -->
+
+          <!-- End Event Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Events Cards Section -->
+
+    <!-- Location Cards Section -->
+    <section id="location-cards" class="location-cards section">
+
+      <!-- Section Title -->
+      <div class="container section-title aos-init aos-animate" data-aos="fade-up">
+        <span class="description-title">Location &amp; Activities</span>
+        <h2></h2>
+        <p>Ni kwa njia gani unaweza kutumia teknolojia kuboresha uwezo wako wa kujifunza? Teknolojia inaweza kukuzuiaje usikaze fikira na kujifunza kikamili?<br><strong>KANUNI YA BIBLIA:</strong></p><h4>"Iilinde hekima inayotumika na uwezo wa kufikiri."-Proverbs 3:21.</h4>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit<p></p>
+      </div><!-- End Section Title -->
+
+      <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+    <div class="col-lg-4 aos-init aos-animate" data-aos="fade-left" data-aos-delay="200">
+    <div class="location-overview">
+              <div class="overview-header">
+                <div class="location-marker">
+                  <i class="bi bi-geo-alt-fill"></i>
+                </div>
+                <h3>JIULIZE...</h3>
+                <p class="overview-subtitle"></p><ul>
+                    <li>Je, ni vigumu kwangu kukaza fikira ninaposoma makala ndefu kwenye kifaa cha kielektroni? Ikiwa ndivyo, ni mambo gani hasa yanayonikengeusha?</li>
+                    <li>Ninaweza kuchukua hatua gani ili kupunguza au hata kuobdoa kabisa mambo hayo?</li>
+                    <li><strong>Dokezo:</strong> Anza kwa kusoma habari fupifupi na kisha hatua kwa hatua ongeza kiwango cha habari unachosoma. Soma kwa sauti, taratibu, ili ukazie fikira mambo unayosoma.</li>
+                    <li>Ninaweza kufanya mabadiliko gai ili niwe na muda wa kutosha wa kufikiria na kutafakari mambo niliyosoma?</li>
+                    <li><strong>Dokezo:</strong> Tumia dakika kumi kabla ya kumaliza kusoma kupitia mambo uliyosoma.</li>
+                    <li>Ni katika hali gani ninalazimika kufanya mambo mengi kwa wakati mmoja?</li>
+                    <li>Ninaweza kufanya mabadiliko gani ili nifanye kikamili kazi moja kabla ya kuanza kazi nyingine?</li>
+                    <li><strong>Dokezo:</strong> Unapojifunza, weka mbali vitu vinavyoweza kukukengeusha ili uweze kukaza fikira.</li>
+                    <h4>KANUNI YA BIBLIA:</h4> "Jipatie hekima, jipatie uelewaji."-Proverbs 4:5.
+                </ul><p></p>
+              </div>
+
+              <div class="benefits-list">
+                <div class="benefit-item">
+                  <div class="benefit-icon">
+                    <i class="bi bi-train-front"></i>
+                  </div>
+                  <div class="benefit-content">
+                    <h6></h6>
+                    <span></span>
+                  </div>
+                </div>
+
+                <div class="benefit-item">
+                  <div class="benefit-icon">
+                    <i class="bi bi-airplane"></i>
+                  </div>
+                  <div class="benefit-content">
+                    <h6></h6>
+                    <span></span>
+                  </div>
+                </div>
+
+                <div class="benefit-item">
+                  <div class="benefit-icon">
+                    <i class="bi bi-car-front"></i>
+                  </div>
+                  <div class="benefit-content">
+                    <h6></h6>
+                    <span></span>
+                  </div>
+                </div>
+
+                <div class="benefit-item">
+                  <div class="benefit-icon">
+                    <i class="bi bi-compass"></i>
+                  </div>
+                  <div class="benefit-content">
+                    <h6></h6>
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+
+              <a href="location.html" class="location-guide-btn">
+                <span>View Full Week Seven Notes</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+</div>
+</div>
+
+    </section><!-- /Location Cards Section -->
+
+    <!-- Gallery Showcase Section -->
+    <section id="gallery-showcase" class="gallery-showcase section">
+
+      <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="gallery-carousel swiper init-swiper aos-init swiper-initialized swiper-horizontal swiper-backface-hidden aos-animate" data-aos="fade-up" data-aos-delay="200">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 3000
+              },
+              "slidesPerView": 1,
+              "spaceBetween": 20,
+              "centeredSlides": true,
+              "breakpoints": {
+                "576": {
+                  "slidesPerView": 2,
+                  "centeredSlides": false
+                },
+                "768": {
+                  "slidesPerView": 3,
+                  "centeredSlides": false
+                },
+                "992": {
+                  "slidesPerView": 4,
+                  "centeredSlides": false
+                },
+                "1200": {
+                  "slidesPerView": 5,
+                  "centeredSlides": false
                 }
-            );
+              }
+            }
+          </script>
+          <div class="swiper-wrapper" id="swiper-wrapper-da3e623f610ec4e30" aria-live="off" style="transition-duration: 0ms; transform: translate3d(-1072px, 0px, 0px); transition-delay: 0ms;">
+            
+            
+            
+            
+            
+            
+            
+            
+          <div class="swiper-slide" role="group" aria-label="1 / 8" style="width: 248px; margin-right: 20px;" data-swiper-slide-index="0">
+              <div class="gallery-item">
+                <img src="assets/img/hotel/gallery-1.webp" alt="Luxurious Suite" class="img-fluid" loading="lazy">
+                <a href="assets/img/hotel/gallery-1.webp" class="gallery-overlay glightbox">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </div>
+            </div><div class="swiper-slide" role="group" aria-label="2 / 8" style="width: 248px; margin-right: 20px;" data-swiper-slide-index="1">
+              <div class="gallery-item">
+                <img src="assets/img/hotel/gallery-5.webp" alt="Modern Lobby" class="img-fluid" loading="lazy">
+                <a href="assets/img/hotel/gallery-5.webp" class="gallery-overlay glightbox">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </div>
+            </div><div class="swiper-slide" role="group" aria-label="3 / 8" style="width: 248px; margin-right: 20px;" data-swiper-slide-index="2">
+              <div class="gallery-item">
+                <img src="assets/img/hotel/gallery-12.webp" alt="Elegant Dining Area" class="img-fluid" loading="lazy">
+                <a href="assets/img/hotel/gallery-12.webp" class="gallery-overlay glightbox">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </div>
+            </div><div class="swiper-slide swiper-slide-prev" role="group" aria-label="4 / 8" style="width: 248px; margin-right: 20px;" data-swiper-slide-index="3">
+              <div class="gallery-item">
+                <img src="assets/img/hotel/gallery-8.webp" alt="Grand Ballroom Setup" class="img-fluid" loading="lazy">
+                <a href="assets/img/hotel/gallery-8.webp" class="gallery-overlay glightbox">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </div>
+            </div><div class="swiper-slide swiper-slide-active" role="group" aria-label="5 / 8" style="width: 248px; margin-right: 20px;" data-swiper-slide-index="4">
+              <div class="gallery-item">
+                <img src="assets/img/hotel/gallery-15.webp" alt="Relaxing Poolside" class="img-fluid" loading="lazy">
+                <a href="assets/img/hotel/gallery-15.webp" class="gallery-overlay glightbox">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </div>
+            </div><div class="swiper-slide swiper-slide-next" role="group" aria-label="6 / 8" style="width: 248px; margin-right: 20px;" data-swiper-slide-index="5">
+              <div class="gallery-item">
+                <img src="assets/img/hotel/gallery-3.webp" alt="Cozy Guest Room" class="img-fluid" loading="lazy">
+                <a href="assets/img/hotel/gallery-3.webp" class="gallery-overlay glightbox">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </div>
+            </div><div class="swiper-slide" role="group" aria-label="7 / 8" style="width: 248px; margin-right: 20px;" data-swiper-slide-index="6">
+              <div class="gallery-item">
+                <img src="assets/img/hotel/gallery-18.webp" alt="Spa and Wellness Center" class="img-fluid" loading="lazy">
+                <a href="assets/img/hotel/gallery-18.webp" class="gallery-overlay glightbox">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </div>
+            </div><div class="swiper-slide" role="group" aria-label="8 / 8" style="width: 248px; margin-right: 20px;" data-swiper-slide-index="7">
+              <div class="gallery-item">
+                <img src="assets/img/hotel/gallery-7.webp" alt="Conference Facilities" class="img-fluid" loading="lazy">
+                <a href="assets/img/hotel/gallery-7.webp" class="gallery-overlay glightbox">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </div>
+            </div></div>
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
 
-        const reader =
-            new FileReader();
-
-        reader.onload =
-            async ()=>{
-
-            await fetch(
-                API_URL,
-                {
-
-                method:"POST",
-
-                body:
-                JSON.stringify({
-
-                    action:
-                    "uploadAudio",
-
-                    file:
-                    reader.result,
-
-                    fileName:
-                    "voice.webm",
-
-                    name:
-                    currentUser,
-
-                    roomId:
-                    "general"
-
-                })
-
-            });
-
-            loadMessages();
-
-        };
-
-        reader.readAsDataURL(
-            blob
-        );
-
-    };
-
-    mediaRecorder.start();
-
-    setTimeout(()=>{
-
-        mediaRecorder.stop();
-
-    },10000);
-
-}catch(err){
-
-    console.error(err);
-
-}
-
-}
-
-/* ==========================
-RENDER MESSAGES
-========================== */
-
-function renderMessages(){
-
-const container =
-    document
-    .getElementById(
-        "messages"
-    );
-
-if(!container) return;
-
-container.innerHTML = "";
-
-messages.forEach(msg=>{
-
-    const side =
-        msg.name === currentUser
-        ? "sent"
-        : "received";
-
-    let content = "";
-
-    if(msg.type === "text"){
-
-        content =
-            msg.content;
-
-    }
-
-    else if(
-        msg.type === "sticker"
-    ){
-
-        content = `
-            <div class="sticker">
-                ${msg.content}
-            </div>
-        `;
-
-    }
-
-    else if(
-        msg.type === "image"
-    ){
-
-        content = 
-            <img
-            src="${msg.content}"
-            class="chat-image">
-        ;
-
-    }
-
-    else if(
-        msg.type === "audio"
-    ){
-
-        content = 
-            <audio
-            controls
-            class="voice-note">
-
-                <source
-                src="${msg.content}">
-
-            </audio>
-        ;
-
-    }
-
-    container.innerHTML += 
-
-        <div class="message ${side}">
-
-            <div class="message-name">
-                ${msg.name}
-            </div>
-
-            ${content}
-
-            <div class="time">
-
-                ${new Date(
-                    msg.timestamp
-                ).toLocaleTimeString(
-                    [],
-                    {
-                        hour:"2-digit",
-                        minute:"2-digit"
-                    }
-                )}
-
-            </div>
-
+        <div class="text-center mt-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+          <a href="gallery.html" class="btn btn-gallery">
+            <i class="bi bi-collection me-2"></i>Discover Our Full Gallery
+          </a>
         </div>
 
-    ;
+      </div>
 
-});
+    </section><!-- /Gallery Showcase Section -->
 
-container.scrollTop =
-    container.scrollHeight;
+  </main>
 
-}
+  <footer id="footer" class="footer position-relative dark-background">
 
-/* ==========================
-EMOJI BUTTON
-========================== */
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6 footer-about">
+            <a href="index.html" class="logo d-flex align-items-center">
+              <span class="sitename">DIOCESEAN MISSIONARY ASSOCIATION</span>
+            </a>
+            <div class="footer-contact pt-3">
+              <p>A108 Mugambi Street</p>
+              <p>Nanyuki, NY 10400</p>
+              <p class="mt-3"><strong>Phone:</strong> <span>+254 7960 71670</span></p>
+              <p><strong>Email:</strong> <span>ackstgeorge@gmail.com</span></p>
+            </div>
+          </div>
 
-function addEmoji(){
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
 
-const input =
-    document.getElementById(
-        "messageInput"
-    );
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><a href="#">Web Design</a></li>
+              <li><a href="#">Web Development</a></li>
+              <li><a href="#">Product Management</a></li>
+              <li><a href="#">Marketing</a></li>
+              <li><a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
 
-input.value += " 😊";
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Hic solutasetp</h4>
+            <ul>
+              <li><a href="#">Molestiae accusamus iure</a></li>
+              <li><a href="#">Excepturi dignissimos</a></li>
+              <li><a href="#">Suscipit distinctio</a></li>
+              <li><a href="#">Dilecta</a></li>
+              <li><a href="#">Sit quas consectetur</a></li>
+            </ul>
+          </div>
 
-input.focus();
-const emojiList = [
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Nobis illum</h4>
+            <ul>
+              <li><a href="#">Ipsam</a></li>
+              <li><a href="#">Laudantium dolorum</a></li>
+              <li><a href="#">Dinera</a></li>
+              <li><a href="#">Trodelas</a></li>
+              <li><a href="#">Flexo</a></li>
+            </ul>
+          </div>
 
-/* Smileys */
-"😀","😁","😂","🤣","😃","😄","😅","😆",
-"😉","😊","🙂","🙃","😍","🥰","😘","😗",
-"😙","😚","😋","😛","😜","🤪","😝","🤩",
+        </div>
+      </div>
+    </div>
 
-/* Cool */
-"😎","🤓","🧐","🥳","😏","😌","🤠",
+    <div class="copyright text-center">
+      <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
 
-/* Love */
-"❤️","🩷","🧡","💛","💚","🩵","💙","💜",
-"🤍","🖤","🤎","💖","💘","💝","💕","💞",
-"💓","💗","💟","❣️",
+        <div class="d-flex flex-column align-items-center align-items-lg-start">
+          <div>
+            © Copyright <strong><span>MyWebsite</span></strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
+            Designed by <a href="https://samterrencekabatha.github.io/Best-Artworks-For-Kibz/">BootstrapMade</a>
+          </div>
+        </div>
 
-/* Reactions */
-"👍","👎","👌","✌️","🤞","🤟","🤘",
-"👏","🙌","👐","🤝","🙏",
+        <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
+          <a href=""><i class="bi bi-twitter-x"></i></a>
+          <a href=""><i class="bi bi-facebook"></i></a>
+          <a href=""><i class="bi bi-instagram"></i></a>
+          <a href=""><i class="bi bi-linkedin"></i></a>
+        </div>
 
-/* Church */
-"🙏","⛪","📖","🕊️","✝️","🙌","❤️",
+      </div>
+    </div>
 
-/* Celebration */
-"🎉","🎊","🎈","🎂","🎁","🏆","🥇",
-"✨","🌟","⭐","🔥","💯",
+  </footer>
 
-/* Faces */
-"😭","😢","🥺","😔","😞","😡","😠",
-"😱","😨","😴","🤤","🤯","😵",
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center active"><i class="bi bi-arrow-up-short"></i></a>
 
-/* Nature */
-"🌹","🌺","🌸","🌻","🌼","🍀",
-"🌍","🌎","🌏","☀️","🌙","⭐",
+  <!-- Preloader -->
+  
 
-/* Food */
-"🍔","🍕","🍟","🌭","🍗","🍎",
-"🍉","🍇","🍓","🍍","🥑","☕",
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-/* Tech */
-"💻","📱","⌚","📷","🎥","🎧",
-"🔋","🖥️","🛰️","🌐",
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
 
-/* People */
-"👨","👩","👦","👧","👴","👵",
-"🧑","👨&zwj;💼","👩&zwj;💼","🧑&zwj;💻"
 
-];
-}
 
-/* ==========================
-ENTER KEY
-========================== */
-
-document
-.getElementById(
-"messageInput"
-)
-?.addEventListener(
-"keypress",
-e => {
-
-if(
-    e.key === "Enter"
-){
-
-    sendMessage();
-
-}
-
-});
-
-/* ==========================
-START
-========================== */
-
-renderMembers();
-
-loadMessages();
-
-setInterval(
-loadMessages,
-3000
-);
-</script> <div id="smartyContainer" style="position: absolute; top: 0px; right: 0px; line-height: initial; z-index: 2147483647; width: auto; font-size: initial;"></div></body></html>
+</body></html>

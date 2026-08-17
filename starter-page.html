@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE <html>
+<html lang="en"><head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>ST.GEORGE YOUTH COMMUNITY</title>
@@ -287,21 +288,21 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="rooms.html">Privacy Policyholder</a></li>
-            <li><a href="about.html">Terms and conditions</a></li>
-            <li><a href="index.html">Sign Up</a></li>
-            <li><a href="amenities.html">Login</a></li>
-            <li><a href="location.html">Devotion</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="amenities.html">Amenities</a></li>
+            <li><a href="location.html">Location</a></li>
             <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
-                <li><a href="room-details.html">Devotions</a></li>
-                <li><a href="restaurant.html">Weekly Motivation</a></li>
-                <li><a href="offers.html">Bible Study</a></li>
-                <li><a href="events.html">Genz Corner</a></li>
+                <li><a href="room-details.html">Room Details</a></li>
+                <li><a href="restaurant.html">Restaurant</a></li>
+                <li><a href="offers.html">Offers</a></li>
+                <li><a href="events.html">Events</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="booking.html">Complaints</a></li>
-                <li><a href="index.html">Compliments</a></li>
-                <li><a href="index.html">Grievances</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="terms.html">Terms Page</a></li>
+                <li><a href="privacy.html">Privacy Page</a></li>
                 <li><a href="404.html">404 Page</a></li>
                 <li><a href="starter-page.html" class="active">Starter Page</a></li>
               </ul>
@@ -358,7 +359,7 @@
 <div class="floating-leaf" style="left:50%; animation-delay:4s;">🍃</div>
 <div class="floating-leaf" style="left:75%; animation-delay:1s;">🌱</div>
 <div class="floating-leaf" style="left:90%; animation-delay:5s;">🍃</div>
-    <div id="registerModal" class="register-modal hidden"> <div class="register-card"> <h2>Join Youth Chat</h2> <input id="username" placeholder="Enter your name"> <button onclick="registerUser()">Join Chat</button> </div> </div> <div class="chat-app">  <div class="chat-container"> <div class="chat-header"> <h2>C AND G CORNERSTONE </h2> <div id="userDisplay">👤 sam_kabz_</div> </div> <div class="messages" id="messages">
+    <div id="registerModal" class="register-modal hidden"> <div class="register-card"> <h2>Join Youth Chat</h2> <input id="username" placeholder="Enter your name"> <button onclick="registerUser()">Join Chat</button> </div> </div> <div class="chat-app">  <div class="chat-container"> <div class="chat-header"> <h2>C AND G CORNERSTONE </h2> <div id="userDisplay">👤</div> </div> <div class="messages" id="messages">
             <div class="chat-input"> <div class="emoji-btn" onclick="addEmoji()">😀</div> <input type="text" id="messageInput" placeholder="Type a message..."> <button onclick="sendMessage()"> Send </button> </div> </div> </div> <script>
     const API_URL =
 "https://script.google.com/macros/s/AKfycbyqLPQl93NzY9VV9Ok7jDBmZ60PrcGQD2Uzkh1C42yUvsND6JUjGn9dvXuxYPKrbJFh/exec";
@@ -464,7 +465,7 @@ async function sendMessage() {
 
         input.value = "";
 
-        loadMessages();
+        
 
     } catch (err) {
         console.error("Send error:", err);
