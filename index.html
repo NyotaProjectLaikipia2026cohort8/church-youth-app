@@ -358,7 +358,7 @@
 <div class="floating-leaf" style="left:50%; animation-delay:4s;">🍃</div>
 <div class="floating-leaf" style="left:75%; animation-delay:1s;">🌱</div>
 <div class="floating-leaf" style="left:90%; animation-delay:5s;">🍃</div>
-    <div id="registerModal" class="register-modal hidden"> <div class="register-card"> <h2>Join Youth Chat</h2> <input id="username" placeholder="Enter your name"> <button onclick="registerUser()">Join Chat</button> </div> </div> <div class="chat-app">  <div class="chat-container"> <div class="chat-header"> <h2>C AND G CORNERSTONE </h2> <div id="userDisplay">👤 sam_kabz_</div> </div> <div class="messages" id="messages">
+    <div id="registerModal" class="register-modal"> <div class="register-card"> <h2>Join Youth Chat</h2> <input id="username" placeholder="Enter your name"> <button onclick="registerUser()">Join Chat</button> </div> </div> <div class="chat-app">  <div class="chat-container"> <div class="chat-header"> <h2>C AND G CORNERSTONE </h2> <div id="userDisplay">👤 sam_kabz_</div> </div> <div class="messages" id="messages">
             <div class="chat-input"> <div class="emoji-btn" onclick="addEmoji()">😀</div> <input type="text" id="messageInput" placeholder="Type a message..."> <button onclick="sendMessage()"> Send </button> </div> </div> </div> <script>
     const API_URL =
 "https://script.google.com/macros/s/AKfycbyqLPQl93NzY9VV9Ok7jDBmZ60PrcGQD2Uzkh1C42yUvsND6JUjGn9dvXuxYPKrbJFh/exec";
@@ -392,25 +392,40 @@ let messages = JSON.parse(localStorage.getItem("messages")) || [];
 if (currentUser) {
     document.getElementById("registerModal").classList.add("hidden");
     document.getElementById("userDisplay").textContent = "👤 " + currentUser;
+} else {
+    document.getElementById("registerModal").classList.remove("hidden");
 }
 
 function registerUser() {
-    const username = document.getElementById("username").value.trim();
 
-    if (!username) return;
+    const usernameInput = document.getElementById("username");
+    const username = usernameInput.value.trim();
+
+    if (!username) {
+        alert("Please enter your name.");
+        usernameInput.focus();
+        return;
+    }
 
     currentUser = username;
-    localStorage.setItem("chatUser", username);
 
-    if (!members.includes(username)) {
-        members.push(username);
+    localStorage.setItem("chatUser", currentUser);
+
+    if (!members.includes(currentUser)) {
+        members.push(currentUser);
         localStorage.setItem("members", JSON.stringify(members));
     }
 
     document.getElementById("registerModal").classList.add("hidden");
-    document.getElementById("userDisplay").textContent = "👤 " + username;
+
+    document.getElementById("userDisplay").textContent =
+        "👤 " + currentUser;
+
+    usernameInput.value = "";
 
     renderMembers();
+
+    console.log("Registered user:", currentUser);
 }
 
 /* ==========================
@@ -419,6 +434,10 @@ function registerUser() {
 
 function renderMembers() {
     const container = document.getElementById("members");
+
+    if (!container) {
+        return;
+    }
 
     container.innerHTML = "";
 
@@ -438,7 +457,6 @@ function renderMembers() {
         `;
     });
 }
-
 /* ==========================
    SEND MESSAGE
 ========================== */
