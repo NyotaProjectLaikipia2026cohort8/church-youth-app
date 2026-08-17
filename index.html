@@ -358,11 +358,26 @@
 <div class="floating-leaf" style="left:50%; animation-delay:4s;">🍃</div>
 <div class="floating-leaf" style="left:75%; animation-delay:1s;">🌱</div>
 <div class="floating-leaf" style="left:90%; animation-delay:5s;">🍃</div>
-    <div id="registerModal" class="register-modal"> <div class="register-card"> <h2>Join Youth Chat</h2> <input id="username" placeholder="Enter your name"> <button onclick="registerUser()">Join Chat</button> </div> </div> <div class="chat-app">  <div class="chat-container"> <div class="chat-header"> <h2>C AND G CORNERSTONE </h2> <div id="userDisplay">👤 sam_kabz_</div> </div> <div class="messages" id="messages">
-            <div class="chat-input"> <div class="emoji-btn" onclick="addEmoji()">😀</div> <input type="text" id="messageInput" placeholder="Type a message..."> <button onclick="sendMessage()"> Send </button> </div> </div> </div> <script>
+    <div id="registerModal" class="register-modal"> <div class="register-card"> <h2>Join Youth Chat</h2> <input id="username" placeholder="Enter your name"> <button onclick="registerUser()">Join Chat</button> </div> </div> <div class="chat-app">  <div class="chat-container"> <div class="chat-header"> <h2>C AND G CORNERSTONE </h2> <div id="userDisplay">👤</div> </div> <div class="messages" id="messages">
+</div>
+
+<div class="chat-input">
+    <div class="emoji-btn" onclick="addEmoji()">😀</div>
+
+    <input
+        type="text"
+        id="messageInput"
+        placeholder="Type a message..."
+    >
+
+    <button type="button" onclick="sendMessage()">
+        Send
+    </button>
+</div>
+<script>
     const API_URL =
 "https://script.google.com/macros/s/AKfycbyqLPQl93NzY9VV9Ok7jDBmZ60PrcGQD2Uzkh1C42yUvsND6JUjGn9dvXuxYPKrbJFh/exec";
-    async function loadMessages() {
+   async function loadMessages() {
 
     try {
 
@@ -370,13 +385,33 @@
             API_URL + "?action=getMessages&roomId=general"
         );
 
+        if (!res.ok) {
+            throw new Error("Server returned HTTP " + res.status);
+        }
+
         const data = await res.json();
 
-        messages = data;
+        console.log("Messages response:", data);
+
+        if (Array.isArray(data)) {
+
+            messages = data;
+
+        } else if (Array.isArray(data.messages)) {
+
+            messages = data.messages;
+
+        } else {
+
+            console.error("Unexpected messages format:", data);
+
+            messages = [];
+        }
 
         renderMessages();
 
     } catch (err) {
+
         console.error("Load error:", err);
     }
 }
@@ -528,40 +563,57 @@ function renderMessages() {
     const container =
         document.getElementById("messages");
 
+    if (!container) {
+        console.error("Messages container not found.");
+        return;
+    }
+
     container.innerHTML = "";
+
+    if (!Array.isArray(messages)) {
+        console.error("Messages is not an array:", messages);
+        return;
+    }
 
     messages.forEach(msg => {
 
         const type =
             msg.name === currentUser
-            ? "sent"
-            : "received";
+                ? "sent"
+                : "received";
 
-        container.innerHTML += `
-            <div class="message ${type}">
-                <div class="message-name">
-                    ${msg.name}
-                </div>
+        const messageElement = document.createElement("div");
 
-                <div>
-                    ${msg.message}
-                </div>
+        messageElement.className =
+            `message ${type}`;
 
-                <div class="time">
-                    ${new Date(msg.timestamp)
-                        .toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit"
-                        })}
-                </div>
+        const time = msg.timestamp
+            ? new Date(msg.timestamp).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit"
+            })
+            : "";
+
+        messageElement.innerHTML = `
+            <div class="message-name">
+                ${msg.name || "Unknown"}
+            </div>
+
+            <div>
+                ${msg.message || ""}
+            </div>
+
+            <div class="time">
+                ${time}
             </div>
         `;
+
+        container.appendChild(messageElement);
     });
 
     container.scrollTop =
         container.scrollHeight;
 }
-
 /* ==========================
    EMOJI BUTTON
 ========================== */
