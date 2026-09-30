@@ -1,8 +1,7 @@
-<!DOCTYPE <html>
-<html lang="en"><head>
-  <meta charset="utf-8">
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>ST.GEORGE YOUTH COMMUNITY</title>
+  <title>Starter Page - Grandoria Bootstrap Template</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -11,249 +10,25 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+  <link href="https://fonts.googleapis.com/" rel="preconnect">
+  <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="./gallerypage_files/bootstrap.min.css" rel="stylesheet">
+  <link href="./gallerypage_files/bootstrap-icons.css" rel="stylesheet">
+  <link href="./gallerypage_files/aos.css" rel="stylesheet">
+  <link href="./gallerypage_files/glightbox.min.css" rel="stylesheet">
+  <link href="./gallerypage_files/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
-    <style>
-        .floating-leaf{
-    position:fixed;
-    font-size:2rem;
-    animation:float 8s linear infinite;
-    opacity:0.15;
-    pointer-events:none;
-}
-
-@keyframes float{
-    0%{
-        transform:translateY(110vh) rotate(0deg);
-    }
-    100%{
-        transform:translateY(-120px) rotate(360deg);
-    }
-}/* ==========================
-   ST GEORGE CHAT
-========================== */
-
-:root{
-    --primary:#0d6e63;
-    --primary-dark:#095247;
-    --shadow:0 4px 15px rgba(0,0,0,.08);
-}
-
-.chat-container{
-    width:100%;
-    max-width:1200px;
-    margin:0 auto;
-    display:flex;
-    flex-direction:column;
-    min-height:70vh;
-}
-
-.chat-header{
-    background:#fff;
-    padding:20px;
-    border-radius:16px 16px 0 0;
-    box-shadow:var(--shadow);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.chat-header h2{
-    margin:0;
-    color:var(--primary);
-    font-size:1.5rem;
-}
-
-.messages{
-    flex:1;
-    min-height:500px;
-    max-height:65vh;
-    overflow-y:auto;
-    padding:20px;
-    background:#f8f9fa;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.message{
-    max-width:75%;
-    padding:12px 16px;
-    border-radius:18px;
-    box-shadow:var(--shadow);
-    word-wrap:break-word;
-}
-
-.received{
-    background:#fff;
-    align-self:flex-start;
-    color:#333;
-}
-
-.sent{
-    background:var(--primary);
-    color:#fff;
-    align-self:flex-end;
-}
-
-.message-name{
-    font-size:.8rem;
-    font-weight:700;
-    margin-bottom:5px;
-}
-
-.time{
-    font-size:.7rem;
-    opacity:.75;
-    margin-top:5px;
-}
-
-/* ==========================
-   CHAT INPUT
-========================== */
-
-.chat-input{
-    background:#fff;
-    padding:15px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    box-shadow:var(--shadow);
-    border-radius:0 0 16px 16px;
-}
-
-.emoji-btn{
-    font-size:24px;
-    cursor:pointer;
-    flex-shrink:0;
-}
-
-.chat-input input{
-    flex:1;
-    min-width:0;
-    padding:14px 18px;
-    border:none;
-    background:#f1f3f5;
-    border-radius:30px;
-    outline:none;
-    color:#222;
-    font-size:15px;
-}
-
-.chat-input input::placeholder{
-    color:#888;
-}
-
-.chat-input button{
-    flex-shrink:0;
-    border:none;
-    background:var(--primary);
-    color:#fff;
-    padding:14px 24px;
-    border-radius:30px;
-    cursor:pointer;
-    font-weight:600;
-    transition:.3s;
-}
-
-.chat-input button:hover{
-    background:var(--primary-dark);
-}
-
-/* ==========================
-   REGISTER MODAL
-========================== */
-
-.register-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.6);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-}
-
-.register-card{
-    background:#fff;
-    padding:30px;
-    width:90%;
-    max-width:400px;
-    border-radius:20px;
-}
-
-.register-card h2{
-    margin-bottom:20px;
-    color:var(--primary);
-}
-
-.register-card input{
-    width:100%;
-    padding:15px;
-    margin-bottom:15px;
-    border:1px solid #ddd;
-    border-radius:12px;
-}
-
-.register-card button{
-    width:100%;
-    padding:15px;
-    background:var(--primary);
-    color:#fff;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-}
-
-.hidden{
-    display:none;
-}
-
-/* ==========================
-   MOBILE
-========================== */
-
-@media(max-width:768px){
-
-    .chat-header{
-        flex-direction:column;
-        gap:10px;
-        text-align:center;
-    }
-
-    .message{
-        max-width:90%;
-    }
-
-    .chat-input{
-        padding:10px;
-    }
-
-    .chat-input button{
-        padding:12px 16px;
-    }
-
-    .emoji-btn{
-        font-size:20px;
-    }
-}</style>
+  <link href="./gallerypage_files/main.css" rel="stylesheet">
 
   <!-- =======================================================
-  * Template Name: Grandoria
-  * Template URL: https://bootstrapmade.com/grandoria-bootstrap-hotel-template/
-  * Updated: Jul 29 2025 with Bootstrap v5.3.7
-  * Author: BootstrapMade.com
+  * Template Name: SESD COHORT 8 OF LAIKIPIA
+  * Template URL: https://nyotaprojectlaikipia2026cohort8.github.io/church-youth-app/
+  * Updated: Sep 9 2026 with Bootstrap v5.3.7
+  * Author: BootstrapMade.com and Cactus 🌵 Jack Studios
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
@@ -265,7 +40,7 @@
     <div class="topbar d-flex align-items-center dark-background">
       <div class="container d-flex justify-content-center justify-content-md-between">
         <div class="contact-info d-flex align-items-center">
-          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:liamkabatha@gmail.com">Laikipiaiamkabatha@gmail.com</a></i>
+          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">samuelkabatha63@gmail.com</a></i>
           <i class="bi bi-phone d-flex align-items-center ms-4"><span>+254 7960 71670</span></i>
         </div>
         <div class="social-links d-none d-md-flex align-items-center">
@@ -283,51 +58,10 @@
         <a href="index.html" class="logo d-flex align-items-center">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.webp" alt=""> -->
-          <h1 class="sitename">SOCIAL EMOTIONAL SKILL DEVELOPMENT COHORT 8</h1>
+          <h1 class="sitename">SOCIO-EMOTIONAL SKILL DEVELOPMENT COHORT 8</h1>
         </a>
 
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="rooms.html">Rooms</a></li>
-            <li><a href="amenities.html">Amenities</a></li>
-            <li><a href="location.html">Location</a></li>
-            <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="room-details.html">Room Details</a></li>
-                <li><a href="restaurant.html">Restaurant</a></li>
-                <li><a href="offers.html">Offers</a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="booking.html">Booking</a></li>
-                <li><a href="terms.html">Terms Page</a></li>
-                <li><a href="privacy.html">Privacy Page</a></li>
-                <li><a href="404.html">404 Page</a></li>
-                <li><a href="starter-page.html" class="active">Starter Page</a></li>
-              </ul>
-            </li>
-            <li><a href="contact.html">Contact</a></li>
-
-            <li class="dropdown">
-              <a href="#english">
-                <svg class="icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g id="SVGRepo_iconCarrier">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 0H6V2H10V4H8.86807C8.57073 5.66996 7.78574 7.17117 6.6656 8.35112C7.46567 8.73941 8.35737 8.96842 9.29948 8.99697L10.2735 6H12.7265L15.9765 16H13.8735L13.2235 14H9.77647L9.12647 16H7.0235L8.66176 10.9592C7.32639 10.8285 6.08165 10.3888 4.99999 9.71246C3.69496 10.5284 2.15255 11 0.5 11H0V9H0.5C1.5161 9 2.47775 8.76685 3.33437 8.35112C2.68381 7.66582 2.14629 6.87215 1.75171 6H4.02179C4.30023 6.43491 4.62904 6.83446 4.99999 7.19044C5.88743 6.33881 6.53369 5.23777 6.82607 4H0V2H4V0ZM12.5735 12L11.5 8.69688L10.4265 12H12.5735Z" fill="currentColor"></path>
-                  </g>
-                </svg>
-                <span>English</span>
-                <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#french">French</a></li>
-                <li><a href="#deutsch">Deutsch</a></li>
-                <li><a href="#spanish">Spanish</a></li>
-              </ul>
-            </li>
-
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
+        
 
       </div>
 
@@ -340,11 +74,11 @@
     <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">compliments and grievances corner</h1>
+        <h1 class="mb-2 mb-lg-0">YOUTH ANNOUNCEMENTS WEBSITE</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Starter Page</li>
+            <li><a href="index.html">REGISTRATION WINDOW FOR YOUTH CHAMPIONS OPEN</a></li>
+            <li class="current">GALLERY PAGE</li>
           </ol>
         </nav>
       </div>
@@ -353,205 +87,112 @@
     <!-- Starter Section Section -->
     <section id="starter-section" class="starter-section section">
 
+
       <!-- Section Title -->
-      <div class="floating-leaf" style="left:5%; animation-delay:0s;">🍃</div>
-<div class="floating-leaf" style="left:25%; animation-delay:2s;">🌿</div>
-<div class="floating-leaf" style="left:50%; animation-delay:4s;">🍃</div>
-<div class="floating-leaf" style="left:75%; animation-delay:1s;">🌱</div>
-<div class="floating-leaf" style="left:90%; animation-delay:5s;">🍃</div>
-    <div id="registerModal" class="register-modal hidden"> <div class="register-card"> <h2>Join Youth Chat</h2> <input id="username" placeholder="Enter your name"> <button onclick="registerUser()">Join Chat</button> </div> </div> <div class="chat-app">  <div class="chat-container"> <div class="chat-header"> <h2>C AND G CORNERSTONE </h2> <div id="userDisplay">👤</div> </div> <div class="messages" id="messages">
-            <div class="chat-input"> <div class="emoji-btn" onclick="addEmoji()">😀</div> <input type="text" id="messageInput" placeholder="Type a message..."> <button onclick="sendMessage()"> Send </button> </div> </div> </div> <script>
-    const API_URL =
-"https://script.google.com/macros/s/AKfycbyqLPQl93NzY9VV9Ok7jDBmZ60PrcGQD2Uzkh1C42yUvsND6JUjGn9dvXuxYPKrbJFh/exec";
-    async function loadMessages() {
-
-    try {
-
-        const res = await fetch(
-            API_URL + "?action=getMessages&roomId=general"
-        );
-
-        const data = await res.json();
-
-        messages = data;
-
-        renderMessages();
-
-    } catch (err) {
-        console.error("Load error:", err);
-    }
-}
-let currentUser = localStorage.getItem("chatUser") || "";
-let members = JSON.parse(localStorage.getItem("members")) || [];
-let messages = JSON.parse(localStorage.getItem("messages")) || [];
-    
-
-/* ==========================
-   USER REGISTRATION
-========================== */
-
-if (currentUser) {
-    document.getElementById("registerModal").classList.add("hidden");
-    document.getElementById("userDisplay").textContent = "👤 " + currentUser;
-}
-
-function registerUser() {
-    const username = document.getElementById("username").value.trim();
-
-    if (!username) return;
-
-    currentUser = username;
-    localStorage.setItem("chatUser", username);
-
-    if (!members.includes(username)) {
-        members.push(username);
-        localStorage.setItem("members", JSON.stringify(members));
-    }
-
-    document.getElementById("registerModal").classList.add("hidden");
-    document.getElementById("userDisplay").textContent = "👤 " + username;
-
-    renderMembers();
-}
-
-/* ==========================
-   MEMBERS
-========================== */
-
-function renderMembers() {
-    const container = document.getElementById("members");
-
-    container.innerHTML = "";
-
-    members.forEach(member => {
-        container.innerHTML += `
-            <div class="member">
-                <div class="avatar">
-                    ${member.charAt(0).toUpperCase()}
-                </div>
-
-                <div>
-                    ${member}
-                </div>
-
-                <div class="status"></div>
+      <div class="container section-title aos-init aos-animate" data-aos="fade-up">
+        <span class="description-title">Starter Section</span>
+        <h2>YOUTH WEB BASED APPLICATION</h2>
+        <p>A 3 WEEK, NO-HOMEWORK BIBLE STUDY</p>
+      </div><!-- End Section Title -->
+<div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1 class="heading-title">Gallery</h1>
+              <p class="mb-0">Hello 👋 my name is Samuel Kabatha a NYOTA Project beneficiary and this is a gallery to reflect on Kenya's diversity (ethnic, religious, linguistic, e.t.c)</p>
             </div>
-        `;
-    });
-}
+          </div>
+      <section id="gallery" class="gallery section">
 
-/* ==========================
-   SEND MESSAGE
-========================== */
+      <div class="container-fluid aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
 
-async function sendMessage() {
+        <div class="row gy-4 justify-content-center">
 
-    const input = document.getElementById("messageInput");
-    const text = input.value.trim();
-
-    if (!text || !currentUser) return;
-
-    try {
-
-        await fetch(API_URL, {
-            method: "POST",
-            body: JSON.stringify({
-                action: "sendMessage",
-                name: currentUser,
-                message: text,
-                roomId: "general"
-            })
-        });
-
-        input.value = "";
-
-        
-
-    } catch (err) {
-        console.error("Send error:", err);
-    }
-}
-/* ==========================
-   RENDER MESSAGES
-========================== */
-
-function renderMessages() {
-
-    const container =
-        document.getElementById("messages");
-
-    container.innerHTML = "";
-
-    messages.forEach(msg => {
-
-        const type =
-            msg.name === currentUser
-            ? "sent"
-            : "received";
-
-        container.innerHTML += `
-            <div class="message ${type}">
-                <div class="message-name">
-                    ${msg.name}
-                </div>
-
-                <div>
-                    ${msg.message}
-                </div>
-
-                <div class="time">
-                    ${new Date(msg.timestamp)
-                        .toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit"
-                        })}
-                </div>
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+              <img src="./gallerypage_files/gallery-1.webp" class="img-fluid" alt="">
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="./gallerypage_files/gallery-1.webp" title="Gallery 1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
             </div>
-        `;
-    });
+          </div><!-- End Gallery Item -->
 
-    container.scrollTop =
-        container.scrollHeight;
-}
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+              <img src="./gallerypage_files/gallery-2.webp" class="img-fluid" alt="">
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="./gallerypage_files/gallery-2.webp" title="Gallery 2" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div><!-- End Gallery Item -->
 
-/* ==========================
-   EMOJI BUTTON
-========================== */
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+              <img src="./gallerypage_files/gallery-3.webp" class="img-fluid" alt="">
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="./gallerypage_files/gallery-3.webp" title="Gallery 3" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div><!-- End Gallery Item -->
 
-function addEmoji() {
-    const input =
-        document.getElementById("messageInput");
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+              <img src="./gallerypage_files/gallery-4.webp" class="img-fluid" alt="">
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="./gallerypage_files/gallery-4.webp" title="Gallery 4" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div><!-- End Gallery Item -->
 
-    input.value += " 😊";
-    input.focus();
-}
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+              <img src="./gallerypage_files/gallery-5.webp" class="img-fluid" alt="">
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="./gallerypage_files/gallery-5.webp" title="Gallery 5" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div><!-- End Gallery Item -->
 
-/* ==========================
-   ENTER KEY
-========================== */
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+              <img src="./gallerypage_files/gallery-6.webp" class="img-fluid" alt="">
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="./gallerypage_files/gallery-6.webp" title="Gallery 6" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div><!-- End Gallery Item -->
 
-document
-    .getElementById("messageInput")
-    .addEventListener("keypress", e => {
-        if (e.key === "Enter") {
-            sendMessage();
-        }
-    });
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+              <img src="./gallerypage_files/gallery-7.webp" class="img-fluid" alt="">
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="./gallerypage_files/gallery-7.webp" title="Gallery 7" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div><!-- End Gallery Item -->
 
-/* ==========================
-   INITIAL LOAD
-========================== */
+          <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="gallery-item h-100">
+              <img src="./gallerypage_files/gallery-8.webp" class="img-fluid" alt="">
+              <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="./gallerypage_files/gallery-8.webp" title="Gallery 8" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div><!-- End Gallery Item -->
 
-renderMembers();
-renderMessages();
+        </div>
 
-    setInterval(loadMessages, 3000);
-    loadMessages();
+      </div>
 
+    </section>
 
-</script> 
-
-    </div></section><!-- /Starter Section Section -->
+    </section><!-- /Starter Section Section -->
 
   </main>
 
@@ -632,7 +273,7 @@ renderMessages();
             <!-- You can delete the links only if you purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
-            Designed by <a href="https://samterrencekabatha.github.io/Best-Artworks-For-Kibz/">BootstrapMade</a>
+            Designed by <a href="https://nyotaprojectlaikipia2026cohort8.github.io/Best-Artworks-For-Kibz/">BootstrapMade</a>
           </div>
         </div>
 
@@ -655,17 +296,17 @@ renderMessages();
   
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="./gallerypage_files/bootstrap.bundle.min.js"></script>
+  <script src="./gallerypage_files/validate.js"></script>
+  <script src="./gallerypage_files/aos.js"></script>
+  <script src="./gallerypage_files/purecounter_vanilla.js"></script>
+  <script src="./gallerypage_files/glightbox.min.js"></script>
+  <script src="./gallerypage_files/swiper-bundle.min.js"></script>
+  <script src="./gallerypage_files/imagesloaded.pkgd.min.js"></script>
+  <script src="./gallerypage_files/isotope.pkgd.min.js"></script>
 
   <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="./gallerypage_files/main.js"></script>
 
 
 

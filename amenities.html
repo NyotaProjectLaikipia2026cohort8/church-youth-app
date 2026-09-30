@@ -23,230 +23,7 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-    <style>
-        .floating-leaf{
-    position:fixed;
-    font-size:2rem;
-    animation:float 8s linear infinite;
-    opacity:0.15;
-    pointer-events:none;
-}
-
-@keyframes float{
-    0%{
-        transform:translateY(110vh) rotate(0deg);
-    }
-    100%{
-        transform:translateY(-120px) rotate(360deg);
-    }
-}/* ==========================
-   ST GEORGE CHAT
-========================== */
-
-:root{
-    --primary:#0d6e63;
-    --primary-dark:#095247;
-    --shadow:0 4px 15px rgba(0,0,0,.08);
-}
-
-.chat-container{
-    width:100%;
-    max-width:1200px;
-    margin:0 auto;
-    display:flex;
-    flex-direction:column;
-    min-height:70vh;
-}
-
-.chat-header{
-    background:#fff;
-    padding:20px;
-    border-radius:16px 16px 0 0;
-    box-shadow:var(--shadow);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.chat-header h2{
-    margin:0;
-    color:var(--primary);
-    font-size:1.5rem;
-}
-
-.messages{
-    flex:1;
-    min-height:500px;
-    max-height:65vh;
-    overflow-y:auto;
-    padding:20px;
-    background:#f8f9fa;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.message{
-    max-width:75%;
-    padding:12px 16px;
-    border-radius:18px;
-    box-shadow:var(--shadow);
-    word-wrap:break-word;
-}
-
-.received{
-    background:#fff;
-    align-self:flex-start;
-    color:#333;
-}
-
-.sent{
-    background:var(--primary);
-    color:#fff;
-    align-self:flex-end;
-}
-
-.message-name{
-    font-size:.8rem;
-    font-weight:700;
-    margin-bottom:5px;
-}
-
-.time{
-    font-size:.7rem;
-    opacity:.75;
-    margin-top:5px;
-}
-
-/* ==========================
-   CHAT INPUT
-========================== */
-
-.chat-input{
-    background:#fff;
-    padding:15px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    box-shadow:var(--shadow);
-    border-radius:0 0 16px 16px;
-}
-
-.emoji-btn{
-    font-size:24px;
-    cursor:pointer;
-    flex-shrink:0;
-}
-
-.chat-input input{
-    flex:1;
-    min-width:0;
-    padding:14px 18px;
-    border:none;
-    background:#f1f3f5;
-    border-radius:30px;
-    outline:none;
-    color:#222;
-    font-size:15px;
-}
-
-.chat-input input::placeholder{
-    color:#888;
-}
-
-.chat-input button{
-    flex-shrink:0;
-    border:none;
-    background:var(--primary);
-    color:#fff;
-    padding:14px 24px;
-    border-radius:30px;
-    cursor:pointer;
-    font-weight:600;
-    transition:.3s;
-}
-
-.chat-input button:hover{
-    background:var(--primary-dark);
-}
-
-/* ==========================
-   REGISTER MODAL
-========================== */
-
-.register-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.6);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-}
-
-.register-card{
-    background:#fff;
-    padding:30px;
-    width:90%;
-    max-width:400px;
-    border-radius:20px;
-}
-
-.register-card h2{
-    margin-bottom:20px;
-    color:var(--primary);
-}
-
-.register-card input{
-    width:100%;
-    padding:15px;
-    margin-bottom:15px;
-    border:1px solid #ddd;
-    border-radius:12px;
-}
-
-.register-card button{
-    width:100%;
-    padding:15px;
-    background:var(--primary);
-    color:#fff;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-}
-
-.hidden{
-    display:none;
-}
-
-/* ==========================
-   MOBILE
-========================== */
-
-@media(max-width:768px){
-
-    .chat-header{
-        flex-direction:column;
-        gap:10px;
-        text-align:center;
-    }
-
-    .message{
-        max-width:90%;
-    }
-
-    .chat-input{
-        padding:10px;
-    }
-
-    .chat-input button{
-        padding:12px 16px;
-    }
-
-    .emoji-btn{
-        font-size:20px;
-    }
-}</style>
+    
 
   <!-- =======================================================
   * Template Name: Grandoria
@@ -255,6 +32,16 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+<style id="sg-true-3d-css">
+#sg3d-root{position:fixed;right:18px;bottom:18px;width:260px;height:340px;z-index:99990;pointer-events:none}
+#sg3d-canvas{width:100%;height:100%;display:block;filter:drop-shadow(0 14px 18px rgba(0,0,0,.28))}
+.sg3d-bubble{position:absolute;right:0;top:-8px;max-width:190px;background:rgba(255,255,255,.97);color:#123;border-radius:16px;padding:9px 12px;font:600 12px/1.3 Arial,sans-serif;box-shadow:0 8px 25px rgba(0,0,0,.18);opacity:0;transform:translateY(8px) scale(.96);transition:.25s;pointer-events:none}
+.sg3d-bubble.show{opacity:1;transform:translateY(0) scale(1)}
+.sg3d-hud{position:absolute;left:0;bottom:0;background:rgba(7,94,84,.94);color:#fff;border-radius:14px;padding:7px 10px;font:700 11px Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.2);pointer-events:none}
+.sg3d-hud b{color:#ffd54a}.sg3d-label{font-size:10px;opacity:.85}
+@media(max-width:600px){#sg3d-root{width:190px;height:255px;right:6px;bottom:8px}.sg3d-bubble{max-width:145px;font-size:10px}.sg3d-hud{font-size:9px;padding:5px 7px}}
+</style>
 </head>
 
 <body class="starter-page-page" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
@@ -358,300 +145,2469 @@
 <div class="floating-leaf" style="left:50%; animation-delay:4s;">🍃</div>
 <div class="floating-leaf" style="left:75%; animation-delay:1s;">🌱</div>
 <div class="floating-leaf" style="left:90%; animation-delay:5s;">🍃</div>
-    <div id="registerModal" class="register-modal"> <div class="register-card"> <h2>Join Youth Chat</h2> <input id="username" placeholder="Enter your name"> <button onclick="registerUser()">Join Chat</button> </div> </div> <div class="chat-app">  <div class="chat-container"> <div class="chat-header"> <h2>C AND G CORNERSTONE </h2> <div id="userDisplay">👤</div> </div> <div class="messages" id="messages">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary:#0d6e63;
+    --primary-dark:#095247;
+    --light:#f4f7f7;
+    --border:#e3e7e7;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#eef3f3;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.chat-wrapper{
+    width:100%;
+    max-width:1100px;
+    height:92vh;
+    margin:4vh auto;
+    background:#fff;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+    display:flex;
+    flex-direction:column;
+}
+
+/* HEADER */
+
+.chat-header{
+    background:linear-gradient(135deg,var(--primary),#063f38);
+    color:white;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.ai-avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:white;
+    color:var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+}
+
+.header-title{
+    font-weight:bold;
+    font-size:17px;
+}
+
+.header-status{
+    font-size:12px;
+    opacity:.8;
+}
+
+.header-user{
+    font-size:13px;
+}
+
+/* MESSAGES */
+
+.messages{
+    flex:1;
+    overflow-y:auto;
+    padding:25px;
+    background:
+        radial-gradient(circle at top left,rgba(13,110,99,.04),transparent 30%),
+        #f7f9f9;
+}
+
+.message-row{
+    display:flex;
+    margin-bottom:14px;
+}
+
+.message-row.sent{
+    justify-content:flex-end;
+}
+
+.message-bubble{
+    max-width:75%;
+    padding:11px 14px;
+    border-radius:18px;
+    background:white;
+    border:1px solid var(--border);
+    box-shadow:0 2px 7px rgba(0,0,0,.04);
+}
+
+.sent .message-bubble{
+    background:var(--primary);
+    color:white;
+    border:none;
+}
+
+.ai-message .message-bubble{
+    border-left:4px solid var(--primary);
+}
+
+.message-name{
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.message-text{
+    white-space:pre-wrap;
+    word-break:break-word;
+    line-height:1.5;
+}
+
+.message-time{
+    font-size:10px;
+    opacity:.65;
+    margin-top:5px;
+}
+
+.chat-image{
+    display:block;
+    max-width:280px;
+    width:100%;
+    border-radius:12px;
+    margin-top:6px;
+    cursor:pointer;
+}
+
+/* TYPING */
+
+.typing{
+    display:none;
+    padding:5px 20px;
+    font-size:12px;
+    color:#777;
+}
+
+.typing span{
+    animation:blink 1.4s infinite;
+}
+
+@keyframes blink{
+    0%,100%{opacity:.2}
+    50%{opacity:1}
+}
+
+/* COMPOSER */
+
+.composer{
+    padding:12px;
+    background:white;
+    border-top:1px solid var(--border);
+}
+
+.composer-tools{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.tool-btn{
+    border:none;
+    background:transparent;
+    font-size:22px;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.tool-btn:hover{
+    background:#edf3f2;
+}
+
+.message-input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:#f0f3f3;
+    border-radius:24px;
+    padding:13px 17px;
+    font-size:15px;
+}
+
+.send-btn{
+    width:46px;
+    height:46px;
+    border:none;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    font-size:18px;
+}
+
+.send-btn:hover{
+    background:var(--primary-dark);
+}
+
+/* ATTACHMENT PREVIEW */
+
+.preview{
+    display:none;
+    margin-bottom:8px;
+    padding:8px;
+    background:#f2f5f5;
+    border-radius:12px;
+}
+
+.preview img{
+    max-width:100px;
+    max-height:100px;
+    border-radius:10px;
+}
+
+.preview-name{
+    font-size:12px;
+    margin-left:10px;
+}
+
+/* EMOJI PANEL */
+
+.emoji-panel{
+    display:none;
+    padding:10px;
+    background:white;
+    border-top:1px solid var(--border);
+}
+
+.emoji{
+    display:inline-block;
+    font-size:24px;
+    padding:5px;
+    cursor:pointer;
+}
+
+/* AI PANEL */
+
+.ai-panel{
+    display:none;
+    position:absolute;
+    right:20px;
+    bottom:90px;
+    width:280px;
+    background:white;
+    border-radius:16px;
+    box-shadow:0 8px 30px rgba(0,0,0,.18);
+    padding:15px;
+    z-index:20;
+}
+
+.ai-panel h6{
+    color:var(--primary);
+}
+
+.ai-action{
+    width:100%;
+    border:none;
+    background:#f1f5f4;
+    padding:9px;
+    margin-bottom:6px;
+    border-radius:10px;
+    text-align:left;
+}
+
+.ai-action:hover{
+    background:#dcebea;
+}
+
+/* REGISTER */
+
+.register-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.register-box{
+    width:90%;
+    max-width:400px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+}
+
+.register-box h3{
+    color:var(--primary);
+}
+
+.register-box input{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    margin:12px 0;
+}
+
+.register-box button{
+    width:100%;
+    border:none;
+    padding:13px;
+    background:var(--primary);
+    color:white;
+    border-radius:12px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .chat-wrapper{
+        margin:0;
+        width:100%;
+        height:100vh;
+        border-radius:0;
+    }
+
+    .messages{
+        padding:14px;
+    }
+
+    .message-bubble{
+        max-width:88%;
+    }
+
+    .header-user{
+        display:none;
+    }
+
+    .ai-panel{
+        right:10px;
+        bottom:80px;
+        width:260px;
+    }
+
+}
+
+</style>
+
+
+
+
+<!-- REGISTER -->
+
+<div id="registerOverlay" class="register-overlay hidden">
+
+    <div class="register-box">
+
+        <div style="font-size:45px;">👋</div>
+
+        <h3>Join St George Youth Chat</h3>
+
+        <p class="text-muted">
+            Enter your name to join the community.
+        </p>
+
+        <input id="username" type="text" placeholder="Your name" maxlength="60">
+
+        <button onclick="registerUser()">Join Community</button>
+
+    </div>
+
 </div>
 
-<div class="chat-input">
-    <div class="emoji-btn" onclick="addEmoji()">😀</div>
 
-    <input
-        type="text"
-        id="messageInput"
-        placeholder="Type a message..."
-    >
+<!-- CHAT -->
 
-    <button type="button" onclick="sendMessage()">
-        Send
-    </button>
+<div class="chat-wrapper">
+
+    <!-- HEADER -->
+
+    <div class="chat-header">
+
+        <div class="header-left">
+
+            <div class="ai-avatar">
+                🤖
+            </div>
+
+            <div>
+
+                <div class="header-title">
+                    St George Youth Community
+                </div>
+
+                <div class="header-status">
+                    <span id="connectionStatus" style="color: rgb(255, 180, 180);">● Offline</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="header-user">
+
+            👤 <span id="userDisplay">sam_kabz_</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MESSAGES -->
+
+    <div id="messages" class="messages"><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/uc?export=view&amp;id=1DqtfhH79b8pH34Drsn6ZNMPbvF8RxNex" alt="Shared image" loading="lazy"><div class="message-time">10:46 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><div class="message-text">😂mic check one two</div><div class="message-time">10:48 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/uc?export=view&amp;id=1rtmAgf5B0Y_rifj3ZU6hgXJ00Y8tDH54" alt="Shared image" loading="lazy"><div class="message-text">mic check one two over!</div><div class="message-time">10:48 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1O9WxPTK7oWNZlubbqvBqi9a4dwzWuR7A&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">11:27 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=13n4ik5DQs60H3ogZYGiNPHX8nUZW3cKX&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:07 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><div class="message-text">😀OOH IT WORKS!!</div><div class="message-time">12:08 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1x4LARCeYOzRaEqxD9u53joZOMzRQ6wk8&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:08 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sammy's nickname</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=15jWva2p3Dbmy8FCddSzXpwteq47HY53u&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">10:32 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><div class="message-text">hello</div><div class="message-time">10:58 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sammy's nickname</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=10YVAfRxmS7u7okgwWuHCKaPLkhsLlFMs&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">10:59 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1fl5zaMCVl-iTQJdbsllmgyi2SZLa6l8E&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:02 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">samuelkabatha63@gmail.com</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1ZPTR2EFnpqGlv_XAX5tUNnt-7DLfbvtA&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:26 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1c6N8wVpG3NcchWq3Tyc69GhtTbcnfhsz&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:28 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1eyWRp1_DZgdy69BVmT0HS_GrzuojVrBz&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:55 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">samuelkabatha63@gmail.com</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=159VR9y35HJ2plP8uRQowTv3ajP8Yfx0a&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:57 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><div class="message-text">olooo!!!!👍</div><div class="message-time">09:46 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1UiU8EE_BnHvHMRJt-c_Y-yM4vhkJGvD3&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">09:47 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1m8Ig4ZBNyaSP7amqxzOxk01EIlUC7xTW&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">09:52 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><div class="message-text">💯</div><div class="message-time">09:54 PM</div></div></div></div>
+
+
+    <!-- TYPING -->
+
+    <div id="typing" class="typing">
+
+        🤖 Youth Assistant is thinking
+        <span>•••</span>
+
+    </div>
+
+
+    <!-- AI PANEL -->
+
+    <div id="aiPanel" class="ai-panel">
+
+        <h6>
+            🤖 Youth Assistant
+        </h6>
+
+        <button class="ai-action" onclick="askAI('Summarize the conversation so far.')">
+
+            📝 Summarize conversation
+
+        </button>
+
+        <button class="ai-action" onclick="askAI('Give us a motivational message for the youth.')">
+
+            💡 Give motivation
+
+        </button>
+
+        <button class="ai-action" onclick="askAI('What important topics are people discussing?')">
+
+            🔎 Analyze discussion
+
+        </button>
+
+        <button class="ai-action" onclick="askAI('Suggest a positive youth activity for this week.')">
+
+            🎯 Suggest activity
+
+        </button>
+
+    </div>
+
+
+    <!-- IMAGE PREVIEW -->
+
+    <div id="preview" class="preview">
+
+        <img id="previewImage">
+
+        <span id="previewName" class="preview-name"></span>
+
+        <button onclick="removeAttachment()" class="btn btn-sm btn-danger float-end">
+
+            ×
+
+        </button>
+
+    </div>
+
+
+    <!-- EMOJI -->
+
+    <div id="emojiPanel" class="emoji-panel">
+
+        <span class="emoji" onclick="insertEmoji('😀')">😀</span>
+        <span class="emoji" onclick="insertEmoji('😂')">😂</span>
+        <span class="emoji" onclick="insertEmoji('😊')">😊</span>
+        <span class="emoji" onclick="insertEmoji('❤️')">❤️</span>
+        <span class="emoji" onclick="insertEmoji('🙏')">🙏</span>
+        <span class="emoji" onclick="insertEmoji('🔥')">🔥</span>
+        <span class="emoji" onclick="insertEmoji('🎉')">🎉</span>
+        <span class="emoji" onclick="insertEmoji('👍')">👍</span>
+        <span class="emoji" onclick="insertEmoji('🤣')">🤣</span>
+        <span class="emoji" onclick="insertEmoji('💯')">💯</span>
+        <span class="emoji" onclick="insertEmoji('🙌')">🙌</span>
+        <span class="emoji" onclick="insertEmoji('❤️')">❤️</span>
+
+    </div>
+
+
+    <!-- COMPOSER -->
+
+    <div class="composer">
+
+        <div class="composer-tools">
+
+            <!-- EMOJI -->
+
+            <button class="tool-btn" onclick="toggleEmoji()" title="Emoji">
+
+                😊
+
+            </button>
+
+
+            <!-- IMAGE -->
+
+            <button class="tool-btn" onclick="document.getElementById('imageInput').click()" title="Image">
+
+                <i class="bi bi-image"></i>
+
+            </button>
+
+            <input id="imageInput" type="file" accept="image/*" hidden="" onchange="handleImage(event)">
+
+
+            <!-- AI -->
+
+            <button class="tool-btn" onclick="toggleAIPanel()" title="AI Assistant">
+
+                🤖
+
+            </button>
+
+
+            <!-- INPUT -->
+
+            <input id="messageInput" class="message-input" type="text" placeholder="Message the community..." autocomplete="off">
+
+
+            <!-- SEND -->
+
+            <button id="sendButton" class="send-btn" onclick="sendMessage()">
+
+                <i class="bi bi-send-fill"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
+
+
+
 <script>
-    const API_URL =
-"https://script.google.com/macros/s/AKfycbyqLPQl93NzY9VV9Ok7jDBmZ60PrcGQD2Uzkh1C42yUvsND6JUjGn9dvXuxYPKrbJFh/exec";
-   async function loadMessages() {
+/* ============================================================
+   ST GEORGE YOUTH CHAT
+   DEBUGGED CHAT ENGINE
+   ============================================================ */
+
+/*
+ IMPORTANT:
+ Replace this URL with the /exec URL from your CURRENT
+ Google Apps Script Web App deployment.
+*/
+const API_URL =
+"https://script.google.com/macros/s/AKfycbyX6LQnFHqPySpKc__sX34P-Kj_iJGGAvwkSyX_GVy8YCwFO_4Q2aLzGqmelpZG7apy/exec";
+
+const ROOM_ID = "general";
+const AI_NAME = "Youth Assistant 🤖";
+
+let currentUser = localStorage.getItem("chatUser") || "";
+let messages = [];
+let selectedImage = null;
+let loadingMessages = false;
+let sendingMessage = false;
+
+
+/* ============================================================
+   START APPLICATION
+   ============================================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    setupUser();
+    setupKeyboard();
+
+    // Load messages after page has completely initialized
+    setTimeout(function () {
+        loadMessages();
+    }, 500);
+
+    // Refresh messages every 3 seconds
+    setInterval(function () {
+        loadMessages();
+    }, 3000);
+
+});
+
+
+/* ============================================================
+   USER
+   ============================================================ */
+
+function setupUser() {
+
+    const overlay = document.getElementById("registerOverlay");
+    const display = document.getElementById("userDisplay");
+
+    if (!overlay || !display) return;
+
+    if (currentUser) {
+
+        overlay.classList.add("hidden");
+        display.textContent = currentUser;
+
+    } else {
+
+        overlay.classList.remove("hidden");
+        display.textContent = "Guest";
+
+    }
+}
+
+
+async function registerUser() {
+
+    const input = document.getElementById("username");
+
+    if (!input) return;
+
+    const name = input.value.trim();
+
+    if (!name) {
+
+        alert("Please enter your name.");
+        input.focus();
+        return;
+
+    }
+
+    if (name.length < 2) {
+
+        alert("Please enter at least 2 characters.");
+        return;
+
+    }
+
+    const button = document.querySelector(
+        "#registerOverlay button"
+    );
+
+    if (button) {
+        button.disabled = true;
+        button.textContent = "Joining...";
+    }
 
     try {
 
-        const res = await fetch(
-            API_URL + "?action=getMessages&roomId=general"
-        );
+        const result = await apiRequest({
+            action: "registerMember",
+            name: name
+        });
 
-        if (!res.ok) {
-            throw new Error("Server returned HTTP " + res.status);
+        if (!result || result.success === false) {
+
+            throw new Error(
+                result?.message ||
+                "Registration failed."
+            );
+
         }
 
-        const data = await res.json();
+        currentUser = name;
 
-        console.log("Messages response:", data);
+        localStorage.setItem(
+            "chatUser",
+            currentUser
+        );
+
+        const overlay =
+            document.getElementById("registerOverlay");
+
+        const display =
+            document.getElementById("userDisplay");
+
+        if (overlay) {
+            overlay.classList.add("hidden");
+        }
+
+        if (display) {
+            display.textContent = currentUser;
+        }
+
+        await loadMessages();
+
+    } catch (error) {
+
+        console.error("REGISTRATION ERROR:", error);
+
+        alert(
+            "Registration failed.\n\n" +
+            getErrorMessage(error)
+        );
+
+    } finally {
+
+        if (button) {
+
+            button.disabled = false;
+            button.textContent = "Join Community";
+
+        }
+
+    }
+
+}
+
+
+/* ============================================================
+   API REQUEST
+   ============================================================ */
+
+async function apiRequest(payload) {
+
+    console.log("API REQUEST:", payload);
+
+    let response;
+
+    try {
+
+        /*
+         DO NOT add:
+         Content-Type: application/json
+
+         Keeping the request simple avoids unnecessary
+         CORS preflight problems with Google Apps Script.
+        */
+
+        response = await fetch(API_URL, {
+
+            method: "POST",
+
+            body: JSON.stringify(payload),
+
+            cache: "no-store"
+
+        });
+
+    } catch (networkError) {
+
+        console.error(
+            "NETWORK ERROR:",
+            networkError
+        );
+
+        throw new Error(
+            "Cannot connect to Google Apps Script. " +
+            "Check your Web App URL, deployment access, " +
+            "internet connection and Apps Script deployment."
+        );
+
+    }
+
+
+    const rawText = await response.text();
+
+    console.log(
+        "API RESPONSE:",
+        rawText
+    );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            "Server returned HTTP " +
+            response.status
+        );
+
+    }
+
+
+    if (!rawText) {
+
+        throw new Error(
+            "Google Apps Script returned an empty response."
+        );
+
+    }
+
+
+    try {
+
+        return JSON.parse(rawText);
+
+    } catch (jsonError) {
+
+        console.error(
+            "INVALID JSON FROM SERVER:",
+            rawText
+        );
+
+        throw new Error(
+            "The server did not return valid JSON.\n\n" +
+            "This usually means the Apps Script deployment " +
+            "or Code.gs has an error."
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   LOAD MESSAGES
+   ============================================================ */
+
+async function loadMessages() {
+
+    if (loadingMessages) return;
+
+    loadingMessages = true;
+
+    try {
+
+        const url =
+            API_URL +
+            "?action=getMessages" +
+            "&roomId=" +
+            encodeURIComponent(ROOM_ID);
+
+        const response = await fetch(
+            url,
+            {
+                method: "GET",
+                cache: "no-store"
+            }
+        );
+
+        const rawText = await response.text();
+
+        console.log(
+            "GET MESSAGES:",
+            rawText
+        );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " + response.status
+            );
+
+        }
+
+        let data;
+
+        try {
+
+            data = JSON.parse(rawText);
+
+        } catch (e) {
+
+            throw new Error(
+                "Messages endpoint returned invalid JSON."
+            );
+
+        }
+
+
+        if (data.success === false) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load messages."
+            );
+
+        }
+
 
         if (Array.isArray(data)) {
 
             messages = data;
 
-        } else if (Array.isArray(data.messages)) {
+        } else if (
+            data &&
+            Array.isArray(data.messages)
+        ) {
 
             messages = data.messages;
 
         } else {
 
-            console.error("Unexpected messages format:", data);
-
             messages = [];
+
         }
+
+
+        setConnectionStatus(
+            "● Online",
+            true
+        );
 
         renderMessages();
 
-    } catch (err) {
+    } catch (error) {
 
-        console.error("Load error:", err);
-    }
-}
-let currentUser = localStorage.getItem("chatUser") || "";
-let members = JSON.parse(localStorage.getItem("members")) || [];
-let messages = JSON.parse(localStorage.getItem("messages")) || [];
-    
+        console.error(
+            "LOAD MESSAGES ERROR:",
+            error
+        );
 
-/* ==========================
-   USER REGISTRATION
-========================== */
+        setConnectionStatus(
+            "● Offline",
+            false
+        );
 
-if (currentUser) {
-    document.getElementById("registerModal").classList.add("hidden");
-    document.getElementById("userDisplay").textContent = "👤 " + currentUser;
-} else {
-    document.getElementById("registerModal").classList.remove("hidden");
-}
+    } finally {
 
-function registerUser() {
+        loadingMessages = false;
 
-    const usernameInput = document.getElementById("username");
-    const username = usernameInput.value.trim();
-
-    if (!username) {
-        alert("Please enter your name.");
-        usernameInput.focus();
-        return;
     }
 
-    currentUser = username;
-
-    localStorage.setItem("chatUser", currentUser);
-
-    if (!members.includes(currentUser)) {
-        members.push(currentUser);
-        localStorage.setItem("members", JSON.stringify(members));
-    }
-
-    document.getElementById("registerModal").classList.add("hidden");
-
-    document.getElementById("userDisplay").textContent =
-        "👤 " + currentUser;
-
-    usernameInput.value = "";
-
-    renderMembers();
-
-    console.log("Registered user:", currentUser);
 }
 
-/* ==========================
-   MEMBERS
-========================== */
 
-function renderMembers() {
-    const container = document.getElementById("members");
+/* ============================================================
+   CONNECTION STATUS
+   ============================================================ */
 
-    if (!container) {
-        return;
+function setConnectionStatus(text, online) {
+
+    const element =
+        document.getElementById(
+            "connectionStatus"
+        );
+
+    if (!element) return;
+
+    element.textContent = text;
+
+    if (online) {
+
+        element.style.color = "#8ff0c8";
+
+    } else {
+
+        element.style.color = "#ffb4b4";
+
     }
 
-    container.innerHTML = "";
-
-    members.forEach(member => {
-        container.innerHTML += `
-            <div class="member">
-                <div class="avatar">
-                    ${member.charAt(0).toUpperCase()}
-                </div>
-
-                <div>
-                    ${member}
-                </div>
-
-                <div class="status"></div>
-            </div>
-        `;
-    });
 }
-/* ==========================
+
+
+/* ============================================================
    SEND MESSAGE
-========================== */
+   ============================================================ */
 
 async function sendMessage() {
 
-    const input = document.getElementById("messageInput");
-    const text = input.value.trim();
+    if (sendingMessage) return;
 
     if (!currentUser) {
-        alert("Please register before sending a message.");
+
+        alert(
+            "Please join the community first."
+        );
+
         return;
+
     }
 
-    if (!text) {
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+    if (!input) return;
+
+
+    const text =
+        input.value.trim();
+
+
+    if (!text && !selectedImage) {
+
         return;
+
     }
+
+
+    const button =
+        document.getElementById(
+            "sendButton"
+        );
+
+
+    sendingMessage = true;
+
+
+    if (button) {
+
+        button.disabled = true;
+
+        button.innerHTML =
+            '<span class="spinner-border spinner-border-sm"></span>';
+
+    }
+
 
     try {
 
-        console.log("Sending message:", {
-            name: currentUser,
-            message: text,
-            roomId: "general"
-        });
+        let media = null;
 
-        const res = await fetch(API_URL, {
-            method: "POST",
-            body: JSON.stringify({
-                action: "sendMessage",
-                name: currentUser,
-                message: text,
-                roomId: "general"
-            })
-        });
 
-        console.log("HTTP status:", res.status);
+        /* ====================================================
+           IMAGE
+           ==================================================== */
 
-        const data = await res.json();
+        if (selectedImage) {
 
-        console.log("Server response:", data);
+            showTyping("Uploading image...");
 
-        if (!data.success) {
-            throw new Error(
-                data.message || "Message was rejected by server."
-            );
+            media =
+                await uploadImage(
+                    selectedImage
+                );
+
         }
+
+
+        /* ====================================================
+           SEND MESSAGE
+           ==================================================== */
+
+        hideTyping();
+
+
+        const result =
+            await apiRequest({
+
+                action: "sendMessage",
+
+                name: currentUser,
+
+                message: text,
+
+                roomId: ROOM_ID,
+
+                messageType:
+                    media
+                    ? "image"
+                    : "text",
+
+                mediaUrl:
+                    media
+                    ? media.url
+                    : "",
+
+                mediaId:
+                    media
+                    ? media.id
+                    : "",
+
+                fileName:
+                    media
+                    ? media.name
+                    : ""
+
+            });
+
+
+        if (
+            !result ||
+            result.success === false
+        ) {
+
+            throw new Error(
+                result?.message ||
+                "Message was rejected by the server."
+            );
+
+        }
+
 
         input.value = "";
 
+        removeAttachment();
+
+        hideEmoji();
+
         await loadMessages();
 
-    } catch (err) {
 
-        console.error("Send error:", err);
+        /* ====================================================
+           AI COMMAND
+           ==================================================== */
+
+        if (text) {
+
+            const lower =
+                text.toLowerCase().trim();
+
+
+            let aiQuestion = "";
+
+
+            if (
+                lower.startsWith("@ai")
+            ) {
+
+                aiQuestion =
+                    text
+                        .replace(/^@ai/i, "")
+                        .trim();
+
+            }
+
+            else if (
+                lower.startsWith("ai,")
+            ) {
+
+                aiQuestion =
+                    text
+                        .replace(/^ai,/i, "")
+                        .trim();
+
+            }
+
+            else if (
+                lower.startsWith(
+                    "youth assistant"
+                )
+            ) {
+
+                aiQuestion =
+                    text
+                        .replace(
+                            /^youth assistant/i,
+                            ""
+                        )
+                        .trim();
+
+            }
+
+
+            if (aiQuestion) {
+
+                await askAI(
+                    aiQuestion
+                );
+
+            }
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "SEND MESSAGE ERROR:",
+            error
+        );
 
         alert(
             "Message could not be sent.\n\n" +
-            err.message
+            getErrorMessage(error)
         );
+
+    } finally {
+
+        sendingMessage = false;
+
+        hideTyping();
+
+        if (button) {
+
+            button.disabled = false;
+
+            button.innerHTML =
+                '<i class="bi bi-send-fill"></i>';
+
+        }
+
     }
+
 }
-/* ==========================
+
+
+/* ============================================================
+   IMAGE UPLOAD
+   ============================================================ */
+
+async function uploadImage(file) {
+
+    if (!file) {
+
+        throw new Error(
+            "No image selected."
+        );
+
+    }
+
+
+    if (!file.type.startsWith("image/")) {
+
+        throw new Error(
+            "Only image files are supported."
+        );
+
+    }
+
+
+    /*
+     Limit original image size.
+     This prevents huge phone photos from
+     crashing the Apps Script request.
+    */
+
+    if (file.size > 10 * 1024 * 1024) {
+
+        throw new Error(
+            "Image is too large. " +
+            "Please choose an image below 10 MB."
+        );
+
+    }
+
+
+    const compressed =
+        await compressImage(file);
+
+
+    const base64 =
+        await fileToBase64(
+            compressed
+        );
+
+
+    const pureBase64 =
+        base64.split(",")[1];
+
+
+    if (!pureBase64) {
+
+        throw new Error(
+            "Could not prepare image data."
+        );
+
+    }
+
+
+    const result =
+        await apiRequest({
+
+            action: "uploadMedia",
+
+            name: currentUser,
+
+            roomId: ROOM_ID,
+
+            fileName:
+                "chat_" +
+                Date.now() +
+                ".jpg",
+
+            mimeType:
+                "image/jpeg",
+
+            data: pureBase64
+
+        });
+
+
+    if (
+        !result ||
+        result.success === false
+    ) {
+
+        throw new Error(
+            result?.message ||
+            "Image upload failed."
+        );
+
+    }
+
+
+    if (!result.url) {
+
+        throw new Error(
+            "Image uploaded but server did not return a URL."
+        );
+
+    }
+
+
+    return {
+
+        url: result.url,
+
+        id: result.id || "",
+
+        name:
+            result.name ||
+            "image.jpg"
+
+    };
+
+}
+
+
+/* ============================================================
+   IMAGE COMPRESSION
+   ============================================================ */
+
+function compressImage(file) {
+
+    return new Promise(
+        function(resolve, reject) {
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(event) {
+
+                    const image =
+                        new Image();
+
+
+                    image.onload =
+                        function() {
+
+                            const maxWidth = 1200;
+
+                            let width =
+                                image.width;
+
+                            let height =
+                                image.height;
+
+
+                            if (
+                                width >
+                                maxWidth
+                            ) {
+
+                                height =
+                                    Math.round(
+                                        height *
+                                        maxWidth /
+                                        width
+                                    );
+
+                                width =
+                                    maxWidth;
+
+                            }
+
+
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
+                                );
+
+
+                            canvas.width =
+                                width;
+
+                            canvas.height =
+                                height;
+
+
+                            const ctx =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            if (!ctx) {
+
+                                reject(
+                                    new Error(
+                                        "Could not create image canvas."
+                                    )
+                                );
+
+                                return;
+
+                            }
+
+
+                            ctx.drawImage(
+                                image,
+                                0,
+                                0,
+                                width,
+                                height
+                            );
+
+
+                            canvas.toBlob(
+                                function(blob) {
+
+                                    if (!blob) {
+
+                                        reject(
+                                            new Error(
+                                                "Image compression failed."
+                                            )
+                                        );
+
+                                        return;
+
+                                    }
+
+
+                                    resolve(blob);
+
+                                },
+                                "image/jpeg",
+                                0.72
+                            );
+
+                        };
+
+
+                    image.onerror =
+                        function() {
+
+                            reject(
+                                new Error(
+                                    "Browser could not read image."
+                                )
+                            );
+
+                        };
+
+
+                    image.src =
+                        event.target.result;
+
+                };
+
+
+            reader.onerror =
+                function() {
+
+                    reject(
+                        new Error(
+                            "Could not read selected image."
+                        )
+                    );
+
+                };
+
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+}
+
+
+/* ============================================================
+   FILE TO BASE64
+   ============================================================ */
+
+function fileToBase64(file) {
+
+    return new Promise(
+        function(resolve, reject) {
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function() {
+
+                    resolve(
+                        reader.result
+                    );
+
+                };
+
+
+            reader.onerror =
+                function() {
+
+                    reject(
+                        new Error(
+                            "File conversion failed."
+                        )
+                    );
+
+                };
+
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+}
+
+
+/* ============================================================
+   IMAGE SELECT
+   ============================================================ */
+
+function handleImage(event) {
+
+    const file =
+        event.target.files &&
+        event.target.files[0];
+
+
+    if (!file) return;
+
+
+    if (!file.type.startsWith("image/")) {
+
+        alert(
+            "Please select a valid image."
+        );
+
+        event.target.value = "";
+
+        return;
+
+    }
+
+
+    selectedImage = file;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e) {
+
+            const previewImage =
+                document.getElementById(
+                    "previewImage"
+                );
+
+            const previewName =
+                document.getElementById(
+                    "previewName"
+                );
+
+            const preview =
+                document.getElementById(
+                    "preview"
+                );
+
+
+            if (previewImage) {
+
+                previewImage.src =
+                    e.target.result;
+
+            }
+
+
+            if (previewName) {
+
+                previewName.textContent =
+                    file.name;
+
+            }
+
+
+            if (preview) {
+
+                preview.style.display =
+                    "block";
+
+            }
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+function removeAttachment() {
+
+    selectedImage = null;
+
+
+    const input =
+        document.getElementById(
+            "imageInput"
+        );
+
+    const preview =
+        document.getElementById(
+            "preview"
+        );
+
+
+    if (input) {
+
+        input.value = "";
+
+    }
+
+
+    if (preview) {
+
+        preview.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* ============================================================
    RENDER MESSAGES
-========================== */
+   ============================================================ */
 
 function renderMessages() {
 
     const container =
-        document.getElementById("messages");
+        document.getElementById(
+            "messages"
+        );
 
-    if (!container) {
-        console.error("Messages container not found.");
-        return;
-    }
+
+    if (!container) return;
+
+
+    const wasNearBottom =
+        container.scrollTop +
+        container.clientHeight >=
+        container.scrollHeight - 180;
+
 
     container.innerHTML = "";
 
-    if (!Array.isArray(messages)) {
-        console.error("Messages is not an array:", messages);
+
+    if (!messages.length) {
+
+        const empty =
+            document.createElement(
+                "div"
+            );
+
+        empty.style.textAlign =
+            "center";
+
+        empty.style.color =
+            "#999";
+
+        empty.style.padding =
+            "40px 10px";
+
+        empty.innerHTML =
+            "👋 Welcome to St George Youth Community<br>" +
+            "<small>Start the conversation.</small>";
+
+        container.appendChild(
+            empty
+        );
+
         return;
+
     }
 
-    messages.forEach(msg => {
 
-        const type =
-            msg.name === currentUser
-                ? "sent"
-                : "received";
+    messages.forEach(
+        function(msg) {
 
-        const messageElement = document.createElement("div");
+            if (!msg) return;
 
-        messageElement.className =
-            `message ${type}`;
 
-        const time = msg.timestamp
-            ? new Date(msg.timestamp).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit"
-            })
-            : "";
+            const sender =
+                String(
+                    msg.name ||
+                    msg.sender ||
+                    "Unknown"
+                );
 
-        messageElement.innerHTML = `
-            <div class="message-name">
-                ${msg.name || "Unknown"}
-            </div>
 
-            <div>
-                ${msg.message || ""}
-            </div>
+            const text =
+                String(
+                    msg.message ||
+                    msg.content ||
+                    ""
+                );
 
-            <div class="time">
-                ${time}
-            </div>
-        `;
 
-        container.appendChild(messageElement);
-    });
+            const mediaUrl =
+                msg.mediaUrl ||
+                msg.imageUrl ||
+                msg.media_url ||
+                "";
 
-    container.scrollTop =
-        container.scrollHeight;
-}
-/* ==========================
-   EMOJI BUTTON
-========================== */
 
-function addEmoji() {
-    const input =
-        document.getElementById("messageInput");
+            const type =
+                String(
+                    msg.messageType ||
+                    msg.type ||
+                    "text"
+                ).toLowerCase();
 
-    input.value += " 😊";
-    input.focus();
-}
 
-/* ==========================
-   ENTER KEY
-========================== */
+            const isMe =
+                sender === currentUser;
 
-document
-    .getElementById("messageInput")
-    .addEventListener("keypress", e => {
-        if (e.key === "Enter") {
-            sendMessage();
+
+            const isAI =
+                sender
+                    .toLowerCase()
+                    .includes(
+                        "youth assistant"
+                    ) ||
+                sender.includes("🤖");
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "message-row" +
+                (isMe
+                    ? " sent"
+                    : "") +
+                (isAI
+                    ? " ai-message"
+                    : "");
+
+
+            const bubble =
+                document.createElement(
+                    "div"
+                );
+
+
+            bubble.className =
+                "message-bubble";
+
+
+            /* NAME */
+
+            const name =
+                document.createElement(
+                    "div"
+                );
+
+
+            name.className =
+                "message-name";
+
+
+            name.textContent =
+                isAI
+                ? "🤖 Youth Assistant"
+                : sender;
+
+
+            bubble.appendChild(
+                name
+            );
+
+
+            /* IMAGE */
+
+            if (
+                (
+                    type === "image" ||
+                    type === "photo"
+                ) &&
+                mediaUrl
+            ) {
+
+                const image =
+                    document.createElement(
+                        "img"
+                    );
+
+
+                image.className =
+                    "chat-image";
+
+
+                image.src =
+                    mediaUrl;
+
+
+                image.alt =
+                    "Shared image";
+
+
+                image.loading =
+                    "lazy";
+
+
+                image.onerror =
+                    function() {
+
+                        image.alt =
+                            "Image unavailable";
+
+                        image.style.opacity =
+                            "0.5";
+
+                    };
+
+
+                image.onclick =
+                    function() {
+
+                        window.open(
+                            mediaUrl,
+                            "_blank"
+                        );
+
+                    };
+
+
+                bubble.appendChild(
+                    image
+                );
+
+            }
+
+
+            /* TEXT */
+
+            if (text) {
+
+                const content =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                content.className =
+                    "message-text";
+
+
+                /*
+                 textContent is intentional.
+                 It prevents users from injecting HTML/JS.
+                */
+
+                content.textContent =
+                    text;
+
+
+                bubble.appendChild(
+                    content
+                );
+
+            }
+
+
+            /* TIME */
+
+            const time =
+                document.createElement(
+                    "div"
+                );
+
+
+            time.className =
+                "message-time";
+
+
+            const timestamp =
+                msg.timestamp ||
+                msg.time ||
+                msg.createdAt ||
+                "";
+
+
+            if (timestamp) {
+
+                const date =
+                    new Date(timestamp);
+
+
+                if (
+                    !isNaN(
+                        date.getTime()
+                    )
+                ) {
+
+                    time.textContent =
+                        date.toLocaleTimeString(
+                            [],
+                            {
+                                hour: "2-digit",
+                                minute: "2-digit"
+                            }
+                        );
+
+                }
+
+            }
+
+
+            bubble.appendChild(
+                time
+            );
+
+
+            row.appendChild(
+                bubble
+            );
+
+
+            container.appendChild(
+                row
+            );
+
         }
-    });
-
-/* ==========================
-   INITIAL LOAD
-========================== */
-
-renderMembers();
-renderMessages();
-
-    setInterval(loadMessages, 3000);
-    loadMessages();
+    );
 
 
-</script> 
+    if (wasNearBottom) {
 
-    </div></section><!-- /Starter Section Section -->
+        setTimeout(
+            function() {
+
+                container.scrollTop =
+                    container.scrollHeight;
+
+            },
+            50
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   AI ENGINE
+   ============================================================ */
+
+async function askAI(question) {
+
+    if (!question) return;
+
+
+    if (!currentUser) {
+
+        alert(
+            "Please join the community first."
+        );
+
+        return;
+
+    }
+
+
+    showTyping(
+        "🤖 Youth Assistant is thinking..."
+    );
+
+
+    closeAIPanel();
+
+
+    try {
+
+        const context =
+            buildConversationContext();
+
+
+        const result =
+            await apiRequest({
+
+                action: "askAI",
+
+                name: currentUser,
+
+                question: question,
+
+                roomId: ROOM_ID,
+
+                context: context
+
+            });
+
+
+        if (
+            !result ||
+            result.success === false
+        ) {
+
+            throw new Error(
+                result?.message ||
+                "AI could not respond."
+            );
+
+        }
+
+
+        await loadMessages();
+
+
+    } catch (error) {
+
+        console.error(
+            "AI ERROR:",
+            error
+        );
+
+        alert(
+            "Youth Assistant could not respond.\n\n" +
+            getErrorMessage(error)
+        );
+
+    } finally {
+
+        hideTyping();
+
+    }
+
+}
+
+
+/* ============================================================
+   BUILD AI CONTEXT
+   ============================================================ */
+
+function buildConversationContext() {
+
+    const recent =
+        messages.slice(-30);
+
+
+    if (!recent.length) {
+
+        return "No previous conversation.";
+
+    }
+
+
+    return recent
+        .map(
+            function(msg) {
+
+                const sender =
+                    msg.name ||
+                    msg.sender ||
+                    "Unknown";
+
+                const message =
+                    msg.message ||
+                    msg.content ||
+                    "";
+
+
+                if (!message) {
+
+                    return "";
+
+                }
+
+
+                return (
+                    sender +
+                    ": " +
+                    message
+                );
+
+            }
+        )
+        .filter(Boolean)
+        .join("\n");
+
+}
+
+
+/* ============================================================
+   TYPING
+   ============================================================ */
+
+function showTyping(text) {
+
+    const typing =
+        document.getElementById(
+            "typing"
+        );
+
+
+    if (!typing) return;
+
+
+    if (text) {
+
+        typing.innerHTML =
+            text +
+            ' <span>•••</span>';
+
+    }
+
+
+    typing.style.display =
+        "block";
+
+
+    const container =
+        document.getElementById(
+            "messages"
+        );
+
+
+    if (container) {
+
+        container.scrollTop =
+            container.scrollHeight;
+
+    }
+
+}
+
+
+function hideTyping() {
+
+    const typing =
+        document.getElementById(
+            "typing"
+        );
+
+
+    if (!typing) return;
+
+
+    typing.style.display =
+        "none";
+
+}
+
+
+/* ============================================================
+   AI PANEL
+   ============================================================ */
+
+function toggleAIPanel() {
+
+    const panel =
+        document.getElementById(
+            "aiPanel"
+        );
+
+
+    if (!panel) return;
+
+
+    if (
+        panel.style.display ===
+        "block"
+    ) {
+
+        panel.style.display =
+            "none";
+
+    } else {
+
+        panel.style.display =
+            "block";
+
+    }
+
+}
+
+
+function closeAIPanel() {
+
+    const panel =
+        document.getElementById(
+            "aiPanel"
+        );
+
+
+    if (panel) {
+
+        panel.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* ============================================================
+   EMOJI
+   ============================================================ */
+
+function toggleEmoji() {
+
+    const panel =
+        document.getElementById(
+            "emojiPanel"
+        );
+
+
+    if (!panel) return;
+
+
+    panel.style.display =
+        panel.style.display ===
+        "block"
+        ? "none"
+        : "block";
+
+}
+
+
+function hideEmoji() {
+
+    const panel =
+        document.getElementById(
+            "emojiPanel"
+        );
+
+
+    if (panel) {
+
+        panel.style.display =
+            "none";
+
+    }
+
+}
+
+
+function insertEmoji(emoji) {
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+
+    if (!input) return;
+
+
+    input.value += emoji;
+
+    input.focus();
+
+}
+
+
+/* ============================================================
+   KEYBOARD
+   ============================================================ */
+
+function setupKeyboard() {
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+
+    if (!input) return;
+
+
+    input.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ============================================================
+   ERROR HANDLER
+   ============================================================ */
+
+function getErrorMessage(error) {
+
+    if (!error) {
+
+        return "Unknown error.";
+
+    }
+
+
+    if (error.message) {
+
+        return error.message;
+
+    }
+
+
+    return String(error);
+
+}
+
+
+/* ============================================================
+   GLOBAL FUNCTIONS
+   ============================================================ */
+
+window.sendMessage =
+    sendMessage;
+
+window.registerUser =
+    registerUser;
+
+window.askAI =
+    askAI;
+
+window.handleImage =
+    handleImage;
+
+window.removeAttachment =
+    removeAttachment;
+
+window.toggleEmoji =
+    toggleEmoji;
+
+window.hideEmoji =
+    hideEmoji;
+
+window.insertEmoji =
+    insertEmoji;
+
+window.toggleAIPanel =
+    toggleAIPanel;
+
+window.closeAIPanel =
+    closeAIPanel;
+function testAI() {
+
+  const properties =
+    PropertiesService.getScriptProperties();
+
+  const apiKey =
+    properties.getProperty("OPENAI_API_KEY");
+
+  if (!apiKey) {
+    throw new Error(
+      "OPENAI_API_KEY is missing from Script Properties."
+    );
+  }
+
+  const payload = {
+    model: "gpt-5.6-luna",
+
+    store: false,
+
+    input: [
+      {
+        role: "developer",
+        content:
+          "You are the St George Youth Assistant. Be friendly, concise and helpful."
+      },
+      {
+        role: "user",
+        content:
+          "Give me one short motivational message for the youth."
+      }
+    ]
+  };
+
+  const response = UrlFetchApp.fetch(
+    "https://api.openai.com/v1/responses",
+    {
+      method: "post",
+
+      contentType: "application/json",
+
+      headers: {
+        Authorization:
+          "Bearer " + apiKey
+      },
+
+      payload:
+        JSON.stringify(payload),
+
+      muteHttpExceptions: true
+    }
+  );
+
+  const status =
+    response.getResponseCode();
+
+  const body =
+    response.getContentText();
+
+  console.log(
+    "HTTP STATUS: " + status
+  );
+
+  console.log(
+    "RESPONSE: " + body
+  );
+
+  if (status < 200 || status >= 300) {
+
+    throw new Error(
+      "OpenAI API error (" +
+      status +
+      "): " +
+      body
+    );
+
+  }
+
+  const result =
+    JSON.parse(body);
+
+  console.log(
+    "AI ANSWER: " +
+    result.output_text
+  );
+
+  return result.output_text;
+}
+
+</script>
+</section><!-- /Starter Section Section -->
 
   </main>
 
@@ -769,4 +2725,103 @@ renderMessages();
 
 
 
+
+<div id="sg3d-root" aria-hidden="true">
+  <div id="sg3d-bubble" class="sg3d-bubble">Welcome to St George Youth! 👋</div>
+  <canvas id="sg3d-canvas"></canvas>
+  <div class="sg3d-hud">🪙 <b id="sg3d-coins">0</b> &nbsp; LV <b id="sg3d-level">1</b><div class="sg3d-label">3D Youth Companion</div></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+function ready(fn){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fn);else fn();}
+ready(function(){
+ const canvas=document.getElementById('sg3d-canvas'); if(!canvas||!window.THREE)return;
+ const T=THREE;
+ const scene=new T.Scene();
+ const camera=new T.PerspectiveCamera(32,1,.1,100); camera.position.set(0,1.55,5.4); camera.lookAt(0,1.45,0);
+ const renderer=new T.WebGLRenderer({canvas,alpha:true,antialias:true}); renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.outputColorSpace=T.SRGBColorSpace; renderer.shadowMap.enabled=true; renderer.shadowMap.type=T.PCFSoftShadowMap;
+ const hemi=new T.HemisphereLight(0xffffff,0x24483f,2.0); scene.add(hemi);
+ const key=new T.DirectionalLight(0xffffff,3.0); key.position.set(3,5,4); key.castShadow=true; scene.add(key);
+ const rim=new T.PointLight(0x48d6b2,8,7); rim.position.set(-3,2,2); scene.add(rim);
+ const root=new T.Group(); root.position.y=-1.02; scene.add(root);
+ const mats={skin:new T.MeshStandardMaterial({color:0x8d5524,roughness:.75}),skin2:new T.MeshStandardMaterial({color:0xb87333,roughness:.75}),shirt:new T.MeshStandardMaterial({color:0x128c7e,roughness:.65}),pants:new T.MeshStandardMaterial({color:0x172554,roughness:.8}),shoe:new T.MeshStandardMaterial({color:0xf5f5f5,roughness:.55}),hair:new T.MeshStandardMaterial({color:0x17120f,roughness:.9}),white:new T.MeshStandardMaterial({color:0xffffff,roughness:.5}),gold:new T.MeshStandardMaterial({color:0xffc107,metalness:.5,roughness:.25})};
+ const parts={};
+ function mesh(g,m,n){let x=new T.Mesh(g,m);x.name=n||'';x.castShadow=true;x.receiveShadow=true;return x}
+ function cyl(r1,r2,h,m){return mesh(new T.CylinderGeometry(r1,r2,h,16),m)}
+ function sphere(r,m){return mesh(new T.SphereGeometry(r,20,16),m)}
+ function box(x,y,z,m){return mesh(new T.BoxGeometry(x,y,z),m)}
+ function limb(x,y,z,m){let g=new T.Group();g.position.set(x,y,z);root.add(g);return g}
+ // torso
+ parts.torso=mesh(new T.CapsuleGeometry(.48,.72,8,16),mats.shirt,'torso'); parts.torso.position.y=1.55; root.add(parts.torso);
+ // jacket/hoodie accent
+ const chest=box(.72,.38,.48,mats.white); chest.position.set(0,1.53,.43); chest.scale.set(.55,.55,.18); root.add(chest);
+ // neck/head
+ parts.neck=cyl(.16,.18,.22,mats.skin); parts.neck.position.y=2.16; root.add(parts.neck);
+ parts.head=sphere(.43,mats.skin); parts.head.position.y=2.56; root.add(parts.head);
+ // ears
+ [-1,1].forEach(s=>{let e=sphere(.095,mats.skin);e.scale.z=.65;e.position.set(s*.42,2.56,0);root.add(e)});
+ // hair cap + curls
+ let hair=sphere(.45,mats.hair);hair.position.set(0,2.72,-.015);hair.scale.set(1,.72,1);root.add(hair);
+ for(let i=-2;i<=2;i++){let c=sphere(.13,mats.hair);c.position.set(i*.15,2.78,.22);root.add(c)}
+ // eyes
+ [-1,1].forEach(s=>{let e=sphere(.045,mats.white);e.position.set(s*.14,2.61,.405);root.add(e);let p=sphere(.021,mats.hair);p.position.set(s*.14,2.61,.445);root.add(p)});
+ // smile
+ const smile=mesh(new T.TorusGeometry(.12,.018,8,16,Math.PI),mats.hair);smile.rotation.x=Math.PI;smile.scale.y=.55;smile.position.set(0,2.45,.405);root.add(smile);
+ // arms
+ parts.armL=limb(-.58,1.67,0,mats.shirt);parts.armR=limb(.58,1.67,0,mats.shirt);parts.armL.add(cyl(.12,.14,.68,mats.shirt));parts.armR.add(cyl(.12,.14,.68,mats.shirt));parts.armL.children[0].position.y=-.31;parts.armR.children[0].position.y=-.31;
+ parts.handL=sphere(.14,mats.skin);parts.handR=sphere(.14,mats.skin);parts.handL.position.set(-.58,1.28,0);parts.handR.position.set(.58,1.28,0);root.add(parts.handL,parts.handR);
+ // legs
+ parts.legL=limb(-.24,.92,0,mats.pants);parts.legR=limb(.24,.92,0,mats.pants);parts.legL.add(cyl(.17,.19,.72,mats.pants));parts.legR.add(cyl(.17,.19,.72,mats.pants));parts.legL.children[0].position.y=-.34;parts.legR.children[0].position.y=-.34;
+ // shoes
+ parts.shoeL=box(.34,.16,.62,mats.shoe);parts.shoeR=box(.34,.16,.62,mats.shoe);parts.shoeL.position.set(-.24,.48,.12);parts.shoeR.position.set(.24,.48,.12);root.add(parts.shoeL,parts.shoeR);
+ // gold level badge
+ parts.badge=sphere(.09,mats.gold);parts.badge.scale.set(1,.7,.25);parts.badge.position.set(.39,1.82,.48);root.add(parts.badge);
+ // ground shadow
+ const ground=mesh(new T.CircleGeometry(1.05,40),new T.ShadowMaterial({opacity:.22}));ground.rotation.x=-Math.PI/2;ground.position.y=.39;ground.scale.set(1,.5,1);ground.receiveShadow=true;scene.add(ground);
+ let gender=localStorage.getItem('sgAvatarGender')||'male'; let style=localStorage.getItem('sgAvatarStyle')||'street';
+ function applyLook(){
+   mats.skin.color.setHex(gender==='female'?0x9a5d36:0x8d5524);
+   mats.shirt.color.setHex(style==='sport'?0x2563eb:style==='smart'?0x111827:0x128c7e);
+   mats.pants.color.setHex(style==='sport'?0x111827:style==='smart'?0x202020:0x172554);
+   mats.hair.color.setHex(gender==='female'?0x24160f:0x17120f);
+   root.scale.set(gender==='female'?.96:1,gender==='female'?1.03:1,gender==='female'?.96:1);
+ }
+ applyLook();
+ let mode='idle',t=0,modeStart=0,last=performance.now();
+ function setMode(m){mode=m;modeStart=t;root.visible=true}
+ function animateMode(dt){t+=dt;const q=t-modeStart;
+   const bob=Math.sin(t*3)*.025;
+   root.position.y=-1.02+bob;
+   parts.armL.rotation.z=0;parts.armR.rotation.z=0;parts.legL.rotation.z=0;parts.legR.rotation.z=0;root.rotation.x=0;root.rotation.z=0;
+   if(mode==='walk'){root.position.z=Math.sin(t*1.8)*.03;parts.armL.rotation.z=Math.sin(t*8)*.42;parts.armR.rotation.z=-Math.sin(t*8)*.42;parts.legL.rotation.z=-Math.sin(t*8)*.32;parts.legR.rotation.z=Math.sin(t*8)*.32}
+   if(mode==='jump'){root.position.y=-1.02+Math.sin(Math.min(q*4,Math.PI))*0.55;parts.armL.rotation.z=-.8;parts.armR.rotation.z=.8}
+   if(mode==='somersault'){root.rotation.x=q*7.0;root.position.y=-1.02+Math.sin(Math.min(q*3.2,Math.PI))*.7;if(q>1.02)setMode('idle')}
+   if(mode==='magic'){root.position.y=-1.02+Math.min(q*2.8,.35);root.rotation.y=Math.min(q*4,Math.PI*2);parts.armL.rotation.z=-1.15;parts.armR.rotation.z=1.15;if(q>1.4)setMode('idle')}
+   if(mode==='celebrate'){parts.armL.rotation.z=-1.2+Math.sin(t*8)*.2;parts.armR.rotation.z=1.2-Math.sin(t*8)*.2;root.position.y=-1.02+Math.abs(Math.sin(t*5))*.12}
+ }
+ function resize(){const r=canvas.getBoundingClientRect();const w=Math.max(1,r.width),h=Math.max(1,r.height);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)}
+ addEventListener('resize',resize);resize();
+ function bubble(msg){const b=document.getElementById('sg3d-bubble');if(!b)return;b.textContent=msg;b.classList.add('show');clearTimeout(b._x);b._x=setTimeout(()=>b.classList.remove('show'),3500)}
+ function coins(){let c=Number(localStorage.getItem('sgCoins')||0);let l=Math.floor(c/100)+1;document.getElementById('sg3d-coins').textContent=c;document.getElementById('sg3d-level').textContent=l;return c}
+ function reward(n,reason){let c=Number(localStorage.getItem('sgCoins')||0)+n;localStorage.setItem('sgCoins',c);coins();if(reason)bubble(reason+' +'+n+' coins 🪙');}
+ window.sg3D={
+   setGender:g=>{gender=g;localStorage.setItem('sgAvatarGender',g);applyLook();setMode('celebrate');bubble(g==='female'?'Your 3D character is ready! ✨':'Your 3D character is ready! 🔥')},
+   setStyle:s=>{style=s;localStorage.setItem('sgAvatarStyle',s);applyLook();setMode('celebrate')},
+   walk:()=>setMode('walk'), jump:()=>setMode('jump'), somersault:()=>setMode('somersault'), magic:()=>{setMode('magic');bubble('New section! Let’s go! ✨')}, celebrate:()=>setMode('celebrate'), say:bubble, reward,
+   coins
+ };
+ // integrate with existing avatar selectors if present
+ window.chooseAvatarGender=function(g){window.sg3D.setGender(g);}; window.chooseAvatarStyle=function(s){window.sg3D.setStyle(s);};
+ // reward hooks
+ const oldSend=window.sendMessage; if(typeof oldSend==='function'){window.sendMessage=function(){const r=oldSend.apply(this,arguments);setTimeout(()=>reward(2,'Message sent'),500);return r}}
+ // section memory hooks
+ document.addEventListener('click',function(e){const a=e.target.closest('a[href^="#"]');if(a){setMode('walk');setTimeout(()=>window.sg3D.magic(),420);}});
+ coins();
+ function loop(now){const dt=Math.min((now-last)/1000,.05);last=now;animateMode(dt);renderer.render(scene,camera);requestAnimationFrame(loop)} requestAnimationFrame(loop);
+ setTimeout(()=>bubble('Hi! I’m your 3D Youth Companion 👋'),900);
+});
+})();
+</script>
 </body></html>

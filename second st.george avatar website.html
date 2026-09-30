@@ -32,6 +32,16 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+<style id="sg-true-3d-css">
+#sg3d-root{position:fixed;right:18px;bottom:18px;width:260px;height:340px;z-index:99990;pointer-events:none}
+#sg3d-canvas{width:100%;height:100%;display:block;filter:drop-shadow(0 14px 18px rgba(0,0,0,.28))}
+.sg3d-bubble{position:absolute;right:0;top:-8px;max-width:190px;background:rgba(255,255,255,.97);color:#123;border-radius:16px;padding:9px 12px;font:600 12px/1.3 Arial,sans-serif;box-shadow:0 8px 25px rgba(0,0,0,.18);opacity:0;transform:translateY(8px) scale(.96);transition:.25s;pointer-events:none}
+.sg3d-bubble.show{opacity:1;transform:translateY(0) scale(1)}
+.sg3d-hud{position:absolute;left:0;bottom:0;background:rgba(7,94,84,.94);color:#fff;border-radius:14px;padding:7px 10px;font:700 11px Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.2);pointer-events:none}
+.sg3d-hud b{color:#ffd54a}.sg3d-label{font-size:10px;opacity:.85}
+@media(max-width:600px){#sg3d-root{width:190px;height:255px;right:6px;bottom:8px}.sg3d-bubble{max-width:145px;font-size:10px}.sg3d-hud{font-size:9px;padding:5px 7px}}
+</style>
 </head>
 
 <body class="starter-page-page scrolled" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
@@ -127,7 +137,7 @@
     </div><!-- End Page Title -->
 
     <!-- Starter Section Section -->
-    <section id="starter-section" class="starter-section section" data-avatar-label="Compliments and Grievances Corner">
+    <section id="starter-section" class="starter-section section">
 
       <!-- Section Title -->
       <div class="floating-leaf" style="left:5%; animation-delay:0s;">🍃</div>
@@ -497,214 +507,6 @@ body{
 
 }
 
-
-/* ============================================================
-   ST GEORGE YOUTH - AVATAR COMPANION + GAMIFICATION
-   Front-end fallback version: no external AI API required.
-   ============================================================ */
-
-.avatar-companion{
-  position:fixed;
-  right:18px;
-  bottom:92px;
-  width:112px;
-  z-index:9000;
-  pointer-events:none;
-  text-align:center;
-  transition:transform .45s ease, opacity .35s ease;
-}
-.avatar-companion .avatar-card{
-  position:relative;
-  background:rgba(255,255,255,.96);
-  border:2px solid rgba(13,110,99,.18);
-  border-radius:22px;
-  padding:8px 8px 6px;
-  box-shadow:0 12px 35px rgba(0,0,0,.18);
-}
-.avatar-companion svg{
-  width:86px;
-  height:104px;
-  display:block;
-  margin:auto;
-  filter:drop-shadow(0 6px 4px rgba(0,0,0,.12));
-}
-.avatar-companion .avatar-name{
-  font-size:10px;
-  font-weight:800;
-  color:#095247;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.avatar-companion .avatar-level{
-  font-size:9px;
-  color:#777;
-}
-.avatar-speech{
-  position:absolute;
-  right:92px;
-  bottom:78px;
-  width:190px;
-  padding:10px 12px;
-  border-radius:15px 15px 4px 15px;
-  background:#fff;
-  color:#18332f;
-  font-size:12px;
-  line-height:1.35;
-  box-shadow:0 8px 25px rgba(0,0,0,.16);
-  opacity:0;
-  transform:translateY(8px) scale(.96);
-  transition:.25s ease;
-}
-.avatar-speech.show{
-  opacity:1;
-  transform:translateY(0) scale(1);
-}
-.avatar-companion.walking{
-  animation:avatarWalk .8s ease-in-out;
-}
-.avatar-companion.somersault{
-  animation:avatarSomersault .9s cubic-bezier(.2,.8,.3,1);
-}
-.avatar-companion.magic{
-  animation:avatarMagic 1s ease;
-}
-.avatar-companion.celebrate{
-  animation:avatarCelebrate 1s ease;
-}
-@keyframes avatarWalk{
-  0%{transform:translateX(0) rotate(0)}
-  25%{transform:translateX(-32px) rotate(-5deg)}
-  50%{transform:translateX(-60px) rotate(5deg)}
-  75%{transform:translateX(-28px) rotate(-3deg)}
-  100%{transform:translateX(0) rotate(0)}
-}
-@keyframes avatarSomersault{
-  0%{transform:translateY(0) rotate(0) scale(1)}
-  30%{transform:translateY(-70px) rotate(160deg) scale(1.03)}
-  65%{transform:translateY(-45px) rotate(320deg) scale(1.04)}
-  100%{transform:translateY(0) rotate(360deg) scale(1)}
-}
-@keyframes avatarMagic{
-  0%{transform:scale(.2) translateY(40px);opacity:0}
-  45%{transform:scale(1.15) translateY(-12px);opacity:1}
-  70%{transform:scale(.95) translateY(0)}
-  100%{transform:scale(1)}
-}
-@keyframes avatarCelebrate{
-  0%,100%{transform:translateY(0)}
-  20%{transform:translateY(-24px) rotate(-8deg)}
-  40%{transform:translateY(0) rotate(8deg)}
-  60%{transform:translateY(-18px) rotate(-6deg)}
-  80%{transform:translateY(0) rotate(5deg)}
-}
-.avatar-dashboard{
-  position:fixed;
-  left:16px;
-  bottom:18px;
-  z-index:8999;
-  display:flex;
-  align-items:center;
-  gap:7px;
-  padding:8px 12px;
-  border-radius:999px;
-  background:rgba(255,255,255,.96);
-  box-shadow:0 8px 25px rgba(0,0,0,.13);
-  font-size:12px;
-  font-weight:800;
-  color:#095247;
-}
-.avatar-dashboard .coin{
-  color:#c68b00;
-}
-.avatar-dashboard .level{
-  color:#0d6e63;
-}
-.avatar-register{
-  margin:12px 0 16px;
-  padding:14px;
-  border-radius:16px;
-  background:#f4f8f7;
-  border:1px solid #dce9e6;
-}
-.avatar-register-title{
-  font-weight:800;
-  color:#095247;
-  margin-bottom:8px;
-}
-.gender-buttons,.style-buttons{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.avatar-choice{
-  border:1px solid #cfdedb!important;
-  background:white!important;
-  color:#16443d!important;
-  width:auto!important;
-  padding:8px 12px!important;
-  border-radius:999px!important;
-  font-size:12px;
-}
-.avatar-choice.selected{
-  background:#0d6e63!important;
-  color:white!important;
-  border-color:#0d6e63!important;
-}
-.avatar-preview{
-  width:96px;
-  height:112px;
-  margin:8px auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(145deg,#e9f7f3,#fff);
-  border-radius:20px;
-}
-.avatar-preview svg{
-  width:84px;
-  height:100px;
-}
-.avatar-coins-pop{
-  position:fixed;
-  z-index:10001;
-  pointer-events:none;
-  font-weight:900;
-  color:#d49b00;
-  animation:coinPop 1.1s ease forwards;
-}
-@keyframes coinPop{
-  0%{opacity:0;transform:translateY(0) scale(.7)}
-  20%{opacity:1}
-  100%{opacity:0;transform:translateY(-65px) scale(1.2)}
-}
-.avatar-section-highlight{
-  animation:sectionGlow 1.1s ease;
-}
-@keyframes sectionGlow{
-  0%{box-shadow:inset 0 0 0 rgba(13,110,99,0)}
-  40%{box-shadow:inset 0 0 55px rgba(13,110,99,.12)}
-  100%{box-shadow:inset 0 0 0 rgba(13,110,99,0)}
-}
-@media(max-width:700px){
-  .avatar-companion{
-    right:8px;
-    bottom:78px;
-    transform:scale(.82);
-    transform-origin:bottom right;
-  }
-  .avatar-speech{
-    right:82px;
-    width:155px;
-  }
-  .avatar-dashboard{
-    left:8px;
-    bottom:8px;
-    font-size:11px;
-  }
-}
-
 </style>
 
 
@@ -712,61 +514,28 @@ body{
 
 <!-- REGISTER -->
 
-
 <div id="registerOverlay" class="register-overlay">
-  <div class="register-box">
-    <div style="font-size:45px;">🧑🏽‍💻</div>
-    <h3>Join St George Youth Chat</h3>
-    <p class="text-muted">Create your youth profile and choose your game-style companion.</p>
 
-    <input id="username" type="text" placeholder="Your name" maxlength="60">
+    <div class="register-box">
 
-    <div class="avatar-register">
-      <div class="avatar-register-title">Choose your avatar</div>
+        <div style="font-size:45px;">👋</div>
 
-      <div class="gender-buttons">
-        <button type="button" id="genderMale" class="avatar-choice selected" onclick="chooseAvatarGender('male')">👦 Male</button>
-        <button type="button" id="genderFemale" class="avatar-choice" onclick="chooseAvatarGender('female')">👧 Female</button>
-      </div>
+        <h3>Join St George Youth Chat</h3>
 
-      <div class="avatar-preview" id="registerAvatarPreview"></div>
+        <p class="text-muted">
+            Enter your name to join the community.
+        </p>
 
-      <div class="style-buttons">
-        <button type="button" id="styleStreet" class="avatar-choice selected" onclick="chooseAvatarStyle('street')">🔥 Street</button>
-        <button type="button" id="styleSport" class="avatar-choice" onclick="chooseAvatarStyle('sport')">⚽ Sport</button>
-        <button type="button" id="styleSmart" class="avatar-choice" onclick="chooseAvatarStyle('smart')">✨ Smart</button>
-      </div>
+        <input id="username" type="text" placeholder="Your name" maxlength="60">
 
-      <small class="text-muted d-block mt-2">
-        AI-ready design: this version uses a lightweight browser avatar engine, so registration works even without a paid image API.
-      </small>
+        <button onclick="registerUser()">Join Community</button>
+
     </div>
 
-    <button onclick="registerUser()">Create My Avatar & Join</button>
-  </div>
 </div>
 
 
-<!-- CHAT --><!-- CHAT -->
-
-
-<!-- AVATAR COMPANION -->
-<div id="avatarCompanion" class="avatar-companion" aria-live="polite">
-  <div id="avatarSpeech" class="avatar-speech"></div>
-  <div class="avatar-card">
-    <div id="liveAvatar"></div>
-    <div class="avatar-name" id="avatarCompanionName">Youth Member</div>
-    <div class="avatar-level" id="avatarCompanionLevel">Level 1</div>
-  </div>
-</div>
-
-<div class="avatar-dashboard" id="avatarDashboard">
-  <span class="coin">🪙 <span id="coinCount">0</span></span>
-  <span>•</span>
-  <span class="level">⭐ Lv.<span id="levelCount">1</span></span>
-  <span>•</span>
-  <span>🔥 <span id="streakCount">0</span></span>
-</div>
+<!-- CHAT -->
 
 <div class="chat-wrapper">
 
@@ -976,7 +745,6 @@ let sendingMessage = false;
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    initializeAvatar();
     setupUser();
     setupKeyboard();
 
@@ -997,261 +765,6 @@ document.addEventListener("DOMContentLoaded", function () {
    USER
    ============================================================ */
 
-
-/* ============================================================
-   AVATAR COMPANION + COIN ENGINE
-   Works without Grok/OpenAI image generation.
-   SVG characters are generated locally for speed and privacy.
-   ============================================================ */
-
-let avatarGender = localStorage.getItem("sgAvatarGender") || "male";
-let avatarStyle = localStorage.getItem("sgAvatarStyle") || "street";
-let avatarData = JSON.parse(localStorage.getItem("sgAvatarData") || "null");
-
-const AVATAR_STATE_KEY = "sgYouthAvatarState";
-
-function defaultAvatarState(){
-  return {
-    coins: Number(localStorage.getItem("sgCoins") || 0),
-    level: Number(localStorage.getItem("sgLevel") || 1),
-    streak: Number(localStorage.getItem("sgStreak") || 0),
-    lastLogin: localStorage.getItem("sgLastLogin") || "",
-    currentSection: "",
-    previousSection: "",
-    visitedSections: JSON.parse(localStorage.getItem("sgVisitedSections") || "[]"),
-    totalMessages: Number(localStorage.getItem("sgTotalMessages") || 0),
-    achievements: JSON.parse(localStorage.getItem("sgAchievements") || "[]")
-  };
-}
-
-let avatarState = JSON.parse(localStorage.getItem(AVATAR_STATE_KEY) || "null") || defaultAvatarState();
-
-function saveAvatarState(){
-  localStorage.setItem(AVATAR_STATE_KEY, JSON.stringify(avatarState));
-  localStorage.setItem("sgCoins", String(avatarState.coins));
-  localStorage.setItem("sgLevel", String(avatarState.level));
-  localStorage.setItem("sgStreak", String(avatarState.streak));
-  localStorage.setItem("sgLastLogin", avatarState.lastLogin || "");
-  localStorage.setItem("sgVisitedSections", JSON.stringify(avatarState.visitedSections));
-  localStorage.setItem("sgTotalMessages", String(avatarState.totalMessages));
-  localStorage.setItem("sgAchievements", JSON.stringify(avatarState.achievements));
-}
-
-function avatarSVG(gender, style){
-  const female = gender === "female";
-  const skin = female ? "#8d5b3e" : "#87563a";
-  const hair = female ? "#241710" : "#21140f";
-  const shirt = style === "sport" ? "#146c94" : style === "smart" ? "#6d3f91" : "#0d6e63";
-  const pants = style === "sport" ? "#17202a" : "#263238";
-  const shoe = "#151515";
-  const hairShape = female
-    ? `<path d="M27 42Q24 9 50 8Q77 9 74 43L68 34Q62 25 51 26Q39 25 32 35Z" fill="${hair}"/>
-       <path d="M28 37Q17 57 31 67L37 50Z" fill="${hair}"/>
-       <path d="M72 37Q83 57 69 67L63 50Z" fill="${hair}"/>`
-    : `<path d="M27 40Q27 9 51 9Q75 9 75 40L68 30Q60 23 50 25Q39 23 32 31Z" fill="${hair}"/>`;
-
-  const outfit = style === "smart"
-    ? `<path d="M32 71L21 82L29 96L41 89L41 112L59 112L59 89L71 96L79 82L68 71Z" fill="${shirt}"/>
-       <path d="M44 73L50 83L56 73" fill="white" opacity=".9"/>`
-    : `<path d="M32 70L20 84L28 98L39 90L40 112L60 112L61 90L72 98L80 84L68 70Z" fill="${shirt}"/>
-       <path d="M40 78Q50 87 60 78" fill="none" stroke="white" stroke-width="2" opacity=".7"/>`;
-
-  return `
-  <svg viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Youth avatar">
-    <ellipse cx="50" cy="119" rx="25" ry="4" fill="#000" opacity=".12"/>
-    ${hairShape}
-    <circle cx="50" cy="43" r="23" fill="${skin}"/>
-    <circle cx="42" cy="43" r="2.3" fill="#21140f"/>
-    <circle cx="58" cy="43" r="2.3" fill="#21140f"/>
-    <path d="M43 53Q50 58 57 53" fill="none" stroke="#5b2e22" stroke-width="2" stroke-linecap="round"/>
-    ${outfit}
-    <path d="M40 112L34 121M60 112L66 121" stroke="${pants}" stroke-width="8" stroke-linecap="round"/>
-    <path d="M30 121H43M57 121H70" stroke="${shoe}" stroke-width="5" stroke-linecap="round"/>
-    ${style === "sport" ? '<circle cx="78" cy="88" r="7" fill="#f2b233"/><path d="M73 88L83 88M78 83L78 93" stroke="white" stroke-width="1.5"/>' : ''}
-    ${style === "smart" ? '<rect x="39" y="37" width="9" height="6" rx="2" fill="none" stroke="#111" stroke-width="1.5"/><rect x="52" y="37" width="9" height="6" rx="2" fill="none" stroke="#111" stroke-width="1.5"/><path d="M48 39H52" stroke="#111" stroke-width="1.5"/>' : ''}
-  </svg>`;
-}
-
-function renderAvatar(targetId){
-  const target = document.getElementById(targetId);
-  if(!target) return;
-  target.innerHTML = avatarSVG(avatarGender, avatarStyle);
-}
-
-function chooseAvatarGender(gender){
-  avatarGender = gender === "female" ? "female" : "male";
-  localStorage.setItem("sgAvatarGender", avatarGender);
-  document.getElementById("genderMale")?.classList.toggle("selected", avatarGender === "male");
-  document.getElementById("genderFemale")?.classList.toggle("selected", avatarGender === "female");
-  renderAvatar("registerAvatarPreview");
-}
-
-function chooseAvatarStyle(style){
-  avatarStyle = ["street","sport","smart"].includes(style) ? style : "street";
-  localStorage.setItem("sgAvatarStyle", avatarStyle);
-  ["Street","Sport","Smart"].forEach(x => {
-    document.getElementById("style"+x)?.classList.toggle("selected", avatarStyle === x.toLowerCase());
-  });
-  renderAvatar("registerAvatarPreview");
-}
-
-function updateAvatarUI(){
-  document.getElementById("coinCount") && (document.getElementById("coinCount").textContent = avatarState.coins);
-  document.getElementById("levelCount") && (document.getElementById("levelCount").textContent = avatarState.level);
-  document.getElementById("streakCount") && (document.getElementById("streakCount").textContent = avatarState.streak);
-  document.getElementById("avatarCompanionName") && (document.getElementById("avatarCompanionName").textContent = currentUser || "Youth Member");
-  document.getElementById("avatarCompanionLevel") && (document.getElementById("avatarCompanionLevel").textContent = "Level " + avatarState.level);
-  renderAvatar("liveAvatar");
-}
-
-function showAvatarSpeech(message, duration=2800){
-  const el = document.getElementById("avatarSpeech");
-  if(!el) return;
-  el.textContent = message;
-  el.classList.add("show");
-  clearTimeout(window.sgSpeechTimer);
-  window.sgSpeechTimer = setTimeout(() => el.classList.remove("show"), duration);
-}
-
-function avatarAnimate(type="magic"){
-  const el = document.getElementById("avatarCompanion");
-  if(!el) return;
-  el.classList.remove("walking","somersault","magic","celebrate");
-  void el.offsetWidth;
-  el.classList.add(type);
-  setTimeout(() => el.classList.remove(type), 1200);
-}
-
-function popCoins(amount){
-  const el = document.createElement("div");
-  el.className = "avatar-coins-pop";
-  el.textContent = "🪙 +" + amount;
-  el.style.right = "35px";
-  el.style.bottom = "185px";
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 1200);
-}
-
-function addCoins(amount, reason){
-  amount = Math.max(0, Number(amount) || 0);
-  if(!amount) return;
-  avatarState.coins += amount;
-
-  const nextLevel = Math.floor(avatarState.coins / 100) + 1;
-  const leveled = nextLevel > avatarState.level;
-  avatarState.level = nextLevel;
-  saveAvatarState();
-  updateAvatarUI();
-  popCoins(amount);
-
-  if(leveled){
-    avatarAnimate("celebrate");
-    showAvatarSpeech("🎉 Level up! You reached Level " + avatarState.level + "!");
-  } else if(reason){
-    showAvatarSpeech("🪙 +" + amount + " coins — " + reason);
-  }
-}
-
-function todayKey(){
-  const d = new Date();
-  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-}
-
-function rewardDailyLogin(){
-  const today = todayKey();
-  if(avatarState.lastLogin === today) return;
-
-  const previous = avatarState.lastLogin;
-  avatarState.lastLogin = today;
-
-  if(previous){
-    const oldDate = new Date(previous + "T00:00:00");
-    const nowDate = new Date(today + "T00:00:00");
-    const diff = Math.round((nowDate-oldDate)/86400000);
-    avatarState.streak = diff === 1 ? avatarState.streak + 1 : 1;
-  }else{
-    avatarState.streak = 1;
-  }
-
-  saveAvatarState();
-  addCoins(10, "daily login");
-  if(avatarState.streak >= 3) addCoins(5, "streak bonus");
-}
-
-function rewardMessage(){
-  avatarState.totalMessages++;
-  saveAvatarState();
-  addCoins(2, "community message");
-}
-
-function rewardSection(sectionId){
-  if(!sectionId) return;
-  if(!avatarState.visitedSections.includes(sectionId)){
-    avatarState.visitedSections.push(sectionId);
-    avatarState.previousSection = avatarState.currentSection;
-    avatarState.currentSection = sectionId;
-    saveAvatarState();
-    addCoins(3, "new section");
-    avatarAnimate("walking");
-  }else{
-    avatarState.previousSection = avatarState.currentSection;
-    avatarState.currentSection = sectionId;
-    saveAvatarState();
-  }
-}
-
-function companionNavigate(sectionId, label){
-  rewardSection(sectionId);
-  const section = document.getElementById(sectionId);
-  if(section){
-    section.classList.add("avatar-section-highlight");
-    setTimeout(()=>section.classList.remove("avatar-section-highlight"),1200);
-  }
-  if(avatarState.previousSection && avatarState.previousSection !== sectionId){
-    avatarAnimate("somersault");
-    showAvatarSpeech("✨ You made it to " + (label || "the next section") + "!");
-  }else{
-    avatarAnimate("magic");
-    showAvatarSpeech("👋 Welcome to " + (label || "this section") + "!");
-  }
-}
-
-function setupAvatarNavigation(){
-  document.querySelectorAll("a[href^='#']").forEach(link=>{
-    const href = link.getAttribute("href");
-    if(!href || href === "#") return;
-    const targetId = href.substring(1);
-    const target = document.getElementById(targetId);
-    if(!target) return;
-    link.addEventListener("click", ()=>{
-      setTimeout(()=>companionNavigate(targetId, link.textContent.trim()),80);
-    });
-  });
-
-  document.querySelectorAll("section[id]").forEach(section=>{
-    const observer = new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting && entry.intersectionRatio >= .35){
-          companionNavigate(section.id, section.getAttribute("data-avatar-label") || section.id.replace(/[-_]/g," "));
-        }
-      });
-    },{threshold:[.35]});
-    observer.observe(section);
-  });
-}
-
-function initializeAvatar(){
-  renderAvatar("registerAvatarPreview");
-  updateAvatarUI();
-  if(currentUser){
-    rewardDailyLogin();
-    showAvatarSpeech("👋 Welcome back, " + currentUser + "!");
-    avatarAnimate("magic");
-  }
-  setupAvatarNavigation();
-}
-
-
 function setupUser() {
 
     const overlay = document.getElementById("registerOverlay");
@@ -1263,8 +776,6 @@ function setupUser() {
 
         overlay.classList.add("hidden");
         display.textContent = currentUser;
-        updateAvatarUI();
-        rewardDailyLogin();
 
     } else {
 
@@ -1282,15 +793,6 @@ async function registerUser() {
     if (!input) return;
 
     const name = input.value.trim();
-
-    // Avatar data is kept locally first so registration never depends on an image-AI API.
-    avatarData = {
-        id: "AV-" + Date.now().toString(36).toUpperCase(),
-        gender: avatarGender,
-        style: avatarStyle,
-        createdAt: new Date().toISOString()
-    };
-    localStorage.setItem("sgAvatarData", JSON.stringify(avatarData));
 
     if (!name) {
 
@@ -1338,13 +840,6 @@ async function registerUser() {
             "chatUser",
             currentUser
         );
-
-        avatarState = defaultAvatarState();
-        saveAvatarState();
-        updateAvatarUI();
-        rewardDailyLogin();
-        avatarAnimate("celebrate");
-        showAvatarSpeech("🎉 Welcome " + currentUser + "! Your companion is ready.");
 
         const overlay =
             document.getElementById("registerOverlay");
@@ -1759,11 +1254,6 @@ async function sendMessage() {
         hideEmoji();
 
         await loadMessages();
-
-        // Gamification reward for successful community message.
-        if(text || media){
-            rewardMessage();
-        }
 
 
         /* ====================================================
@@ -3028,13 +2518,6 @@ window.toggleAIPanel =
 
 window.closeAIPanel =
     closeAIPanel;
-
-window.chooseAvatarGender = chooseAvatarGender;
-window.chooseAvatarStyle = chooseAvatarStyle;
-window.companionNavigate = companionNavigate;
-window.addCoins = addCoins;
-window.avatarAnimate = avatarAnimate;
-window.showAvatarSpeech = showAvatarSpeech;
 function testAI() {
 
   const properties =
@@ -3242,4 +2725,103 @@ function testAI() {
 
 
 
+
+<div id="sg3d-root" aria-hidden="true">
+  <div id="sg3d-bubble" class="sg3d-bubble">Welcome to St George Youth! 👋</div>
+  <canvas id="sg3d-canvas"></canvas>
+  <div class="sg3d-hud">🪙 <b id="sg3d-coins">0</b> &nbsp; LV <b id="sg3d-level">1</b><div class="sg3d-label">3D Youth Companion</div></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+function ready(fn){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fn);else fn();}
+ready(function(){
+ const canvas=document.getElementById('sg3d-canvas'); if(!canvas||!window.THREE)return;
+ const T=THREE;
+ const scene=new T.Scene();
+ const camera=new T.PerspectiveCamera(32,1,.1,100); camera.position.set(0,1.55,5.4); camera.lookAt(0,1.45,0);
+ const renderer=new T.WebGLRenderer({canvas,alpha:true,antialias:true}); renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.outputColorSpace=T.SRGBColorSpace; renderer.shadowMap.enabled=true; renderer.shadowMap.type=T.PCFSoftShadowMap;
+ const hemi=new T.HemisphereLight(0xffffff,0x24483f,2.0); scene.add(hemi);
+ const key=new T.DirectionalLight(0xffffff,3.0); key.position.set(3,5,4); key.castShadow=true; scene.add(key);
+ const rim=new T.PointLight(0x48d6b2,8,7); rim.position.set(-3,2,2); scene.add(rim);
+ const root=new T.Group(); root.position.y=-1.02; scene.add(root);
+ const mats={skin:new T.MeshStandardMaterial({color:0x8d5524,roughness:.75}),skin2:new T.MeshStandardMaterial({color:0xb87333,roughness:.75}),shirt:new T.MeshStandardMaterial({color:0x128c7e,roughness:.65}),pants:new T.MeshStandardMaterial({color:0x172554,roughness:.8}),shoe:new T.MeshStandardMaterial({color:0xf5f5f5,roughness:.55}),hair:new T.MeshStandardMaterial({color:0x17120f,roughness:.9}),white:new T.MeshStandardMaterial({color:0xffffff,roughness:.5}),gold:new T.MeshStandardMaterial({color:0xffc107,metalness:.5,roughness:.25})};
+ const parts={};
+ function mesh(g,m,n){let x=new T.Mesh(g,m);x.name=n||'';x.castShadow=true;x.receiveShadow=true;return x}
+ function cyl(r1,r2,h,m){return mesh(new T.CylinderGeometry(r1,r2,h,16),m)}
+ function sphere(r,m){return mesh(new T.SphereGeometry(r,20,16),m)}
+ function box(x,y,z,m){return mesh(new T.BoxGeometry(x,y,z),m)}
+ function limb(x,y,z,m){let g=new T.Group();g.position.set(x,y,z);root.add(g);return g}
+ // torso
+ parts.torso=mesh(new T.CapsuleGeometry(.48,.72,8,16),mats.shirt,'torso'); parts.torso.position.y=1.55; root.add(parts.torso);
+ // jacket/hoodie accent
+ const chest=box(.72,.38,.48,mats.white); chest.position.set(0,1.53,.43); chest.scale.set(.55,.55,.18); root.add(chest);
+ // neck/head
+ parts.neck=cyl(.16,.18,.22,mats.skin); parts.neck.position.y=2.16; root.add(parts.neck);
+ parts.head=sphere(.43,mats.skin); parts.head.position.y=2.56; root.add(parts.head);
+ // ears
+ [-1,1].forEach(s=>{let e=sphere(.095,mats.skin);e.scale.z=.65;e.position.set(s*.42,2.56,0);root.add(e)});
+ // hair cap + curls
+ let hair=sphere(.45,mats.hair);hair.position.set(0,2.72,-.015);hair.scale.set(1,.72,1);root.add(hair);
+ for(let i=-2;i<=2;i++){let c=sphere(.13,mats.hair);c.position.set(i*.15,2.78,.22);root.add(c)}
+ // eyes
+ [-1,1].forEach(s=>{let e=sphere(.045,mats.white);e.position.set(s*.14,2.61,.405);root.add(e);let p=sphere(.021,mats.hair);p.position.set(s*.14,2.61,.445);root.add(p)});
+ // smile
+ const smile=mesh(new T.TorusGeometry(.12,.018,8,16,Math.PI),mats.hair);smile.rotation.x=Math.PI;smile.scale.y=.55;smile.position.set(0,2.45,.405);root.add(smile);
+ // arms
+ parts.armL=limb(-.58,1.67,0,mats.shirt);parts.armR=limb(.58,1.67,0,mats.shirt);parts.armL.add(cyl(.12,.14,.68,mats.shirt));parts.armR.add(cyl(.12,.14,.68,mats.shirt));parts.armL.children[0].position.y=-.31;parts.armR.children[0].position.y=-.31;
+ parts.handL=sphere(.14,mats.skin);parts.handR=sphere(.14,mats.skin);parts.handL.position.set(-.58,1.28,0);parts.handR.position.set(.58,1.28,0);root.add(parts.handL,parts.handR);
+ // legs
+ parts.legL=limb(-.24,.92,0,mats.pants);parts.legR=limb(.24,.92,0,mats.pants);parts.legL.add(cyl(.17,.19,.72,mats.pants));parts.legR.add(cyl(.17,.19,.72,mats.pants));parts.legL.children[0].position.y=-.34;parts.legR.children[0].position.y=-.34;
+ // shoes
+ parts.shoeL=box(.34,.16,.62,mats.shoe);parts.shoeR=box(.34,.16,.62,mats.shoe);parts.shoeL.position.set(-.24,.48,.12);parts.shoeR.position.set(.24,.48,.12);root.add(parts.shoeL,parts.shoeR);
+ // gold level badge
+ parts.badge=sphere(.09,mats.gold);parts.badge.scale.set(1,.7,.25);parts.badge.position.set(.39,1.82,.48);root.add(parts.badge);
+ // ground shadow
+ const ground=mesh(new T.CircleGeometry(1.05,40),new T.ShadowMaterial({opacity:.22}));ground.rotation.x=-Math.PI/2;ground.position.y=.39;ground.scale.set(1,.5,1);ground.receiveShadow=true;scene.add(ground);
+ let gender=localStorage.getItem('sgAvatarGender')||'male'; let style=localStorage.getItem('sgAvatarStyle')||'street';
+ function applyLook(){
+   mats.skin.color.setHex(gender==='female'?0x9a5d36:0x8d5524);
+   mats.shirt.color.setHex(style==='sport'?0x2563eb:style==='smart'?0x111827:0x128c7e);
+   mats.pants.color.setHex(style==='sport'?0x111827:style==='smart'?0x202020:0x172554);
+   mats.hair.color.setHex(gender==='female'?0x24160f:0x17120f);
+   root.scale.set(gender==='female'?.96:1,gender==='female'?1.03:1,gender==='female'?.96:1);
+ }
+ applyLook();
+ let mode='idle',t=0,modeStart=0,last=performance.now();
+ function setMode(m){mode=m;modeStart=t;root.visible=true}
+ function animateMode(dt){t+=dt;const q=t-modeStart;
+   const bob=Math.sin(t*3)*.025;
+   root.position.y=-1.02+bob;
+   parts.armL.rotation.z=0;parts.armR.rotation.z=0;parts.legL.rotation.z=0;parts.legR.rotation.z=0;root.rotation.x=0;root.rotation.z=0;
+   if(mode==='walk'){root.position.z=Math.sin(t*1.8)*.03;parts.armL.rotation.z=Math.sin(t*8)*.42;parts.armR.rotation.z=-Math.sin(t*8)*.42;parts.legL.rotation.z=-Math.sin(t*8)*.32;parts.legR.rotation.z=Math.sin(t*8)*.32}
+   if(mode==='jump'){root.position.y=-1.02+Math.sin(Math.min(q*4,Math.PI))*0.55;parts.armL.rotation.z=-.8;parts.armR.rotation.z=.8}
+   if(mode==='somersault'){root.rotation.x=q*7.0;root.position.y=-1.02+Math.sin(Math.min(q*3.2,Math.PI))*.7;if(q>1.02)setMode('idle')}
+   if(mode==='magic'){root.position.y=-1.02+Math.min(q*2.8,.35);root.rotation.y=Math.min(q*4,Math.PI*2);parts.armL.rotation.z=-1.15;parts.armR.rotation.z=1.15;if(q>1.4)setMode('idle')}
+   if(mode==='celebrate'){parts.armL.rotation.z=-1.2+Math.sin(t*8)*.2;parts.armR.rotation.z=1.2-Math.sin(t*8)*.2;root.position.y=-1.02+Math.abs(Math.sin(t*5))*.12}
+ }
+ function resize(){const r=canvas.getBoundingClientRect();const w=Math.max(1,r.width),h=Math.max(1,r.height);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)}
+ addEventListener('resize',resize);resize();
+ function bubble(msg){const b=document.getElementById('sg3d-bubble');if(!b)return;b.textContent=msg;b.classList.add('show');clearTimeout(b._x);b._x=setTimeout(()=>b.classList.remove('show'),3500)}
+ function coins(){let c=Number(localStorage.getItem('sgCoins')||0);let l=Math.floor(c/100)+1;document.getElementById('sg3d-coins').textContent=c;document.getElementById('sg3d-level').textContent=l;return c}
+ function reward(n,reason){let c=Number(localStorage.getItem('sgCoins')||0)+n;localStorage.setItem('sgCoins',c);coins();if(reason)bubble(reason+' +'+n+' coins 🪙');}
+ window.sg3D={
+   setGender:g=>{gender=g;localStorage.setItem('sgAvatarGender',g);applyLook();setMode('celebrate');bubble(g==='female'?'Your 3D character is ready! ✨':'Your 3D character is ready! 🔥')},
+   setStyle:s=>{style=s;localStorage.setItem('sgAvatarStyle',s);applyLook();setMode('celebrate')},
+   walk:()=>setMode('walk'), jump:()=>setMode('jump'), somersault:()=>setMode('somersault'), magic:()=>{setMode('magic');bubble('New section! Let’s go! ✨')}, celebrate:()=>setMode('celebrate'), say:bubble, reward,
+   coins
+ };
+ // integrate with existing avatar selectors if present
+ window.chooseAvatarGender=function(g){window.sg3D.setGender(g);}; window.chooseAvatarStyle=function(s){window.sg3D.setStyle(s);};
+ // reward hooks
+ const oldSend=window.sendMessage; if(typeof oldSend==='function'){window.sendMessage=function(){const r=oldSend.apply(this,arguments);setTimeout(()=>reward(2,'Message sent'),500);return r}}
+ // section memory hooks
+ document.addEventListener('click',function(e){const a=e.target.closest('a[href^="#"]');if(a){setMode('walk');setTimeout(()=>window.sg3D.magic(),420);}});
+ coins();
+ function loop(now){const dt=Math.min((now-last)/1000,.05);last=now;animateMode(dt);renderer.render(scene,camera);requestAnimationFrame(loop)} requestAnimationFrame(loop);
+ setTimeout(()=>bubble('Hi! I’m your 3D Youth Companion 👋'),900);
+});
+})();
+</script>
 </body></html>
