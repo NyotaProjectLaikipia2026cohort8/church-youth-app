@@ -33,7 +33,7 @@
   ======================================================== -->
 </head>
 
-<body class="page-404 scrolled" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
+<body class="page-404" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
 <div class="floating-leaf" style="left:5%; animation-delay:0s;">🍃</div>
 <div class="floating-leaf" style="left:25%; animation-delay:2s;">🌿</div>
 <div class="floating-leaf" style="left:50%; animation-delay:4s;">🍃</div>
@@ -149,6 +149,22 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
+.floating-leaf{
+    position:fixed;
+    font-size:2rem;
+    animation:float 8s linear infinite;
+    opacity:0.15;
+    pointer-events:none;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(110vh) rotate(0deg);
+    }
+    100%{
+        transform:translateY(-120px) rotate(360deg);
+    }
+}
 
 :root{
     --primary:#075e54;
@@ -1004,18 +1020,76 @@ body{
     </div>
 
 
-    <div class="status-scroll" id="statusContainer">
+    <div class="status-scroll" id="statusContainer"><div class="status-card add-status">
 
-        <div class="status-card add-status" onclick="openStatusModal()">
+        <i class="bi bi-plus-circle"></i>
 
-            <i class="bi bi-plus-circle"></i>
+        <small class="mt-2">
+            Add Status
+        </small>
 
-            <small class="mt-2">
-                Add Status
-            </small>
+    </div><div class="status-card">
 
-        </div>
-    </div>
+                
+
+                    <img src="https://drive.google.com/uc?export=view&amp;id=1-1Y45o47AW_VD4XzrJjVZT28vMjTonfN" alt="Status" style="
+                        width:100%;
+                        height:100%;
+                        object-fit:cover;
+                        ">
+
+                    <div class="status-overlay">
+                    </div>
+
+                
+
+                <img class="status-avatar" src="https://i.pravatar.cc/100?img=12" alt="Avatar">
+
+                <div class="status-user">
+
+                    Youth Member
+
+                </div>
+
+            </div><div class="status-card">
+
+                
+
+                    <div class="
+                        h-100
+                        d-flex
+                        align-items-center
+                        justify-content-center
+                        p-3
+                        text-center
+                        " style="
+                        background:
+                        linear-gradient(
+                        145deg,
+                        #128c7e,
+                        #241354
+                        );
+                        ">
+
+                        <strong>
+
+                            Hello Guys
+
+                        </strong>
+
+                    </div>
+
+                
+
+                <img class="status-avatar" src="https://i.pravatar.cc/100?img=12" alt="Avatar">
+
+                <div class="status-user">
+
+                    Youth Member
+
+                </div>
+
+            </div></div>
 
 </section>
 
@@ -1596,7 +1670,7 @@ body{
 </div>
 
 
-<div id="textStatusBox" class="mb-3">
+<div id="textStatusBox" class="mb-3" style="display: block;">
 
 <textarea id="statusText" class="form-control" rows="5" placeholder="What's happening?"></textarea>
 
@@ -3270,7 +3344,7 @@ function safeURL(url){
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center active"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
   
@@ -3290,4 +3364,4 @@ function safeURL(url){
 
 
 
-</body></html>
+</body><div id="smartyContainer" style="position: absolute; top: 0px; right: 0px; line-height: initial; z-index: 2147483647; width: auto; font-size: initial; pointer-events: none;"></div></html>

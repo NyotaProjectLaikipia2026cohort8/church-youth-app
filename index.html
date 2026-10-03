@@ -1,4 +1,4 @@
-<html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>ST.GEORGE YOUTH COMMUNITY</title>
@@ -34,7 +34,7 @@
   ======================================================== -->
 </head>
 
-<body class="starter-page-page scrolled" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
+<body class="starter-page-page" data-aos-easing="ease-in-out" data-aos-duration="600" data-aos-delay="0">
 
   <header id="header" class="header sticky-top">
 
@@ -140,6 +140,22 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
+.floating-leaf{
+    position:fixed;
+    font-size:2rem;
+    animation:float 8s linear infinite;
+    opacity:0.15;
+    pointer-events:none;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(110vh) rotate(0deg);
+    }
+    100%{
+        transform:translateY(-120px) rotate(360deg);
+    }
+}
 
 :root{
     --primary:#0d6e63;
@@ -713,9 +729,9 @@ body{
 <!-- REGISTER -->
 
 
-<div id="registerOverlay" class="register-overlay">
+<div id="registerOverlay" class="register-overlay hidden">
   <div class="register-box">
-    <div style="font-size:45px;">🧑🏽‍💻</div>
+    <div style="font-size:45px;">🧑🏽&zwj;💻</div>
     <h3>Join St George Youth Chat</h3>
     <p class="text-muted">Create your youth profile and choose your game-style companion.</p>
 
@@ -729,7 +745,21 @@ body{
         <button type="button" id="genderFemale" class="avatar-choice" onclick="chooseAvatarGender('female')">👧 Female</button>
       </div>
 
-      <div class="avatar-preview" id="registerAvatarPreview"></div>
+      <div class="avatar-preview" id="registerAvatarPreview">
+  <svg viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Youth avatar">
+    <ellipse cx="50" cy="119" rx="25" ry="4" fill="#000" opacity=".12"></ellipse>
+    <path d="M27 40Q27 9 51 9Q75 9 75 40L68 30Q60 23 50 25Q39 23 32 31Z" fill="#21140f"></path>
+    <circle cx="50" cy="43" r="23" fill="#87563a"></circle>
+    <circle cx="42" cy="43" r="2.3" fill="#21140f"></circle>
+    <circle cx="58" cy="43" r="2.3" fill="#21140f"></circle>
+    <path d="M43 53Q50 58 57 53" fill="none" stroke="#5b2e22" stroke-width="2" stroke-linecap="round"></path>
+    <path d="M32 70L20 84L28 98L39 90L40 112L60 112L61 90L72 98L80 84L68 70Z" fill="#0d6e63"></path>
+       <path d="M40 78Q50 87 60 78" fill="none" stroke="white" stroke-width="2" opacity=".7"></path>
+    <path d="M40 112L34 121M60 112L66 121" stroke="#263238" stroke-width="8" stroke-linecap="round"></path>
+    <path d="M30 121H43M57 121H70" stroke="#151515" stroke-width="5" stroke-linecap="round"></path>
+    
+    
+  </svg></div>
 
       <div class="style-buttons">
         <button type="button" id="styleStreet" class="avatar-choice selected" onclick="chooseAvatarStyle('street')">🔥 Street</button>
@@ -742,7 +772,7 @@ body{
       </small>
     </div>
 
-    <button onclick="registerUser()">Create My Avatar & Join</button>
+    <button onclick="registerUser()">Create My Avatar &amp; Join</button>
   </div>
 </div>
 
@@ -752,20 +782,34 @@ body{
 
 <!-- AVATAR COMPANION -->
 <div id="avatarCompanion" class="avatar-companion" aria-live="polite">
-  <div id="avatarSpeech" class="avatar-speech"></div>
+  <div id="avatarSpeech" class="avatar-speech">👋 Welcome to Compliments and Grievances Corner!</div>
   <div class="avatar-card">
-    <div id="liveAvatar"></div>
-    <div class="avatar-name" id="avatarCompanionName">Youth Member</div>
+    <div id="liveAvatar">
+  <svg viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Youth avatar">
+    <ellipse cx="50" cy="119" rx="25" ry="4" fill="#000" opacity=".12"></ellipse>
+    <path d="M27 40Q27 9 51 9Q75 9 75 40L68 30Q60 23 50 25Q39 23 32 31Z" fill="#21140f"></path>
+    <circle cx="50" cy="43" r="23" fill="#87563a"></circle>
+    <circle cx="42" cy="43" r="2.3" fill="#21140f"></circle>
+    <circle cx="58" cy="43" r="2.3" fill="#21140f"></circle>
+    <path d="M43 53Q50 58 57 53" fill="none" stroke="#5b2e22" stroke-width="2" stroke-linecap="round"></path>
+    <path d="M32 70L20 84L28 98L39 90L40 112L60 112L61 90L72 98L80 84L68 70Z" fill="#0d6e63"></path>
+       <path d="M40 78Q50 87 60 78" fill="none" stroke="white" stroke-width="2" opacity=".7"></path>
+    <path d="M40 112L34 121M60 112L66 121" stroke="#263238" stroke-width="8" stroke-linecap="round"></path>
+    <path d="M30 121H43M57 121H70" stroke="#151515" stroke-width="5" stroke-linecap="round"></path>
+    
+    
+  </svg></div>
+    <div class="avatar-name" id="avatarCompanionName">sam_kabz_</div>
     <div class="avatar-level" id="avatarCompanionLevel">Level 1</div>
   </div>
 </div>
 
 <div class="avatar-dashboard" id="avatarDashboard">
-  <span class="coin">🪙 <span id="coinCount">0</span></span>
+  <span class="coin">🪙 <span id="coinCount">53</span></span>
   <span>•</span>
   <span class="level">⭐ Lv.<span id="levelCount">1</span></span>
   <span>•</span>
-  <span>🔥 <span id="streakCount">0</span></span>
+  <span>🔥 <span id="streakCount">4</span></span>
 </div>
 
 <div class="chat-wrapper">
@@ -796,7 +840,7 @@ body{
 
         <div class="header-user">
 
-            👤 <span id="userDisplay">Guest</span>
+            👤 <span id="userDisplay">sam_kabz_</span>
 
         </div>
 
@@ -805,7 +849,7 @@ body{
 
     <!-- MESSAGES -->
 
-    <div id="messages" class="messages"><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/uc?export=view&amp;id=1DqtfhH79b8pH34Drsn6ZNMPbvF8RxNex" alt="Shared image" loading="lazy"><div class="message-time">10:46 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><div class="message-text">😂mic check one two</div><div class="message-time">10:48 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/uc?export=view&amp;id=1rtmAgf5B0Y_rifj3ZU6hgXJ00Y8tDH54" alt="Shared image" loading="lazy"><div class="message-text">mic check one two over!</div><div class="message-time">10:48 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1O9WxPTK7oWNZlubbqvBqi9a4dwzWuR7A&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">11:27 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=13n4ik5DQs60H3ogZYGiNPHX8nUZW3cKX&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:07 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><div class="message-text">😀OOH IT WORKS!!</div><div class="message-time">12:08 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1x4LARCeYOzRaEqxD9u53joZOMzRQ6wk8&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:08 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sammy's nickname</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=15jWva2p3Dbmy8FCddSzXpwteq47HY53u&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">10:32 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><div class="message-text">hello</div><div class="message-time">10:58 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sammy's nickname</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=10YVAfRxmS7u7okgwWuHCKaPLkhsLlFMs&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">10:59 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1fl5zaMCVl-iTQJdbsllmgyi2SZLa6l8E&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:02 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">samuelkabatha63@gmail.com</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1ZPTR2EFnpqGlv_XAX5tUNnt-7DLfbvtA&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:26 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1c6N8wVpG3NcchWq3Tyc69GhtTbcnfhsz&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:28 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1eyWRp1_DZgdy69BVmT0HS_GrzuojVrBz&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:55 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">samuelkabatha63@gmail.com</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=159VR9y35HJ2plP8uRQowTv3ajP8Yfx0a&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:57 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><div class="message-text">olooo!!!!👍</div><div class="message-time">09:46 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1UiU8EE_BnHvHMRJt-c_Y-yM4vhkJGvD3&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">09:47 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1m8Ig4ZBNyaSP7amqxzOxk01EIlUC7xTW&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">09:52 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><div class="message-text">💯</div><div class="message-time">09:54 PM</div></div></div></div>
+    <div id="messages" class="messages"><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/uc?export=view&amp;id=1DqtfhH79b8pH34Drsn6ZNMPbvF8RxNex" alt="Image unavailable" loading="lazy" style="opacity: 0.5;"><div class="message-time">10:46 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><div class="message-text">😂mic check one two</div><div class="message-time">10:48 PM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/uc?export=view&amp;id=1rtmAgf5B0Y_rifj3ZU6hgXJ00Y8tDH54" alt="Image unavailable" loading="lazy" style="opacity: 0.5;"><div class="message-text">mic check one two over!</div><div class="message-time">10:48 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1O9WxPTK7oWNZlubbqvBqi9a4dwzWuR7A&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">11:27 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=13n4ik5DQs60H3ogZYGiNPHX8nUZW3cKX&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:07 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">LIAM</div><div class="message-text">😀OOH IT WORKS!!</div><div class="message-time">12:08 AM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1x4LARCeYOzRaEqxD9u53joZOMzRQ6wk8&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:08 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sammy's nickname</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=15jWva2p3Dbmy8FCddSzXpwteq47HY53u&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">10:32 PM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><div class="message-text">hello</div><div class="message-time">10:58 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">sammy's nickname</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=10YVAfRxmS7u7okgwWuHCKaPLkhsLlFMs&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">10:59 PM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1fl5zaMCVl-iTQJdbsllmgyi2SZLa6l8E&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:02 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">samuelkabatha63@gmail.com</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1ZPTR2EFnpqGlv_XAX5tUNnt-7DLfbvtA&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:26 AM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1c6N8wVpG3NcchWq3Tyc69GhtTbcnfhsz&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:28 AM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1eyWRp1_DZgdy69BVmT0HS_GrzuojVrBz&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:55 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">samuelkabatha63@gmail.com</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=159VR9y35HJ2plP8uRQowTv3ajP8Yfx0a&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">12:57 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><div class="message-text">olooo!!!!👍</div><div class="message-time">09:46 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1UiU8EE_BnHvHMRJt-c_Y-yM4vhkJGvD3&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">09:47 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1m8Ig4ZBNyaSP7amqxzOxk01EIlUC7xTW&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">09:52 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">alphmega654</div><div class="message-text">💯</div><div class="message-time">09:54 PM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><div class="message-text">🤣🤣🤣🤣🙌</div><div class="message-time">03:19 PM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1_iA8dkEx2RH4sHYTMDy5US1N-fxACtwl&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">03:20 PM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1jNQwRHKp4zCz-qWfYuokbj4MwKt_iItS&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-text">hello guys</div><div class="message-time">09:32 PM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><div class="message-text">hello</div><div class="message-time">09:33 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1CesPNfVuJa1sys_u_mKAMN3GXt2yU02J&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">02:44 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><div class="message-text">Mic test one two!!!</div><div class="message-time">02:45 AM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1CWjGC4SqGn6VUFibWXi_LB5_DA7pghIe&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">03:18 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1835n0COVBLEbeeFHuAQk93MCBRA7q4rU&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">01:22 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><div class="message-text">https://classassistliam.github.io/Raila-Amolo-Odinga/</div><div class="message-time">01:25 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1z21H3HqUWsQBEXbN5Ocaj76QvpPnXrWY&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-text">Ndio kutokea kuota jua</div><div class="message-time">05:36 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Young_nigga🦾👾</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1gbMePPhSf5CR_SwkYpcQ8nTy0NQJ4kko&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-text">HSC Dr. William Samoi Ruto president of the republic of Kenya.</div><div class="message-time">05:41 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1NyMggBB42FFoX-gz-8C-IQEmpjx3GDle&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">09:48 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><div class="message-text">Goodnight 🌇 wadau</div><div class="message-time">09:50 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Young_nigga🦾👾</div><div class="message-text">🤣🤣🤣👍</div><div class="message-time">10:17 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><div class="message-text">Goodnight too🤣🤣😊</div><div class="message-time">10:18 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1Cn4CQ3S8bbynlMg7u2G6ruOtQbMcMFnL&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-time">08:24 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><div class="message-text">What is your opinion on the above poster wadau?</div><div class="message-time">08:26 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Young_nigga👾🦾</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1mz3R7Pl5BERPDQREz89Lj7EXXjW-6IlW&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-text">Waruguru alisisitiza umuhimu wa kutambua nguvu, ubunifu, na ustahimilivu wa vijana katika kuleta mabadiliko chanya na maendeleo endelevu. Alitoa wito kwa serikali na washikadau kutoa fursa, rasilimali, na majukwaa stahiki ili kukuza vipaji na kukuza sauti za vijana</div><div class="message-time">08:30 PM</div></div></div><div class="message-row"><div class="message-bubble"><div class="message-name">Samuel Kabatha🤠👾</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1kHxVIdQ8UrCAWSm_QNZufxSGotje6eJw&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-text">What your thoughts as people of Laikipia North Mukogondo east ward and the constituency itself</div><div class="message-time">10:31 PM</div></div></div><div class="message-row sent"><div class="message-bubble"><div class="message-name">sam_kabz_</div><img class="chat-image" src="https://drive.google.com/thumbnail?id=1H8Xjkox7HinHWd1MBSqi4jBhlPLb7QJl&amp;sz=w1200" alt="Shared image" loading="lazy"><div class="message-text">During his time in the second Laikipia County Assembly, Nyausi was recognized for sponsoring several motions aimed at grassroots development. According to assembly records, he pushed for the fast-tracking of incomplete county projects, championed the fair distribution of village polytechnics to empower local youth, and urged the county to collaborate with national agencies to restore peace and security in conflict-prone areas.</div><div class="message-time">11:36 PM</div></div></div></div>
 
 
     <!-- TYPING -->
@@ -3222,7 +3266,7 @@ function testAI() {
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center active"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
   
@@ -3242,4 +3286,4 @@ function testAI() {
 
 
 
-</body></html>
+</body><div id="smartyContainer" style="position: absolute; top: 0px; right: 0px; line-height: initial; z-index: 2147483647; width: auto; font-size: initial; pointer-events: none;"></div></html>
