@@ -1015,95 +1015,7 @@ body{
             </small>
 
         </div>
-    <div class="status-card">
-
-            
-
-                <div class="h-100 d-flex
-                align-items-center
-                justify-content-center
-                p-3 text-center">
-
-                    <strong>
-                        yollo good evening
-                    </strong>
-
-                </div>
-
-            
-
-            <img class="status-avatar" src="https://i.pravatar.cc/100?img=12">
-
-            <div class="status-user">
-                Youth Member
-            </div>
-        </div><div class="status-card">
-
-            
-
-                <div class="h-100 d-flex
-                align-items-center
-                justify-content-center">
-
-                    <i class="bi bi-play-circle" style="
-                    font-size:45px;
-                    color:#25d366">
-                    </i>
-
-                </div>
-
-            
-
-            <img class="status-avatar" src="https://i.pravatar.cc/100?img=12">
-
-            <div class="status-user">
-                Youth Member
-            </div>
-        </div><div class="status-card">
-
-            
-
-                <div class="h-100 d-flex
-                align-items-center
-                justify-content-center">
-
-                    <i class="bi bi-play-circle" style="
-                    font-size:45px;
-                    color:#25d366">
-                    </i>
-
-                </div>
-
-            
-
-            <img class="status-avatar" src="https://i.pravatar.cc/100?img=12">
-
-            <div class="status-user">
-                Youth Member
-            </div>
-        </div><div class="status-card">
-
-            
-
-                <div class="h-100 d-flex
-                align-items-center
-                justify-content-center">
-
-                    <i class="bi bi-play-circle" style="
-                    font-size:45px;
-                    color:#25d366">
-                    </i>
-
-                </div>
-
-            
-
-            <img class="status-avatar" src="https://i.pravatar.cc/100?img=12">
-
-            <div class="status-user">
-                Youth Member
-            </div>
-        </div></div>
+    </div>
 
 </section>
 
@@ -1768,145 +1680,198 @@ Publish Status
 </script>
 
 
-<script>
-
-/* =====================================================
+<script>/* =========================================================
    ST GEORGE YOUTH
-   STATUS + AI CHANNEL FRONTEND ENGINE
-===================================================== */
+   FRESH STATUS ENGINE
+   GOOGLE APPS SCRIPT + GOOGLE SHEETS + GOOGLE DRIVE
+========================================================= */
 
 
-/* =====================================================
-   CONFIGURATION
-===================================================== */
+/* =========================================================
+   API CONFIG
+========================================================= */
 
-/*
- IMPORTANT:
-
- Replace this with your existing Apps Script Web App URL.
-
- Example:
-
- const API_URL =
- "https://script.google.com/macros/s/XXXX/exec";
-
- DO NOT put OpenAI/Gemini API keys here.
-*/
-
-const API_URL = "https://script.google.com/macros/s/AKfycbwkhHc7BhIzqgOd9RSBEr9dVyYHF1GpxqYXTa7NLJqzaHKmuuk5HBX0zi6i0VeBY1sd/exec";
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwfGnGRVAnj8Rjhh25naYmQOSZlI0bp3WFHtxuxzAOX3vwkGecLXJijsouWSIkDTdPxYw/exec";
 
 
-/* =====================================================
-   LOCAL USER
-===================================================== */
+/* =========================================================
+   USER
+========================================================= */
 
 let currentUser = {
-    id: localStorage.getItem("chatUserId") || "YOUTH-001",
 
-    name: localStorage.getItem("chatUserName")
+    id:
+        localStorage.getItem("chatUserId")
+        || "YOUTH-" + Date.now(),
+
+    name:
+        localStorage.getItem("chatUserName")
         || "Youth Member",
 
-    avatar: localStorage.getItem("chatUserAvatar")
+    avatar:
+        localStorage.getItem("chatUserAvatar")
         || "https://i.pravatar.cc/100?img=12"
+
 };
 
 
-document.getElementById(
-    "currentUserName"
-).textContent = currentUser.name;
+/*
+ * Save generated user ID if this is
+ * the first time this browser is used.
+ */
 
-
-document.getElementById(
-    "currentUserAvatar"
-).src = currentUser.avatar;
-
-
-/* =====================================================
-   STATUS DATA
-===================================================== */
-
-let statuses =
-JSON.parse(
-    localStorage.getItem("sgYouthStatuses")
-    || "[]"
+localStorage.setItem(
+    "chatUserId",
+    currentUser.id
 );
 
 
-/* =====================================================
-   OPEN STATUS MODAL
-===================================================== */
+/* =========================================================
+   UPDATE HEADER
+========================================================= */
+
+function updateCurrentUserUI(){
+
+    const nameElement =
+        document.getElementById(
+            "currentUserName"
+        );
+
+    const avatarElement =
+        document.getElementById(
+            "currentUserAvatar"
+        );
+
+
+    if(nameElement){
+
+        nameElement.textContent =
+            currentUser.name;
+
+    }
+
+
+    if(avatarElement){
+
+        avatarElement.src =
+            currentUser.avatar;
+
+    }
+
+}
+
+
+/* =========================================================
+   STATUS MEMORY
+========================================================= */
+
+let statuses = [];
+
+
+/* =========================================================
+   STATUS MODAL
+========================================================= */
 
 function openStatusModal(){
 
+    const element =
+        document.getElementById(
+            "statusModal"
+        );
+
+
+    if(!element){
+
+        console.error(
+            "statusModal was not found."
+        );
+
+        return;
+    }
+
+
     const modal =
-    new bootstrap.Modal(
-        document.getElementById("statusModal")
-    );
+        bootstrap.Modal.getOrCreateInstance(
+            element
+        );
+
 
     modal.show();
 }
 
 
-/* =====================================================
-   STATUS TYPE
-===================================================== */
+/* =========================================================
+   CHANGE STATUS TYPE
+========================================================= */
 
 function changeStatusType(){
 
     const type =
-    document.getElementById(
-        "statusType"
-    ).value;
+        document.getElementById(
+            "statusType"
+        ).value;
+
 
     const textBox =
-    document.getElementById(
-        "textStatusBox"
-    );
+        document.getElementById(
+            "textStatusBox"
+        );
+
 
     const fileBox =
-    document.getElementById(
-        "fileStatusBox"
-    );
+        document.getElementById(
+            "fileStatusBox"
+        );
 
 
     if(type === "text"){
 
-        textBox.style.display = "block";
+        textBox.style.display =
+            "block";
 
-        fileBox.style.display = "none";
+        fileBox.style.display =
+            "none";
 
     }else{
 
-        textBox.style.display = "none";
+        textBox.style.display =
+            "none";
 
-        fileBox.style.display = "block";
+        fileBox.style.display =
+            "block";
     }
+
 }
 
 
-/* =====================================================
+/* =========================================================
    PUBLISH STATUS
-===================================================== */
+========================================================= */
 
 async function publishStatus(){
 
     const type =
-    document.getElementById(
-        "statusType"
-    ).value;
+        document.getElementById(
+            "statusType"
+        ).value;
 
 
     const text =
-    document.getElementById(
-        "statusText"
-    ).value.trim();
+        document.getElementById(
+            "statusText"
+        ).value.trim();
 
 
     const file =
-    document.getElementById(
-        "statusFile"
-    ).files[0];
+        document.getElementById(
+            "statusFile"
+        ).files[0];
 
+
+    /* -------------------------
+       VALIDATION
+    ------------------------- */
 
     if(type === "text" && !text){
 
@@ -1918,7 +1883,10 @@ async function publishStatus(){
     }
 
 
-    if(type !== "text" && !file){
+    if(
+        type !== "text" &&
+        !file
+    ){
 
         alert(
             "Please select a file."
@@ -1928,441 +1896,991 @@ async function publishStatus(){
     }
 
 
-    const createdAt =
-    new Date().toISOString();
-
-
-    const expiresAt =
-    new Date(
-        Date.now() + 24 * 60 * 60 * 1000
-    ).toISOString();
-
-
     /*
-       Text status can be immediately
-       displayed locally.
+     * Keep media uploads reasonably small
+     * for Apps Script.
+     */
 
-       Media should eventually be uploaded
-       to Google Drive through Apps Script.
-    */
-
-    let status = {
-
-        id:
-        "STATUS-" +
-        Date.now(),
-
-        userId:
-        currentUser.id,
-
-        userName:
-        currentUser.name,
-
-        avatar:
-        currentUser.avatar,
-
-        type:
-        type,
-
-        text:
-        text,
-
-        createdAt:
-        createdAt,
-
-        expiresAt:
-        expiresAt
-    };
-
-
-    if(type === "text"){
-
-        statuses.push(status);
-
-        saveStatuses();
-
-        renderStatuses();
-
-        closeStatusModal();
+    if(
+        file &&
+        file.size > 10 * 1024 * 1024
+    ){
 
         alert(
-            "Status published successfully!"
+            "Please choose a file below 10 MB."
         );
 
         return;
     }
 
 
-    /*
-       Temporary local preview.
+    /* -------------------------
+       BUTTON STATE
+    ------------------------- */
 
-       Backend version will upload the
-       file to Google Drive.
-    */
-
-    const reader =
-    new FileReader();
-
-
-    reader.onload = function(){
-
-        status.media =
-        reader.result;
-
-        status.fileName =
-        file.name;
-
-        statuses.push(status);
-
-        saveStatuses();
-
-        renderStatuses();
-
-        closeStatusModal();
-
-        alert(
-            "Media status published!"
+    const button =
+        document.querySelector(
+            "#statusModal .btn-success"
         );
 
-           sendStatusToBackend(status, file);
+
+    const oldButtonHTML =
+        button
+        ? button.innerHTML
+        : "";
+
+
+    if(button){
+
+        button.disabled = true;
+
+        button.innerHTML =
+            '<span class="spinner-border spinner-border-sm me-2"></span>Publishing...';
+
+    }
+
+
+    /* -------------------------
+       CREATE STATUS OBJECT
+    ------------------------- */
+
+    const createdAt =
+        new Date().toISOString();
+
+
+    const expiresAt =
+        new Date(
+            Date.now() +
+            24 * 60 * 60 * 1000
+        ).toISOString();
+
+
+    const status = {
+
+        id:
+            "STATUS-" +
+            Date.now() +
+            "-" +
+            Math.random()
+                .toString(36)
+                .substring(2,8),
+
+        userId:
+            currentUser.id,
+
+        userName:
+            currentUser.name,
+
+        avatar:
+            currentUser.avatar,
+
+        type:
+            type,
+
+        text:
+            text,
+
+        createdAt:
+            createdAt,
+
+        expiresAt:
+            expiresAt
+
     };
 
 
-    reader.readAsDataURL(file);
+    try{
+
+        /* =================================================
+           TEXT STATUS
+           ================================================= */
+
+        if(type === "text"){
+
+            await sendStatusToBackend(
+                status,
+                null
+            );
+
+        }
+
+
+        /* =================================================
+           MEDIA STATUS
+           ================================================= */
+
+        else{
+
+            await sendStatusToBackend(
+                status,
+                file
+            );
+
+        }
+
+
+        /*
+         * IMPORTANT:
+         *
+         * We DO NOT push the status into
+         * localStorage as the source of truth.
+         *
+         * We reload from Google Sheets.
+         */
+
+        await loadStatuses();
+
+
+        closeStatusModal();
+
+
+        /*
+         * Clear fields.
+         */
+
+        document.getElementById(
+            "statusText"
+        ).value = "";
+
+
+        document.getElementById(
+            "statusFile"
+        ).value = "";
+
+
+        document.getElementById(
+            "statusType"
+        ).value = "text";
+
+
+        changeStatusType();
+
+
+        alert(
+            "Status published successfully! It is now available to other members."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "PUBLISH STATUS ERROR:",
+            error
+        );
+
+
+        alert(
+            "Status could not be published.\n\n" +
+            error.message
+        );
+
+
+    }finally{
+
+        if(button){
+
+            button.disabled = false;
+
+            button.innerHTML =
+                oldButtonHTML;
+
+        }
+
+    }
+
 }
 
 
-/* =====================================================
-   SAVE STATUS
-===================================================== */
+/* =========================================================
+   SEND STATUS TO GOOGLE APPS SCRIPT
+========================================================= */
 
-function saveStatuses(){
+async function sendStatusToBackend(
+    status,
+    file
+){
 
-    localStorage.setItem(
-        "sgYouthStatuses",
-        JSON.stringify(statuses)
+    let fileData = "";
+    let fileName = "";
+    let mimeType = "";
+
+
+    /*
+     * Convert media to Base64.
+     */
+
+    if(file){
+
+        const dataURL =
+            await fileToDataURL(
+                file
+            );
+
+
+        const commaIndex =
+            dataURL.indexOf(",");
+
+
+        if(commaIndex === -1){
+
+            throw new Error(
+                "Unable to process selected media."
+            );
+
+        }
+
+
+        fileData =
+            dataURL.substring(
+                commaIndex + 1
+            );
+
+
+        fileName =
+            file.name;
+
+
+        mimeType =
+            file.type ||
+            "application/octet-stream";
+
+    }
+
+
+    const payload = {
+
+        action:
+            "createStatus",
+
+        statusId:
+            status.id,
+
+        userId:
+            status.userId,
+
+        userName:
+            status.userName,
+
+        avatar:
+            status.avatar,
+
+        type:
+            status.type,
+
+        text:
+            status.text,
+
+        fileName:
+            fileName,
+
+        mimeType:
+            mimeType,
+
+        fileData:
+            fileData,
+
+        createdAt:
+            status.createdAt,
+
+        expiresAt:
+            status.expiresAt
+
+    };
+
+
+    console.log(
+        "Sending status to backend..."
     );
-}
 
 
-/* =====================================================
-   REMOVE EXPIRED STATUS
-===================================================== */
+    const response =
+        await fetch(
+            API_URL,
+            {
 
-function removeExpiredStatuses(){
+                method:
+                    "POST",
 
-    const now =
-    Date.now();
+                body:
+                    JSON.stringify(
+                        payload
+                    )
+
+            }
+        );
 
 
-    statuses =
-    statuses.filter(
-        status =>
-        new Date(status.expiresAt).getTime()
-        > now
+    if(!response.ok){
+
+        throw new Error(
+            "Network error: HTTP " +
+            response.status
+        );
+
+    }
+
+
+    const result =
+        await response.json();
+
+
+    console.log(
+        "STATUS BACKEND RESPONSE:",
+        result
     );
 
 
-    saveStatuses();
+    if(!result.success){
 
-    renderStatuses();
+        throw new Error(
+            result.error ||
+            "Apps Script rejected the status."
+        );
+
+    }
+
+
+    return result;
 }
 
 
-/* =====================================================
-   RENDER STATUS
-===================================================== */
+/* =========================================================
+   FILE → BASE64
+========================================================= */
+
+function fileToDataURL(file){
+
+    return new Promise(
+        function(resolve, reject){
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(){
+
+                    resolve(
+                        reader.result
+                    );
+
+                };
+
+
+            reader.onerror =
+                function(){
+
+                    reject(
+                        new Error(
+                            "Could not read the selected file."
+                        )
+                    );
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOAD STATUSES
+========================================================= */
+
+async function loadStatuses(){
+
+    console.log(
+        "Loading statuses from Google Sheets..."
+    );
+
+
+    try{
+
+        const response =
+            await fetch(
+                API_URL +
+                "?action=getStatuses&t=" +
+                Date.now()
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "STATUS API RESPONSE:",
+            data
+        );
+
+
+        if(!data.success){
+
+            throw new Error(
+                data.error ||
+                "Status API returned an error."
+            );
+
+        }
+
+
+        statuses =
+            Array.isArray(
+                data.statuses
+            )
+            ? data.statuses
+            : [];
+
+
+        renderStatuses();
+
+
+        console.log(
+            "Statuses loaded:",
+            statuses.length
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "LOAD STATUSES ERROR:",
+            error
+        );
+
+
+        /*
+         * Do not replace server data with
+         * localStorage here.
+         *
+         * The backend is the source of truth.
+         */
+
+        renderStatuses();
+
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER STATUSES
+========================================================= */
 
 function renderStatuses(){
 
     const container =
-    document.getElementById(
-        "statusContainer"
-    );
+        document.getElementById(
+            "statusContainer"
+        );
 
 
-    container.innerHTML = `
+    if(!container){
 
-        <div
-        class="status-card add-status"
-        onclick="openStatusModal()">
-
-            <i class="bi bi-plus-circle"></i>
-
-            <small class="mt-2">
-                Add Status
-            </small>
-
-        </div>
-    `;
+        return;
+    }
 
 
-    statuses.forEach(
-        (status,index)=>{
+    /*
+     * Always start with Add Status.
+     */
 
-        const card =
+    container.innerHTML = "";
+
+
+    const addCard =
         document.createElement(
             "div"
         );
 
-        card.className =
-        "status-card";
+
+    addCard.className =
+        "status-card add-status";
 
 
-        card.onclick =
-        () => viewCustomStatus(index);
+    addCard.onclick =
+        function(){
+
+            openStatusModal();
+
+        };
 
 
-        let visual = "";
+    addCard.innerHTML = `
+
+        <i class="bi bi-plus-circle"></i>
+
+        <small class="mt-2">
+            Add Status
+        </small>
+
+    `;
 
 
-        if(status.type === "text"){
-
-            visual = `
-
-                <div
-                class="h-100 d-flex
-                align-items-center
-                justify-content-center
-                p-3 text-center">
-
-                    <strong>
-                        ${escapeHTML(
-                            status.text
-                        )}
-                    </strong>
-
-                </div>
-
-            `;
-
-        }else if(
-            status.type === "image"
-        ){
-
-            visual = `
-
-                <img
-                src="${status.media}"
-                alt="Status">
-
-                <div
-                class="status-overlay">
-                </div>
-
-            `;
-
-        }else if(
-            status.type === "video"
-        ){
-
-            visual = `
-
-                <div
-                class="h-100 d-flex
-                align-items-center
-                justify-content-center">
-
-                    <i
-                    class="bi bi-play-circle"
-                    style="
-                    font-size:45px;
-                    color:#25d366">
-                    </i>
-
-                </div>
-
-            `;
-
-        }else{
-
-            visual = `
-
-                <div
-                class="h-100 d-flex
-                align-items-center
-                justify-content-center">
-
-                    <i
-                    class="bi bi-mic-fill"
-                    style="
-                    font-size:40px;
-                    color:#25d366">
-                    </i>
-
-                </div>
-            `;
-        }
+    container.appendChild(
+        addCard
+    );
 
 
-        card.innerHTML = `
+    /*
+     * No statuses.
+     */
 
-            ${visual}
+    if(!statuses.length){
 
-            <img
-            class="status-avatar"
-            src="${status.avatar}">
+        const empty =
+            document.createElement(
+                "div"
+            );
 
-            <div class="status-user">
-                ${escapeHTML(
-                    status.userName
-                )}
-            </div>
+
+        empty.className =
+            "d-flex align-items-center px-3";
+
+
+        empty.innerHTML = `
+
+            <small
+                style="
+                color:#76938c;
+                white-space:nowrap;
+                ">
+                No active statuses yet
+            </small>
+
         `;
 
 
-        container.appendChild(card);
+        container.appendChild(
+            empty
+        );
 
-    });
+
+        return;
+    }
+
+
+    /*
+     * Create each status card.
+     */
+
+    statuses.forEach(
+        function(status, index){
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "status-card";
+
+
+            card.onclick =
+                function(){
+
+                    viewCustomStatus(
+                        index
+                    );
+
+                };
+
+
+            let visual = "";
+
+
+            /* -------------------------
+               TEXT
+            ------------------------- */
+
+            if(
+                status.type === "text"
+            ){
+
+                visual = `
+
+                    <div
+                        class="
+                        h-100
+                        d-flex
+                        align-items-center
+                        justify-content-center
+                        p-3
+                        text-center
+                        "
+                        style="
+                        background:
+                        linear-gradient(
+                        145deg,
+                        #128c7e,
+                        #241354
+                        );
+                        ">
+
+                        <strong>
+
+                            ${escapeHTML(
+                                status.text
+                                || ""
+                            )}
+
+                        </strong>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /* -------------------------
+               IMAGE
+            ------------------------- */
+
+            else if(
+                status.type === "image"
+            ){
+
+                visual = `
+
+                    <img
+                        src="${safeURL(
+                            status.media
+                        )}"
+                        alt="Status"
+                        style="
+                        width:100%;
+                        height:100%;
+                        object-fit:cover;
+                        ">
+
+                    <div
+                        class="status-overlay">
+                    </div>
+
+                `;
+
+            }
+
+
+            /* -------------------------
+               VIDEO
+            ------------------------- */
+
+            else if(
+                status.type === "video"
+            ){
+
+                visual = `
+
+                    <div
+                        class="
+                        h-100
+                        d-flex
+                        flex-column
+                        align-items-center
+                        justify-content-center
+                        "
+                        style="
+                        background:
+                        linear-gradient(
+                        145deg,
+                        #102d28,
+                        #241354
+                        );
+                        ">
+
+                        <i
+                            class="bi bi-play-circle"
+                            style="
+                            font-size:45px;
+                            color:#25d366;
+                            ">
+                        </i>
+
+                        <small>
+                            Video
+                        </small>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /* -------------------------
+               AUDIO
+            ------------------------- */
+
+            else{
+
+                visual = `
+
+                    <div
+                        class="
+                        h-100
+                        d-flex
+                        flex-column
+                        align-items-center
+                        justify-content-center
+                        "
+                        style="
+                        background:
+                        linear-gradient(
+                        145deg,
+                        #102d28,
+                        #241354
+                        );
+                        ">
+
+                        <i
+                            class="bi bi-mic-fill"
+                            style="
+                            font-size:40px;
+                            color:#25d366;
+                            ">
+                        </i>
+
+                        <small>
+                            Voice Note
+                        </small>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            card.innerHTML = `
+
+                ${visual}
+
+                <img
+                    class="status-avatar"
+                    src="${safeURL(
+                        status.avatar ||
+                        "https://i.pravatar.cc/100?img=12"
+                    )}"
+                    alt="Avatar">
+
+                <div
+                    class="status-user">
+
+                    ${escapeHTML(
+                        status.userName ||
+                        "Youth Member"
+                    )}
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
 }
 
 
-/* =====================================================
-   CUSTOM STATUS VIEWER
-===================================================== */
+/* =========================================================
+   VIEW STATUS
+========================================================= */
 
 function viewCustomStatus(index){
 
     const status =
-    statuses[index];
+        statuses[index];
 
 
-    if(!status) return;
+    if(!status){
+
+        return;
+    }
 
 
     const body =
-    document.getElementById(
-        "viewerBody"
-    );
+        document.getElementById(
+            "viewerBody"
+        );
 
 
-    if(status.type === "text"){
+    if(!body){
+
+        return;
+    }
+
+
+    body.innerHTML = "";
+
+
+    /* -------------------------
+       TEXT
+    ------------------------- */
+
+    if(
+        status.type === "text"
+    ){
 
         body.innerHTML = `
 
             <div class="viewer-text">
+
                 ${escapeHTML(
-                    status.text
+                    status.text || ""
                 )}
+
             </div>
+
         `;
 
-    }else if(status.type === "image"){
+    }
+
+
+    /* -------------------------
+       IMAGE
+    ------------------------- */
+
+    else if(
+        status.type === "image"
+    ){
 
         body.innerHTML = `
 
             <img
-            class="viewer-media"
-            src="${status.media}">
+                class="viewer-media"
+                src="${safeURL(
+                    status.media
+                )}"
+                alt="Status">
+
         `;
 
-    }else if(status.type === "video"){
+    }
+
+
+    /* -------------------------
+       VIDEO
+    ------------------------- */
+
+    else if(
+        status.type === "video"
+    ){
 
         body.innerHTML = `
 
             <video
-            class="viewer-media"
-            controls
-            autoplay>
+                class="viewer-media"
+                controls
+                autoplay
+                playsinline>
 
                 <source
-                src="${status.media}">
+                    src="${safeURL(
+                        status.media
+                    )}">
+
+                Your browser cannot play this video.
 
             </video>
-        `;
 
-    }else{
-
-        body.innerHTML = `
-
-            <audio
-            controls
-            autoplay>
-
-                <source
-                src="${status.media}">
-
-            </audio>
-        `;
-    }
-
-
-    openViewer();
-}
-
-
-/* =====================================================
-   DEMO STATUS VIEWER
-===================================================== */
-
-function viewStatus(id){
-
-    const body =
-    document.getElementById(
-        "viewerBody"
-    );
-
-
-    if(id === 1){
-
-        body.innerHTML = `
-
-            <img
-            class="viewer-media"
-            src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=900">
         `;
 
     }
 
-    else if(id === 2){
 
-        body.innerHTML = `
-
-            <img
-            class="viewer-media"
-            src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=900">
-        `;
-
-    }
+    /* -------------------------
+       AUDIO
+    ------------------------- */
 
     else{
 
         body.innerHTML = `
 
-            <div class="viewer-text">
+            <div
+                class="
+                d-flex
+                flex-column
+                align-items-center
+                gap-4
+                p-4
+                ">
 
-                🎙️
+                <i
+                    class="bi bi-mic-fill"
+                    style="
+                    font-size:60px;
+                    color:#25d366;
+                    ">
+                </i>
 
-                <br><br>
+                <audio
+                    controls
+                    autoplay>
 
-                Voice note status
+                    <source
+                        src="${safeURL(
+                            status.media
+                        )}">
 
-                <br>
+                    Your browser cannot play this audio.
 
-                <small>
-                    Tap play when connected
-                    to your backend.
-                </small>
+                </audio>
 
             </div>
+
         `;
+
     }
 
 
     openViewer();
+
 }
 
 
-/* =====================================================
+/* =========================================================
    OPEN VIEWER
-===================================================== */
+========================================================= */
+
+let viewerTimer = null;
+
 
 function openViewer(){
 
     const viewer =
-    document.getElementById(
-        "statusViewer"
-    );
+        document.getElementById(
+            "statusViewer"
+        );
+
+
+    if(!viewer){
+
+        return;
+    }
 
 
     viewer.classList.add(
@@ -2371,640 +2889,281 @@ function openViewer(){
 
 
     const progress =
-    document.getElementById(
-        "viewerProgress"
-    );
-
-
-    progress.style.width = "0%";
-
-
-    let start =
-    Date.now();
-
-
-    const duration =
-    10000;
-
-
-    const timer =
-    setInterval(
-        function(){
-
-        const percent =
-        Math.min(
-            100,
-            ((Date.now() - start)
-            / duration) * 100
+        document.getElementById(
+            "viewerProgress"
         );
 
 
+    if(progress){
+
         progress.style.width =
-        percent + "%";
+            "0%";
+
+    }
 
 
-        if(percent >= 100){
+    if(viewerTimer){
 
-            clearInterval(timer);
+        clearInterval(
+            viewerTimer
+        );
 
-            closeStatus();
-        }
+    }
 
-    },100);
+
+    const start =
+        Date.now();
+
+
+    const duration =
+        10000;
+
+
+    viewerTimer =
+        setInterval(
+            function(){
+
+                const percent =
+                    Math.min(
+                        100,
+                        (
+                            (
+                                Date.now() -
+                                start
+                            ) /
+                            duration
+                        ) * 100
+                    );
+
+
+                if(progress){
+
+                    progress.style.width =
+                        percent + "%";
+
+                }
+
+
+                if(percent >= 100){
+
+                    clearInterval(
+                        viewerTimer
+                    );
+
+                    viewerTimer =
+                        null;
+
+                    closeStatus();
+
+                }
+
+            },
+            100
+        );
+
 }
 
 
-/* =====================================================
+/* =========================================================
    CLOSE VIEWER
-===================================================== */
+========================================================= */
 
 function closeStatus(){
 
-    document
-    .getElementById(
-        "statusViewer"
-    )
-    .classList.remove(
-        "active"
-    );
+    const viewer =
+        document.getElementById(
+            "statusViewer"
+        );
+
+
+    if(viewer){
+
+        viewer.classList.remove(
+            "active"
+        );
+
+    }
+
+
+    if(viewerTimer){
+
+        clearInterval(
+            viewerTimer
+        );
+
+        viewerTimer =
+            null;
+
+    }
+
+
+    const body =
+        document.getElementById(
+            "viewerBody"
+        );
+
+
+    if(body){
+
+        body.innerHTML = "";
+
+    }
+
 }
 
 
-/* =====================================================
+/* =========================================================
    CLOSE MODAL
-===================================================== */
+========================================================= */
 
 function closeStatusModal(){
 
     const element =
-    document.getElementById(
-        "statusModal"
-    );
+        document.getElementById(
+            "statusModal"
+        );
+
+
+    if(!element){
+
+        return;
+    }
 
 
     const modal =
-    bootstrap.Modal.getInstance(
-        element
-    );
+        bootstrap.Modal.getInstance(
+            element
+        );
 
 
     if(modal){
+
         modal.hide();
+
     }
+
 }
 
 
-/* =====================================================
-   CHANNEL SWITCHING
-===================================================== */
-
-function showChannel(channel,button){
-
-    document
-    .querySelectorAll(
-        ".channel-btn"
-    )
-    .forEach(
-        btn =>
-        btn.classList.remove(
-            "active"
-        )
-    );
-
-
-    if(button){
-
-        button.classList.add(
-            "active"
-        );
-    }
-
-
-    /*
-       In the production version,
-       this can load a dedicated
-       channel from Apps Script.
-    */
-
-
-    const channelNames = {
-
-        home:
-        "Youth Channels",
-
-        kenya:
-        "Kenya News",
-
-        world:
-        "World News",
-
-        football:
-        "Football Zone",
-
-        church:
-        "Church News",
-
-        memes:
-        "Youth Memes",
-
-        motivation:
-        "Daily Motivation",
-
-        opportunities:
-        "Youth Opportunities",
-
-        business:
-        "Youth Hustle",
-
-        tech:
-        "Tech & Digital Life"
-    };
-
-
-    if(channel === "home"){
-
-        window.scrollTo({
-            top:0,
-            behavior:"smooth"
-        });
-
-        return;
-    }
-
-
-    /*
-       Simple demo notification.
-
-       Later this will filter/load
-       the actual channel.
-    */
-
-    console.log(
-        "Opening channel:",
-        channelNames[channel]
-    );
-}
-
-
-/* =====================================================
-   AI NEWS REFRESH
-===================================================== */
-
-async function refreshAINews(){
-
-    /*
-       PRODUCTION FLOW:
-
-       Browser
-          ↓
-       Apps Script
-          ↓
-       AI API
-          ↓
-       News sources
-          ↓
-       Apps Script
-          ↓
-       Google Sheets
-          ↓
-       Browser
-    */
-
-
-    if(!API_URL){
-
-        simulateAIRefresh();
-
-        return;
-    }
-
-
-    try{
-
-        const response =
-        await fetch(
-            API_URL +
-            "?action=getAIChannels"
-        );
-
-
-        const data =
-        await response.json();
-
-
-        if(data.success){
-
-            displayAIChannels(
-                data.channels
-            );
-
-        }else{
-
-            alert(
-                "AI channel returned an error."
-            );
-        }
-
-    }catch(error){
-
-        console.error(
-            "AI channel error:",
-            error
-        );
-
-        alert(
-            "Unable to load AI updates."
-        );
-    }
-}
-
-
-/* =====================================================
-   DEMO AI REFRESH
-===================================================== */
-
-function simulateAIRefresh(){
-
-    const messages = [
-
-        "🤖 AI Desk: Today's youth briefing is ready.",
-
-        "🇰🇪 Kenya Desk: New youth opportunities and technology stories are being monitored.",
-
-        "⚽ Football Desk: Football fixtures, results and transfer stories are being updated.",
-
-        "⛪ Church Desk: Youth fellowship and community announcements are being prepared.",
-
-        "🎓 Opportunities Desk: New jobs, scholarships and training opportunities are being monitored."
-    ];
-
-
-    const message =
-    messages[
-        Math.floor(
-            Math.random() *
-            messages.length
-        )
-    ];
-
-
-    alert(message);
-}
-
-
-/* =====================================================
-   DISPLAY AI CHANNELS
-===================================================== */
-
-function displayAIChannels(channels){
-
-    if(!channels) return;
-
-
-    if(channels.kenya){
-
-        document.getElementById(
-            "kenyaNews"
-        ).innerHTML =
-        renderNews(
-            channels.kenya
-        );
-    }
-
-
-    if(channels.world){
-
-        document.getElementById(
-            "worldNews"
-        ).innerHTML =
-        renderNews(
-            channels.world
-        );
-    }
-
-
-    if(channels.football){
-
-        document.getElementById(
-            "footballNews"
-        ).innerHTML =
-        renderNews(
-            channels.football
-        );
-    }
-}
-
-
-/* =====================================================
-   NEWS RENDERER
-===================================================== */
-
-function renderNews(items){
-
-    if(!Array.isArray(items))
-        return "";
-
-
-    return items.map(
-        item => `
-
-        <article class="news-item">
-
-            <h6>
-                ${escapeHTML(
-                    item.title || ""
-                )}
-            </h6>
-
-            <div class="news-meta">
-
-                ${escapeHTML(
-                    item.time || "Today"
-                )}
-
-            </div>
-
-            ${
-                item.tag
-                ?
-                `
-                <span class="news-tag">
-                    ${escapeHTML(
-                        item.tag
-                    )}
-                </span>
-                `
-                :
-                ""
-            }
-
-        </article>
-
-        `
-    ).join("");
-}
-
-
-/* =====================================================
-   LIKE POST
-===================================================== */
-
-function likePost(button){
-
-    const span =
-    button.querySelector(
-        "span"
-    );
-
-
-    if(button.dataset.liked){
-
-        button.dataset.liked =
-        "";
-
-        span.textContent =
-        "Like";
-
-    }else{
-
-        button.dataset.liked =
-        "true";
-
-        span.textContent =
-        "Liked ❤️";
-    }
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(value){
-
-    const div =
-    document.createElement(
-        "div"
-    );
-
-
-    div.textContent =
-    value || "";
-
-
-    return div.innerHTML;
-}
-
-
-/* =====================================================
-   BACKEND STATUS UPLOAD
-===================================================== */
+/* =========================================================
+   AUTO REFRESH
+========================================================= */
 
 /*
-   This is the function we will connect
-   to Google Apps Script.
-
-   The important architecture is:
-
-       File
-        ↓
-       Apps Script
-        ↓
-       Google Drive
-        ↓
-       Status Sheet
-        ↓
-       24-hour cleanup
-*/
-
-
-async function sendStatusToBackend(
-    status,
-    file
-){
-
-    if(!API_URL){
-
-        console.warn(
-            "API_URL has not been configured."
-        );
-
-        return;
-    }
-
-
-    /*
-       For large files we should eventually
-       use a chunk/base64 strategy or another
-       upload method rather than blindly
-       sending huge files.
-    */
-
-
-    const reader =
-    new FileReader();
-
-
-    reader.onload = async function(){
-
-        const base64 =
-        reader.result.split(",")[1];
-
-
-        const payload = {
-
-            action:
-            "createStatus",
-
-            statusId:
-            status.id,
-
-            userId:
-            status.userId,
-
-            userName:
-            status.userName,
-
-            type:
-            status.type,
-
-            text:
-            status.text,
-
-            fileName:
-            file.name,
-
-            mimeType:
-            file.type,
-
-            fileData:
-            base64,
-
-            createdAt:
-            status.createdAt,
-
-            expiresAt:
-            status.expiresAt
-        };
-
-
-        try{
-
-            const response =
-            await fetch(
-                API_URL,
-                {
-                    method:"POST",
-
-                    body:
-                    JSON.stringify(
-                        payload
-                    )
-                }
-            );
-
-
-            const result =
-            await response.json();
-
-
-            console.log(
-                "Backend status:",
-                result
-            );
-
-        }catch(error){
-
-            console.error(
-                "Status upload failed:",
-                error
-            );
-        }
-    };
-
-
-    reader.readAsDataURL(file);
-}
-
-
-/* =====================================================
-   LOAD STATUSES FROM BACKEND
-===================================================== */
-
-async function loadStatuses(){
-
-    if(!API_URL){
-
-        removeExpiredStatuses();
-
-        return;
-    }
-
-
-    try{
-
-        const response =
-        await fetch(
-            API_URL +
-            "?action=getStatuses"
-        );
-
-
-        const data =
-        await response.json();
-
-
-        if(data.success){
-
-            statuses =
-            data.statuses || [];
-
-
-            renderStatuses();
-        }
-
-
-    }catch(error){
-
-        console.error(
-            "Status loading error:",
-            error
-        );
-
-
-        removeExpiredStatuses();
-    }
-}
-
-
-/* =====================================================
-   AUTOMATIC STATUS CHECK
-===================================================== */
+ * Every 30 seconds the browser asks
+ * Google Sheets for fresh statuses.
+ *
+ * This is what makes statuses posted
+ * from another phone eventually appear
+ * without refreshing the page.
+ */
 
 setInterval(
-    removeExpiredStatuses,
-    60 * 1000
+    function(){
+
+        loadStatuses();
+
+    },
+    30 * 1000
 );
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
+/* =========================================================
+   INITIALIZATION
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function(){
 
-        removeExpiredStatuses();
+        updateCurrentUserUI();
+
+        changeStatusType();
 
         loadStatuses();
 
         console.log(
-            "St George Youth Hub loaded."
+            "St George Youth Status Engine ready."
         );
+
     }
 );
 
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        value == null
+        ? ""
+        : String(value);
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   SAFE URL
+========================================================= */
+
+function safeURL(url){
+
+    if(!url){
+
+        return "";
+
+    }
+
+
+    const value =
+        String(url);
+
+
+    /*
+     * Allow normal HTTPS URLs.
+     */
+
+    if(
+        value.startsWith(
+            "https://"
+        )
+    ){
+
+        return value;
+
+    }
+
+
+    /*
+     * Allow data URLs only for
+     * browser-generated previews.
+     */
+
+    if(
+        value.startsWith(
+            "data:"
+        )
+    ){
+
+        return value;
+
+    }
+
+
+    return "";
+
+}
 </script>
 
 
