@@ -858,16 +858,19 @@ async function publishStatus() {
 /* STATUS MEDIA URL RESOLVER */
 
 function statusMediaURL(s) {
- if (!s) return '';
+  if (!s) return "";
 
- if (s.media && /^https?:\/\//i.test(s.media)) return s.media;
- if (s.mediaUrl && /^https?:\/\//i.test(s.mediaUrl)) return s.mediaUrl;
- if (s.fileUrl && /^https?:\/\//i.test(s.fileUrl)) return s.fileUrl;
- if (s.url && /^https?:\/\//i.test(s.url)) return s.url;
+  const fileId = s.fileId || s.mediaId || "";
 
- if (s.fileId) return driveFileURL(s.fileId);
+  if (fileId) {
+    if (s.type === "image" || (s.mimeType || "").startsWith("image/")) {
+      return `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=w1200`;
+    }
 
- return '';
+    return `https://drive.google.com/uc?export=download&id=${encodeURIComponent(fileId)}`;
+  }
+
+  return s.media || s.mediaUrl || s.fileUrl || s.url || "";
 }
 
 /* LOAD STATUSES */
