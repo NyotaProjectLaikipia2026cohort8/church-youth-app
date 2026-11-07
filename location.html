@@ -120,9 +120,175 @@ button{cursor:pointer}
  .messages{min-height:340px}
  .message{max-width:88%}
 }
+
+/* ==========================================
+   ST GEORGE YOUTH — HALLOWEEN TO CHRISTMAS
+   Halloween: Until November 20
+   Christmas: November 21 onwards
+========================================== */
+
+:root {
+  --season-accent: #b66a32;
+  --season-glow: rgba(220, 126, 53, .10);
+  --season-decoration: rgba(190, 135, 95, .24);
+  --season-transition: 2s ease;
+}
+
+/* Seasonal background transition */
+body {
+  position: relative;
+  transition:
+    background-color var(--season-transition),
+    color var(--season-transition);
+}
+
+/* Floating seasonal decorations */
+.floating-leaf {
+  position: fixed;
+  top: -50px;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+
+  font-size: 23px;
+  opacity: .20;
+  filter: saturate(.45);
+  color: var(--season-decoration);
+
+  animation: seasonalFloat 9s linear infinite;
+
+  transition:
+    opacity 2s ease,
+    filter 2s ease;
+}
+
+/* Gentle floating movement */
+@keyframes seasonalFloat {
+  0% {
+    transform: translateY(-30px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(50vh) rotate(150deg);
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+/* HALLOWEEN THEME */
+body.halloween-season {
+  --season-accent: #b66a32;
+  --season-glow: rgba(220, 126, 53, .10);
+  --season-decoration: rgba(190, 135, 95, .24);
+}
+
+body.halloween-season .floating-leaf {
+  filter: sepia(.3) saturate(.55);
+}
+
+/* CHRISTMAS THEME */
+body.christmas-season {
+  --season-accent: #16834b;
+  --season-glow: rgba(24, 145, 83, .09);
+  --season-decoration: rgba(175, 205, 185, .32);
+}
+
+body.christmas-season .floating-leaf {
+  filter: saturate(.45);
+}
+
+/* Subtle seasonal glow on interactive elements */
+button,
+.nav-item,
+.tab-button {
+  transition:
+    background-color 1.5s ease,
+    border-color 1.5s ease,
+    box-shadow 1.5s ease;
+}
+
+body.halloween-season button:hover {
+  box-shadow: 0 0 12px rgba(220, 126, 53, .12);
+}
+
+body.christmas-season button:hover {
+  box-shadow: 0 0 12px rgba(24, 145, 83, .12);
+}
+
+/* Keep decorations behind the actual application */
+.floating-leaf {
+  isolation: auto;
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .floating-leaf {
+    animation: none;
+    display: none;
+  }
+
+  body,
+  button,
+  .nav-item,
+  .tab-button {
+    transition: none;
+  }
+}
+
+/* SEASONAL DECORATION POLISH */
+
+.floating-leaf {
+  font-size: 21px;
+  opacity: .13;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+
+  transition:
+    opacity 2s ease,
+    filter 2s ease,
+    font-size 2s ease;
+}
+
+body.halloween-season .floating-leaf {
+  opacity: .14;
+  filter: grayscale(.15) saturate(.55);
+}
+
+body.christmas-season .floating-leaf {
+  opacity: .16;
+  filter: saturate(.55);
+}
+
+/* Subtle seasonal atmosphere */
+body.halloween-season {
+  --season-accent: #bd794b;
+  --season-glow: rgba(189, 121, 75, .07);
+}
+
+body.christmas-season {
+  --season-accent: #16834b;
+  --season-glow: rgba(22, 131, 75, .07);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-leaf {
+    animation: none !important;
+  }
+}
+
 </style>
 </head>
 <body>
+
+<div class="floating-leaf" style="left: 5%; animation-delay: 0s; animation-duration: 7.1239s;">🍂</div>
+<div class="floating-leaf" style="left: 25%; animation-delay: 2s; animation-duration: 10.2443s;">🎃</div>
+<div class="floating-leaf" style="left: 50%; animation-delay: 4s; animation-duration: 7.94439s;">🍁</div>
+<div class="floating-leaf" style="left: 75%; animation-delay: 1s; animation-duration: 8.12635s;">🕸️</div>
+<div class="floating-leaf" style="left: 90%; animation-delay: 5s; animation-duration: 8.14865s;">🍃</div>
+
 <div class="app">
 <aside class="sidebar">
  <div class="brand">
@@ -1052,6 +1218,71 @@ setInterval(loadMessages, 15000);
 setInterval(loadStatuses, 60000);
 
   </script>
+<script>
 
+
+/* ==========================================
+   ST GEORGE YOUTH — SEASONAL THEME ENGINE
+   Halloween: November 1–20
+   Christmas: November 21–December 31
+========================================== */
+
+(function seasonalTheme() {
+  function applySeasonalTheme() {
+    const now = new Date();
+    const month = now.getMonth();
+    const day = now.getDate();
+
+    const halloween =
+      month === 10 && day <= 20;
+
+    const christmas =
+      (month === 10 && day >= 21) ||
+      month === 11;
+
+    const decorations = halloween
+      ? ["🍂", "🎃", "👻", "🕸️", "🍁"]
+      : christmas
+        ? ["❄️", "🎄", "⭐", "🔔", "🎁"]
+        : ["🍃", "🌿", "🍃", "🌱", "🍃"];
+
+    document.body.classList.remove(
+      "halloween-season",
+      "christmas-season"
+    );
+
+    if (halloween) {
+      document.body.classList.add("halloween-season");
+    } else if (christmas) {
+      document.body.classList.add("christmas-season");
+    }
+
+    const floatingItems =
+      document.querySelectorAll(".floating-leaf");
+
+    floatingItems.forEach((item, index) => {
+      item.textContent =
+        decorations[index % decorations.length];
+    });
+
+    console.log(
+      "St George seasonal theme:",
+      halloween ? "Halloween 🎃" :
+      christmas ? "Christmas 🎄" : "Regular 🌿"
+    );
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      applySeasonalTheme
+    );
+  } else {
+    applySeasonalTheme();
+  }
+})();
+
+
+</script>
 
 </body></html>
