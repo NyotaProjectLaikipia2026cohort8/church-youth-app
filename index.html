@@ -1179,10 +1179,7 @@ async function sendMessage() {
 
                 roomId: ROOM_ID,
 
-                messageType:
-                    media
-                    ? "image"
-                    : "text",
+                messageType: media ? media.type : "text",
 
                 mediaUrl:
                     media
@@ -1194,10 +1191,8 @@ async function sendMessage() {
                     ? media.id
                     : "",
 
-                fileName:
-                    media
-                    ? media.name
-                    : ""
+                fileName: media ? media.name : "",
+                mimeType: media ? media.mimeType : ""
 
             });
 
@@ -1699,19 +1694,14 @@ function renderMessages() {
                 );
 
 
-            const mediaUrl =
-                msg.mediaUrl ||
-                msg.imageUrl ||
-                msg.media_url ||
-                "";
+            const mediaId = msg.mediaId || msg.fileId || "";
+            const mediaUrl = msg.mediaUrl || msg.imageUrl || msg.media_url ||
+                (mediaId ? "https://drive.google.com/uc?export=view&id=" + encodeURIComponent(mediaId) : "");
 
 
-            const type =
-                String(
-                    msg.messageType ||
-                    msg.type ||
-                    "text"
-                ).toLowerCase();
+            const mimeType = String(msg.mimeType || "").toLowerCase();
+            const declaredType = String(msg.messageType || msg.type || "").toLowerCase();
+            const type = declaredType || (mimeType.startsWith("video/") ? "video" : mimeType.startsWith("audio/") ? "audio" : mimeType.startsWith("image/") ? "image" : "text");
 
 
             const isMe =
