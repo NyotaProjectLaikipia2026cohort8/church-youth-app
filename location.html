@@ -80,8 +80,12 @@ button{cursor:pointer}
  border-radius:25px;padding:12px 16px;outline:none}
 .composer input:focus{border-color:var(--emerald)}
 .attach{border:0;border-radius:50%;width:42px;height:42px;background:var(--mint);color:var(--green);font-size:19px;flex:0 0 auto}
-.chat-media{display:block;max-width:min(100%,360px);max-height:280px;border-radius:10px;margin-top:5px}
-.chat-audio{display:block;width:min(100%,320px);margin-top:6px}
+.chat-media{display:block;width:auto;max-width:min(100%,420px);max-height:320px;border-radius:12px;margin-top:7px;object-fit:contain;background:#10231d}
+.chat-audio{display:block;width:min(100%,360px);margin-top:8px}
+.chat-video{width:min(100%,420px);max-height:320px;object-fit:contain;background:#10231d}
+.media-fallback{margin-top:8px;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:#f8fbf9;font-size:12px;overflow-wrap:anywhere}
+.media-fallback a{color:var(--green);font-weight:700;text-decoration:underline}
+.bubble video,.bubble audio{max-width:100%}
 .send{border:0;border-radius:50%;width:44px;height:44px;background:var(--green);
  color:white;font-size:18px}
 .statusbar{margin-top:18px;padding:14px 16px;background:#fbfdfb;
@@ -782,41 +786,33 @@ function driveFileURL(id) {
 function renderMessages() {
  const box = $('messages');
  if (!box) return;
-
  if (!messages.length) {
   box.innerHTML = '<p style="text-align:center;color:#82938a;font-size:12px">No messages yet. Start the conversation!</p>';
   return;
  }
-
  box.innerHTML = messages.map(m => {
   const mine = String(m.name || '').toLowerCase() === memberName.toLowerCase();
-  const type = String(m.messageType || 'text').toLowerCase();
-
-  let mediaUrl = m.mediaUrl || '';
-  if (!mediaUrl && m.mediaId) mediaUrl = driveFileURL(m.mediaId);
-
+  const mime = String(m.mimeType || '').toLowerCase();
+  const declared = String(m.messageType || m.type || '').toLowerCase();
+  const type = declared || (mime.startsWith('video/') ? 'video' :
+   mime.startsWith('audio/') ? 'audio' : mime.startsWith('image/') ? 'image' : 'text');
+  let mediaUrl = m.mediaUrl || m.imageUrl || '';
+  if (!mediaUrl && (m.mediaId || m.fileId)) mediaUrl = driveFileURL(m.mediaId || m.fileId);
   let media = '';
-
   if (mediaUrl && type === 'image') {
    media = `<img class="chat-media" src="${escapeHTML(mediaUrl)}" alt="Shared image" loading="lazy">`;
   } else if (mediaUrl && type === 'video') {
-   media = `<video class="chat-media" src="${escapeHTML(mediaUrl)}" controls preload="metadata"></video>`;
+   media = `<video class="chat-media chat-video" src="${escapeHTML(mediaUrl)}" controls playsinline preload="metadata" aria-label="Shared video">Your browser cannot play this video.</video>`;
   } else if (mediaUrl && type === 'audio') {
-   media = `<audio class="chat-audio" src="${escapeHTML(mediaUrl)}" controls preload="metadata"></audio>`;
+   media = `<audio class="chat-audio" src="${escapeHTML(mediaUrl)}" controls preload="metadata" aria-label="Shared audio">Your browser cannot play this audio.</audio>`;
   }
-
   return `
    <div class="message ${mine ? 'mine' : ''}">
     <div class="sender">${escapeHTML(m.name || 'Member')}</div>
-    <div class="bubble">
-     ${escapeHTML(m.message || '')}
-     ${media}
-    </div>
+    <div class="bubble">${escapeHTML(m.message || '')}${media}</div>
     <div class="time">${escapeHTML(formatTime(m.timestamp))}</div>
-   </div>
-  `;
+   </div>`;
  }).join('');
-
  box.scrollTop = box.scrollHeight;
 }
 
