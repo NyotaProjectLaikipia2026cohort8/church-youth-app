@@ -320,7 +320,7 @@
 
     <div id="preview" class="preview">
 
-        <img id="previewImage">
+        <img id="previewImage" alt="Selected image preview"><div id="previewMedia" class="preview-media"></div>
 
         <span id="previewName" class="preview-name"></span>
 
@@ -370,13 +370,13 @@
 
             <!-- IMAGE -->
 
-            <button class="tool-btn" onclick="document.getElementById('imageInput').click()" title="Image">
+            <button class="tool-btn" onclick="document.getElementById('imageInput').click()" title="Attach photo, video or audio">
 
-                <i class="bi bi-image"></i>
+                <i class="bi bi-paperclip"></i>
 
             </button>
 
-            <input id="imageInput" type="file" accept="image/*" hidden="" onchange="handleImage(event)">
+            <input id="imageInput" type="file" accept="image/*,video/*,audio/*" hidden="" onchange="handleImage(event)">
 
 
             <!-- AI -->
@@ -428,7 +428,7 @@ const AI_NAME = "Youth Assistant 🤖";
 
 let currentUser = localStorage.getItem("chatUser") || "";
 let messages = [];
-let selectedImage = null;
+let selectedAttachment = null;
 let loadingMessages = false;
 let sendingMessage = false;
 
@@ -1114,7 +1114,7 @@ async function sendMessage() {
         input.value.trim();
 
 
-    if (!text && !selectedImage) {
+    if (!text && !selectedAttachment) {
 
         return;
 
@@ -1149,13 +1149,13 @@ async function sendMessage() {
            IMAGE
            ==================================================== */
 
-        if (selectedImage) {
+        if (selectedAttachment) {
 
-            showTyping("Uploading image...");
+            showTyping("Uploading attachment...");
 
             media =
-                await uploadImage(
-                    selectedImage
+                await uploadAttachment(
+                    selectedAttachment
                 );
 
         }
@@ -1328,121 +1328,35 @@ async function sendMessage() {
    IMAGE UPLOAD
    ============================================================ */
 
-async function uploadImage(file) {
+async function uploadAttachment(file) {
+    if (!file) throw new Error("No attachment selected.");
+    const mime = String(file.type || "").toLowerCase();
+    const name = String(file.name || "").toLowerCase();
+    const image = mime.startsWith("image/") || /\.(png|jpe?g|gif|webp|bmp|heic|heif)$/i.test(name);
+    const video = mime.startsWith("video/") || /\.(mp4|m4v|mov|webm|ogv|avi|3gp)$/i.test(name);
+    const audio = mime.startsWith("audio/") || /\.(mp3|m4a|aac|wav|ogg|oga|opus|weba|flac)$/i.test(name);
+    if (!image && !video && !audio) throw new Error("Choose an image, video or audio file.");
+    const type = image ? "image" : video ? "video" : "audio";
+    const limit = image ? 10 : 12;
+    if (file.size > limit * 1024 * 1024) throw new Error("Please choose a " + type + " file below " + limit + " MB.");
 
-    if (!file) {
+    const uploadFile = image ? await compressImage(file) : file;
+    const dataUrl = await fileToBase64(uploadFile);
+    const data = String(dataUrl || "").split(",")[1];
+    if (!data) throw new Error("Could not prepare attachment data.");
+    const mimeType = image ? "image/jpeg" : (file.type || (video ? "video/mp4" : "audio/mpeg"));
+    const uploadName = image ? "chat_" + Date.now() + ".jpg" : file.name;
 
-        throw new Error(
-            "No image selected."
-        );
-
-    }
-
-
-    if (!file.type.startsWith("image/")) {
-
-        throw new Error(
-            "Only image files are supported."
-        );
-
-    }
-
-
-    /*
-     Limit original image size.
-     This prevents huge phone photos from
-     crashing the Apps Script request.
-    */
-
-    if (file.size > 10 * 1024 * 1024) {
-
-        throw new Error(
-            "Image is too large. " +
-            "Please choose an image below 10 MB."
-        );
-
-    }
-
-
-    const compressed =
-        await compressImage(file);
-
-
-    const base64 =
-        await fileToBase64(
-            compressed
-        );
-
-
-    const pureBase64 =
-        base64.split(",")[1];
-
-
-    if (!pureBase64) {
-
-        throw new Error(
-            "Could not prepare image data."
-        );
-
-    }
-
-
-    const result =
-        await apiRequest({
-
-            action: "uploadMedia",
-
-            name: currentUser,
-
-            roomId: ROOM_ID,
-
-            fileName:
-                "chat_" +
-                Date.now() +
-                ".jpg",
-
-            mimeType:
-                "image/jpeg",
-
-            data: pureBase64
-
-        });
-
-
-    if (
-        !result ||
-        result.success === false
-    ) {
-
-        throw new Error(
-            result?.message ||
-            "Image upload failed."
-        );
-
-    }
-
-
-    if (!result.url) {
-
-        throw new Error(
-            "Image uploaded but server did not return a URL."
-        );
-
-    }
-
-
-    return {
-
-        url: result.url,
-
-        id: result.id || "",
-
-        name:
-            result.name ||
-            "image.jpg"
-
-    };
-
+    const result = await apiRequest({
+        action:"uploadMedia", name:currentUser, roomId:ROOM_ID,
+        fileName:uploadName, mimeType:mimeType, data:data
+    });
+    if (!result || result.success === false) throw new Error(result?.message || "Media upload failed.");
+    const id = result.id || result.fileId || "";
+    const url = result.url || result.mediaUrl ||
+        (id ? "https://drive.google.com/uc?export=view&id=" + encodeURIComponent(id) : "");
+    if (!url && !id) throw new Error("Upload returned no media URL or file ID.");
+    return {type:type,url:url,id:id,name:result.name || file.name || uploadName,mimeType:mimeType};
 }
 
 
@@ -1648,122 +1562,71 @@ function fileToBase64(file) {
    IMAGE SELECT
    ============================================================ */
 
+let previewObjectURL = "";
+
 function handleImage(event) {
-
-    const file =
-        event.target.files &&
-        event.target.files[0];
-
-
+    const file = event.target.files && event.target.files[0];
     if (!file) return;
+    const mime = String(file.type || "").toLowerCase(), name = String(file.name || "").toLowerCase();
+    const image = mime.startsWith("image/") || /\.(png|jpe?g|gif|webp|bmp|heic|heif)$/i.test(name);
+    const video = mime.startsWith("video/") || /\.(mp4|m4v|mov|webm|ogv|avi|3gp)$/i.test(name);
+    const audio = mime.startsWith("audio/") || /\.(mp3|m4a|aac|wav|ogg|oga|opus|weba|flac)$/i.test(name);
+    if (!image && !video && !audio) { alert("Choose an image, video or audio file."); event.target.value=""; return; }
+    const type = image ? "image" : video ? "video" : "audio", limit = image ? 10 : 12;
+    if (file.size > limit * 1024 * 1024) { alert("Please choose a " + type + " file below " + limit + " MB."); event.target.value=""; return; }
 
-
-    if (!file.type.startsWith("image/")) {
-
-        alert(
-            "Please select a valid image."
-        );
-
-        event.target.value = "";
-
-        return;
-
+    selectedAttachment = file;
+    const preview = document.getElementById("preview"), imageNode = document.getElementById("previewImage");
+    const mediaNode = document.getElementById("previewMedia"), nameNode = document.getElementById("previewName");
+    if (previewObjectURL) URL.revokeObjectURL(previewObjectURL);
+    previewObjectURL = URL.createObjectURL(file);
+    if (imageNode) {
+        imageNode.style.display = image ? "block" : "none";
+        if (image) imageNode.src = previewObjectURL; else imageNode.removeAttribute("src");
     }
-
-
-    selectedImage = file;
-
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload =
-        function(e) {
-
-            const previewImage =
-                document.getElementById(
-                    "previewImage"
-                );
-
-            const previewName =
-                document.getElementById(
-                    "previewName"
-                );
-
-            const preview =
-                document.getElementById(
-                    "preview"
-                );
-
-
-            if (previewImage) {
-
-                previewImage.src =
-                    e.target.result;
-
-            }
-
-
-            if (previewName) {
-
-                previewName.textContent =
-                    file.name;
-
-            }
-
-
-            if (preview) {
-
-                preview.style.display =
-                    "block";
-
-            }
-
-        };
-
-
-    reader.readAsDataURL(file);
-
+    if (mediaNode) {
+        mediaNode.innerHTML = "";
+        if (video || audio) {
+            const player = document.createElement(video ? "video" : "audio");
+            player.src = previewObjectURL; player.controls = true; player.preload = "metadata";
+            if (video) { player.playsInline = true; player.className = "chat-video-preview"; }
+            else player.className = "chat-audio-preview";
+            mediaNode.appendChild(player);
+        }
+    }
+    if (nameNode) nameNode.textContent = file.name;
+    if (preview) preview.style.display = "flex";
 }
 
-
 function removeAttachment() {
-
-    selectedImage = null;
-
-
-    const input =
-        document.getElementById(
-            "imageInput"
-        );
-
-    const preview =
-        document.getElementById(
-            "preview"
-        );
-
-
-    if (input) {
-
-        input.value = "";
-
-    }
-
-
-    if (preview) {
-
-        preview.style.display =
-            "none";
-
-    }
-
+    selectedAttachment = null;
+    const input=document.getElementById("imageInput"), preview=document.getElementById("preview");
+    const imageNode=document.getElementById("previewImage"), mediaNode=document.getElementById("previewMedia");
+    const nameNode=document.getElementById("previewName");
+    if(input) input.value="";
+    if(previewObjectURL){URL.revokeObjectURL(previewObjectURL);previewObjectURL="";}
+    if(imageNode){imageNode.removeAttribute("src");imageNode.style.display="none";}
+    if(mediaNode) mediaNode.innerHTML="";
+    if(nameNode) nameNode.textContent="";
+    if(preview) preview.style.display="none";
 }
 
 
 /* ============================================================
    RENDER MESSAGES
    ============================================================ */
+
+function addMediaFallback(container,url,message){
+    try{
+        const parsed=new URL(url,window.location.href);
+        if(parsed.protocol!=="https:" && parsed.protocol!=="http:") return;
+        const note=document.createElement("div"); note.className="chat-media-fallback";
+        note.textContent=message+" ";
+        const link=document.createElement("a"); link.href=parsed.href; link.target="_blank";
+        link.rel="noopener noreferrer"; link.textContent="Open or download file";
+        note.appendChild(link); container.appendChild(note);
+    }catch(error){console.warn("Invalid media URL",error);}
+}
 
 function renderMessages() {
 
@@ -1974,6 +1837,23 @@ function renderMessages() {
 
             }
 
+
+            if (mediaUrl && type === "video") {
+                const video=document.createElement("video");
+                video.className="chat-video"; video.src=mediaUrl; video.controls=true;
+                video.preload="metadata"; video.playsInline=true; video.setAttribute("aria-label","Shared video");
+                video.onerror=function(){addMediaFallback(bubble,mediaUrl,"Video could not play.");video.remove();};
+                bubble.appendChild(video);
+            }
+            if (mediaUrl && type === "audio") {
+                const wrap=document.createElement("div"); wrap.className="chat-audio-wrap";
+                const label=document.createElement("div"); label.className="chat-media-label";
+                label.textContent=msg.fileName || "🎧 Shared audio";
+                const audio=document.createElement("audio"); audio.className="chat-audio";
+                audio.src=mediaUrl; audio.controls=true; audio.preload="metadata"; audio.setAttribute("aria-label","Shared audio");
+                audio.onerror=function(){addMediaFallback(bubble,mediaUrl,"Audio could not play.");wrap.remove();};
+                wrap.appendChild(label); wrap.appendChild(audio); bubble.appendChild(wrap);
+            }
 
             /* TEXT */
 
